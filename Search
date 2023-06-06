@@ -1,0 +1,29 @@
+SearchController:
+
+SearchDoctor:
+/GET /"searchDoctorByName"
+INPUT{
+  DoctorName: String
+}
+OUTPUT{
+  DoctorList:List<Doctor>
+}
+
+SearchBySpec
+/GET /"searchDoctorBySpec"
+INPUT{
+  Spec: String
+}
+OUTPUT{
+  DoctorList:List<Doctor>
+}
+
+SearchByBoth
+/GET /"searchDoctorByAll"
+INPUT{
+  DoctorName: string
+  Spec: String
+}
+OUTPUT{
+  DoctorList:List<Doctor>
+}
