@@ -1,0 +1,28 @@
+LectureController:
+
+postLecture:
+/POST /postLecture
+INPUT{
+  lecture: List<E>
+}
+OUTPUT{
+  isSaved: Boolean
+}
+
+getLecture:
+/GET /getLecture
+INPUT{
+  lectureID: Int
+}
+OUTPUT{
+  lecture: Lecture object
+}
+
+deleteLecture:
+/POST /deleteLecture
+INPUT{
+  lectureID: Int
+}
+OUTPUT{
+  isDeleted: Boolean
+}
