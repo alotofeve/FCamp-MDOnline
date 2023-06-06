@@ -21,6 +21,7 @@ Patient Register:
 INPUT{
   username: String
   password: String
+  name: String
   male: String
   date of birth: String
   insurance: Boolean
@@ -99,6 +100,7 @@ Doctor Register:
 INPUT{
   username: String
   password: String
+  name: String
   male: String
   date of birth: String
   email: String
