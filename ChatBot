@@ -1,0 +1,8 @@
+chat:
+/POST /"chat"
+INPUT{
+  inputText: String
+}
+OUTPUT{
+  outputTEXT: String
+}
