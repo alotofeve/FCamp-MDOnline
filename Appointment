@@ -11,6 +11,7 @@ INPUT{
   Departmet: String
   Date:String
   DoctorName: String
+  DoctorID: Int
   Description: String
 }
 OUTUT{
