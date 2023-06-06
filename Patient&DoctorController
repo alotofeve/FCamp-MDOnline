@@ -1,0 +1,154 @@
+/*
+*  "#" ===> optional
+*/
+
+
+PatientController: 
+
+Login:
+/POST  
+INPUT {
+  username: String
+  password: String
+}
+OUTPUT{
+  isLoggedin: Boolean
+}
+
+  
+Patient Register: 
+/POST   "/patientRegister"
+INPUT{
+  username: String
+  password: String
+  male: String
+  date of birth: String
+  insurance: Boolean
+  email: String
+  phone: String
+  mailiing address: String
+  # payment method: String
+}
+OUTPUT {
+  isRegistered: Boolean
+}
+
+
+
+GetProfile: 
+/GET "/getPatientProfile"
+INPUT{
+  None
+}
+OUTPUT{
+  username: String
+  password: String
+  male: String
+  date of birth: String
+  insurance: Boolean
+  email: String
+  phone: String
+  mailiing address: String
+  # payment method: String
+  appointments: List<E>
+  # preferedDoctor: List<String>
+  #likedLecture: List<E>
+}
+
+
+UpdateProfile:
+/POST "/updatePatientProfile"
+Input{
+###
+  username: String
+  password: String
+  male: String
+  date of birth: String
+  insurance: Boolean
+  email: String
+  phone: String
+  mailiing address: String
+  # payment method: String
+###
+}
+OUTPUT{
+  isUpdated: Boolean
+}
+#DeleteProfile:
+/POST "/deletePatientProfile"
+INPUT{
+}
+OUTPUT{
+  isDeleted: Boolean
+}
+
+
+DoctorController:
+Login:
+/POST  
+INPUT {
+  username: String
+  password: String
+}
+OUTPUT{
+  isLoggedin: Boolean
+}
+
+Doctor Register: 
+/POST "doctorRegister"
+INPUT{
+  username: String
+  password: String
+  male: String
+  date of birth: String
+  email: String
+  phone: String
+  mailiing address: String
+  dotcor license: String
+}
+
+GetProfile: 
+/GET "/getDcotorProfile"
+INPUT{
+  None
+}
+OUTPUT{
+ username: String
+  password: String
+  male: String
+  date of birth: String
+  email: String
+  phone: String
+  mailiing address: String
+  dotcor license: String
+  appointments: List<E>
+}
+
+UpdateProfile:
+/POST "/updateDoctorProfile"
+Input{
+###
+  username: String
+  password: String
+  male: String
+  date of birth: String
+  email: String
+  phone: String
+  mailiing address: String
+  dotcor license: String
+  appointments: List<E>
+  availableDates: List<String>
+###
+}
+OUTPUT{
+  isUpdated: Boolean
+}
+
+#DeleteProfile:
+/POST "/deleteDoctorProfile"
+INPUT{
+}
+OUTPUT{
+  isDeleted: Boolean
+}
+
