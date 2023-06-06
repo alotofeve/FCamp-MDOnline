@@ -1,0 +1,30 @@
+/*
+*  "#" ===> optional
+*/
+
+
+AppointmentController:
+
+Create:
+/POST "/createAppointment"
+INPUT{
+  Departmet: String
+  Date:String
+  DoctorName: String
+  Description: String
+}
+OUTUT{
+  isCreated: Boolean
+}
+
+Cancel:
+/POST "/cancelAppointment"
+INPUT{
+  Departmet: String
+  Date:String
+  DoctorName: String
+  Description: String
+}
+OUTPUT{
+  isCancelled:
+}
