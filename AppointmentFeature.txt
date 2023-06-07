@@ -1,0 +1,70 @@
+# FCamp-MDOnline
+
+Appointment feature:
+
+
+
+1.Controller:
+定义一个名为AppointmentController的class 包括以下方法：
+
+//由admin create一个新的available appointment
+POST /appointment
+void setAppointment (@RequestBody FavoriteRequestBody body)
+requestbody中可以传入{doctorID:12, doctorName:Emily Taylor,department: Dermatology, scheduledDate:2023-03-01 15:30;00, durationInMinutes: 60, status: available}
+然后通过call appointmentService.setAppointment()
+
+//admin如果不小心创建错误可以及时删除appointment
+DELETE /appointment/{appointment_id}
+void deleteAppointment(@RequestParam("appointment_id") Long id)
+然后call appointmentService.deleteAppointmentById()
+
+//当患者点预约时可以将这个appointment的status更新成booked， 当患者点取消时可以staus更新成available
+PUT /appointment/{id}/{status}
+void updateAppointment(@RequestParam("id") Long id, @RequestParam("status") String status)
+然后call appointmentService.updateAppointmentStatus()
+
+//希望当患者登入后可以看到自己已有的预约信息（我还希望定义一个table是存储patient id和appointment id相互关联）
+GET /booked_patient_appointments
+List<Appointment> getBookedAppointments(@AuthenticationPrincipal User patient）
+//希望医生登入系统后可以看到已经被book的appointment以及相关的患者信息
+GET /booked_doctor_appointments
+
+2. Service
+
+定义一个名为AppointmentService的class 包括以下方法：
+
+a. void setAppointment(String doctorID, String doctorName, String department, Date date, int duration)
+method body：Record newAppointment = new Appointment(doctorID,doctorName,...,"available")
+	     依赖于AppointmentRepository interface 用其中的save method将newAppointment存入
+
+b. void deleteAppointment(Long id)
+method body: 依赖于AppointmentRepository interface 用其中的deleteById method将这个appointment删除
+
+c. updateAppointmentStatus(Long appointmentID, String status)
+method body: 依赖于AppointmentRepository interface 用其中的updateStatusByAppointmentID将这个appointment的status update成booked or available
+
+
+3.Repository
+
+定义一个名为AppointmentRepository的interface
+    public interface AppointmentRepository extends ListCrudRepository<AppointmentEntity, Long>有以下方法
+	save 
+	deleteById
+	void updateStatusByAppointmentID(String status, Long id)（用@Modifying @Query自己写个sql） 
+ 
+
+
+4. Record
+
+public record AppointmentEntity(
+        @Id Long id,
+        String doctorID,
+        String doctorName,
+        String department,
+        Date   date,
+	Integer duration,
+	String  status
+
+) {
+}
+
