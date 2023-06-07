@@ -29,3 +29,12 @@ INPUT{
 OUTPUT{
   isCancelled:
 }
+
+Check:
+/GET "/checkAppointment"
+INPUT{
+ 
+}
+OUTPUT{
+  List<appointment>
+}
