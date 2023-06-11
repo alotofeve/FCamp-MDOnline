@@ -15,7 +15,6 @@ public record DoctorEntity(
         String phone,
         String spec,
         String mailAddress,
-        String license,
-        String availableTimes
+        String license
 ) {
 }
