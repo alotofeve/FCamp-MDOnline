@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const PatientProfile = () => {
     // State variables to store patient information
@@ -24,21 +25,39 @@ const PatientProfile = () => {
         e.preventDefault();
         // Perform any necessary validation and save patient information to database
         //here can make an API request to store the patient profile on the server
-        console.log('Patient profile:', 
-             { username, password, name, gender, dateOfBirth, insurance, email, phone, address, payment, insuranceNumber});
-        //Reset the form field after submission
-        setUsername('');
-        setPassword('');
-        setName('');
-        setGender('');
-        setAddress('');
-        setDateOfBirth('');
-        setPhone('');
-        setInsurance('');
-        setInsuranceNumber('');
-        setEmail('');
-        setPayment('');
-    };
+        
+        try {
+            //Make API request to store patient profile
+            const response = await fetch('/api/patient-profiles', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }, 
+                body: JSON.stringify(patientProfile),
+            });
+            
+            // Check if the request was successful
+            if (response.ok) {
+                console.log('Profile saved successfully');
+            //Reset the form field after submission
+                setUsername('');
+                setPassword('');
+                setName('');
+                setGender('');
+                setAddress('');
+                setDateOfBirth('');
+                setPhone('');
+                setInsurance('');
+                setInsuranceNumber('');
+                setEmail('');
+                setPayment('');
+            } else {
+                console.log('Failed to save profile');
+            }
+        } catch (error){
+            console.error('An error occurred while saving profile:', error);
+        }
+     };
 
     // Function to handle adding an appointment to the history
     const addAppointment = (appointment) => {
@@ -51,104 +70,7 @@ const PatientProfile = () => {
             <div style = {{ float: 'left', width: '50%'}}>
                 <h2>Patient Profile</h2> 
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Username:</label>
-                        <input type="text" 
-                        value={username} 
-                        onChange={(e) => setUsername(e.target.value)} 
-                        required
-                        />
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        <input type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        />
-                    </div>
-                    <div>
-                        <label>name:</label>
-                        <input type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        />
-                    </div>
-                    <div>
-                        <label>gender:</label>
-                        <input 
-                            type="text"
-                            value = {gender}
-                            onChange={(e) => setGender(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>address:</label>
-                        <input 
-                            type="text"
-                            value = {address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>dateOfBirth:</label>
-                        <input
-                            type="text"
-                            value = {dateOfBirth}
-                            onChange={(e) => setDateOfBirth(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>phone:</label>
-                        <input
-                            type="text"
-                            value = {phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>insurance:</label>
-                        <input
-                            type="text"
-                            value = {insurance}
-                            onChange={(e) => setInsurance(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>insuranceNumber:</label>
-                        <input
-                            type="text"
-                            value = {insuranceNumber}
-                            onChange={(e) => setInsuranceNumber(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>email:</label>
-                        <input
-                            type="text"
-                            value = {email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>payment:</label>
-                        <input
-                            type="text"
-                            value = {payment}
-                            onChange={(e) => setPayment(e.target.value)}
-                            required
-                        />
-                    </div>
-                    
-                <button type="submit">Save Profile</button>
+                    {/* ... */}
                 </form>
             </div> 
             <div style = {{ float: 'right', width: '50%'}}>
