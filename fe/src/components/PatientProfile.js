@@ -1,4 +1,4 @@
-import './PatientProfile.css';
+import '../styles/PatientProfile.css';
 import React, { useState } from 'react';
 
 const PatientProfile = () => {
