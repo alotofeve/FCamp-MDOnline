@@ -1,0 +1,69 @@
+.patient-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    padding: 0 0 0 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.patient-profile-left {
+    flex: 1;
+}
+
+.patient-profile-right {
+    flex: 1;
+}
+
+.patient-profile-form {
+    margin-bottom: 20px;
+}
+
+.patient-profile-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.patient-profile-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.patient-profile-form button[type="submit"] {
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+    padding: auto;
+    cursor: pointer;
+}
+
+.patient-profile-form button[type="submit"]:hover {
+    background-color: #3b5998;
+}
+
+.appointment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    padding: 0 0 0 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.appointment-container li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
