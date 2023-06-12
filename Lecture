@@ -3,19 +3,29 @@ LectureController:
 postLecture:
 /POST /postLecture
 INPUT{
-  lecture: List<E>
+  title: string
+  body: string
 }
 OUTPUT{
   isSaved: Boolean
 }
 
-getLecture:
-/GET /getLecture
+getLectureByDoctor:
+/GET /getLectureByDoctor
 INPUT{
-  lectureID: Int
+  doctorID: Int
 }
 OUTPUT{
-  lecture: Lecture object
+  lectureList
+}
+
+getLectureByPatient:
+/GET /getLectureByPatient
+INPUT{
+  patientID: Int
+}
+OUTPUT{
+  lectureList
 }
 
 deleteLecture:
