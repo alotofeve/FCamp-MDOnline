@@ -1,0 +1,5 @@
+src/
+  components/    put .js here
+  resources/     put pictures here
+  styles/        put .css here
+  utils/         put utils here
