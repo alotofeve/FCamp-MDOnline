@@ -32,7 +32,28 @@ deleteLecture:
 /POST /deleteLecture
 INPUT{
   lectureID: Int
+  doctorID: Int
 }
 OUTPUT{
   isDeleted: Boolean
+}
+
+favouriteLecture:
+/POST /favouriteLecture
+INPUT{
+  patientID: Int
+  lectureID: Int
+}
+OUTPUT{
+  isFavourite: Boolean
+}
+
+unfavouriteLecture
+/POST /unfavouriteLecture
+INPUT{
+  patientID: INT
+  lectureID: INT
+}
+OUTPUT{
+  unfavourite: boolean
 }
