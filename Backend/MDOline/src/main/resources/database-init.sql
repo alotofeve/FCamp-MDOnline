@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS available_times;
 DROP TABLE IF EXISTS appointments;
+DROP TABLE IF EXISTS
 DROP TABLE IF EXISTS lectures;
 DROP TABLE IF EXISTS patients;
 DROP TABLE IF EXISTS doctors;
@@ -42,7 +43,7 @@ CREATE TABLE appointments
     doctor_ID INT NOT NULL,
     appointment_date VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
-    ongoing BOOLEAN DEFAULT TRUE,
+    is_ongoing BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
     FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
 );
@@ -65,3 +66,11 @@ CREATE TABLE lectures
     available_time VARCHAR(100) NOT NULL,
     FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
  );
+
+CREATE TABLE favorites
+(
+    patient_ID INT NOT NULL,
+    lecture_ID INT NOT NULL,
+    FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
+    FOREIGN KEY (lecture_ID) REFERENCES lectures(lecture_ID) ON DELETE CASCADE
+);
