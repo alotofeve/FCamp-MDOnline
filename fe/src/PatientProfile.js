@@ -1,5 +1,5 @@
+import './PatientProfile.css';
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const PatientProfile = () => {
     // State variables to store patient information
