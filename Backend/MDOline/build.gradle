@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.cloud:google-cloud-dialogflow:4.25.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     runtimeOnly 'com.mysql:mysql-connector-j'
     implementation 'org.springframework.boot:spring-boot-starter-web'
