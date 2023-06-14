@@ -152,3 +152,40 @@ OUTPUT{
   isDeleted: Boolean
 }
 
+Patient:
+
+@postmapping("registerPatient")
+void registerPatient(@RequestBody body) {}
+
+@getmapping("getPatientProfile")
+patientEntity getPatientProfile(@AuthenticationPrincipal User user){}
+
+@putmapping("updatePatientProfile")
+ReponseEntity<String> updatePatientProfile(@AuthenticationPrincipal User user, @RequestBody body){
+  return ResponseEntity.ok("Profile update successfully.");
+}
+
+@deletemapping("deletePatientProfile")
+ReponseEntity<String> deletePatientProfile(@AuthenticationPrincipal User user){
+  return ResponseEntity.ok("Profile deleted successfully.");
+}
+
+Doctor:
+
+@postmapping("registerDoctor")
+void registerDoctor(@RequestBody body) {}
+
+@getmapping("getDoctorProfile")
+patientEntity getDoctorProfile(@AuthenticationPrincipal User user){}
+
+@putmapping("updateDoctorProfile")
+ReponseEntity<String> updateDoctorProfile(@AuthenticationPrincipal User user, @RequestBody body){
+  return ResponseEntity.ok("Profile update successfully.");
+}
+
+@deletemapping("deleteDoctorProfile")
+ReponseEntity<String> deleteDoctorProfile(@AuthenticationPrincipal User user){
+  return ResponseEntity.ok("Profile deleted successfully.");
+}
+
+
