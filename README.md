@@ -35,3 +35,43 @@
      - @param isAvailable a boolean value indicates whether the time slot is occupied or not
 
  
+## PatientController:
+   ### public void registerPatient(@RequestBody RegisterPatientBody body)
+     - Register a patient
+     - @param body  a RegisterBody object contains all the information of a patient
+   
+   ### public PatientEntity getPatientProfile(@AuthenticationPrincipal User user)
+     -  Get patient profile
+     - @param user  a user object contains the information of a patient in order to locate the patient in the database
+     - @return PatientEntity a PatientEntity object contains all the information of a patient
+   
+   ### public void updatePatientProfile(@AuthenticationPrincipal User user, @RequestBody RegisterPatientBody body)
+     - Update patient profile
+     - @param user a user object contains the information of a patient in order to locate the patient in the database
+     - @param body a RegisterPatientBody object contains all the information of a patient
+   
+   ### public void deletePatientProfile(@AuthenticationPrincipal User user)
+     - Delete patient profile
+     - @param user a user object contains the information of a patient in order to locate the patient in the database
+  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
