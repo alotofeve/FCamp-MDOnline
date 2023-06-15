@@ -36,18 +36,6 @@ CREATE TABLE doctors
     available_time VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE appointments
-(
-    appointment_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    patient_ID INT NOT NULL,
-    doctor_ID INT NOT NULL,
-    appointment_date VARCHAR(50) NOT NULL,
-    description VARCHAR(500) NOT NULL,
-    is_ongoing BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
-    FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
-);
-
 CREATE TABLE lectures
 (
     lecture_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -67,6 +55,21 @@ CREATE TABLE lectures
     is_Occupied BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
  );
+
+CREATE TABLE appointments
+(
+    appointment_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    patient_ID INT NOT NULL,
+    doctor_ID INT NOT NULL,
+    available_time_ID INT NOT NULL,
+    appointment_date VARCHAR(50) NOT NULL,
+    description VARCHAR(500) NOT NULL,
+    is_ongoing BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
+    FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE,
+    FOREIGN KEY (available_time_ID) REFERENCES available_times(available_time_ID) ON DELETE CASCADE
+);
+
 
 CREATE TABLE favorites
 (

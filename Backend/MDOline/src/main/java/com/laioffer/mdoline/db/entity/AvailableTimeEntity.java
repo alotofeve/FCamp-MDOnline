@@ -8,6 +8,6 @@ public record AvailableTimeEntity(
         @Id Long availableTimeId,
         Long doctorId,
         Long time,
-        boolean isOccupied
+        Boolean isOccupied
 ){
 }
