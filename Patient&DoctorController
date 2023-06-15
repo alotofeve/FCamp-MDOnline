@@ -155,37 +155,54 @@ OUTPUT{
 Patient:
 
 @postmapping("registerPatient")
-void registerPatient(@RequestBody body) {}
+@ResponseStatus(value = HttpStatus.OK)
+void registerPatient(@RequestBody RegisterPatientBody body) {}
 
 @getmapping("getPatientProfile")
 patientEntity getPatientProfile(@AuthenticationPrincipal User user){}
 
 @putmapping("updatePatientProfile")
-ReponseEntity<String> updatePatientProfile(@AuthenticationPrincipal User user, @RequestBody body){
-  return ResponseEntity.ok("Profile update successfully.");
+@ResponseStatus(value = HttpStatus.OK)
+void updatePatientProfile(@AuthenticationPrincipal User user, @RequestBody RegisterPatientBody body){
+
 }
 
 @deletemapping("deletePatientProfile")
-ReponseEntity<String> deletePatientProfile(@AuthenticationPrincipal User user){
-  return ResponseEntity.ok("Profile deleted successfully.");
+@ResponseStatus(value = HttpStatus.OK)
+void deletePatientProfile(@AuthenticationPrincipal User user){
 }
 
 Doctor:
 
 @postmapping("registerDoctor")
-void registerDoctor(@RequestBody body) {}
+@ResponseStatus(value = HttpStatus.OK)
+void registerDoctor(@RequestBody RegisterDoctorBody body) {}
 
 @getmapping("getDoctorProfile")
 patientEntity getDoctorProfile(@AuthenticationPrincipal User user){}
 
 @putmapping("updateDoctorProfile")
-ReponseEntity<String> updateDoctorProfile(@AuthenticationPrincipal User user, @RequestBody body){
-  return ResponseEntity.ok("Profile update successfully.");
+void updateDoctorProfile(@AuthenticationPrincipal User user, @RequestBody RegisterDoctorBody body){
+  
 }
 
 @deletemapping("deleteDoctorProfile")
-ReponseEntity<String> deleteDoctorProfile(@AuthenticationPrincipal User user){
-  return ResponseEntity.ok("Profile deleted successfully.");
+@ResponseStatus(value = HttpStatus.OK)
+void deleteDoctorProfile(@AuthenticationPrincipal User user){
 }
 
+@postmapping("setAvailableTime")
+@ResponseStatus(value = HttpStatus.OK)
+void setAvailableTime(@Requestbody List<String> availableTimes){
+}
+
+@getmapping("getAllAvailableTimes")
+List<AvailaleTimeEntity> getAllAvailableTimes(@AuthenticationPrincipal User user){
+  return List<AvailanleTimeEntity>  availableTimes
+ }
+ 
+ @putmapping("updateCertainAvailableTime")
+ @ResponseStatus(value = HttpStatus.OK)
+ void updateCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("available_time_id") String availableTimeID, @RequestParam("is_available") boolean isAvailable){
+ }
 
