@@ -193,7 +193,7 @@ void deleteDoctorProfile(@AuthenticationPrincipal User user){
 
 @postmapping("setAvailableTime")
 @ResponseStatus(value = HttpStatus.OK)
-void setAvailableTime(@Requestbody List<String> availableTimes){
+void setAvailableTime(@AuthenticationPrincipal User user, @Requestbody List<String> availableTimes){
 }
 
 @getmapping("getAllAvailableTimes")
