@@ -1,92 +1,76 @@
 import '../styles/PatientProfile.css';
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const PatientProfile = () => {
+const PatientProfile = ({username }) => {
     // State variables to store patient information
-    const[username, setUsername] = useState('');
-    const[password, setPassword] = useState('');
-    const[name, setName] = useState('');
-    const[gender, setGender] = useState('');
-    const[address, setAddress] = useState('');
-    const[dateOfBirth, setDateOfBirth] = useState('');
-    const[phone, setPhone] = useState('');
-    const[insurance, setInsurance] = useState('');
-    const[insuranceNumber, setInsuranceNumber] = useState('');
-    const[email, setEmail] = useState('');
-    const[payment, setPayment] = useState('');
+    const [userInfo, setUserInfo] = useState({});    
+    const[appointments, setAppointments] = useState([]);
+    const[lectures, setLectures] = useState([]);
 
-
-    // State variable to store appointment history
-    const [appointments, setAppointments] = useState([]);
-    
-
-    //Function to handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Perform any necessary validation and save patient information to database
-        //here can make an API request to store the patient profile on the server
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const [userInfoRes, appointmentsRes, lecturesRes] = await Promise.all([
+                    axios.get(`/api/user/${username}`),
+                    axios.get(`/api/appointments/${username}`)
+                ]);
+                setUserInfo(userInfoRes.data);
+                setAppointments(appointmentsRes.data);
+                setLectures(lecturesRes.data);
+                } catch (error) {
+                console.log(error);
+                }
+            };
         
-        try {
-            //Make API request to store patient profile
-            const response = await fetch('/api/patient-profiles', { 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                }, 
-                body: JSON.stringify(patientProfile),
-            });
-            
-            // Check if the request was successful
-            if (response.ok) {
-                console.log('Profile saved successfully');
-            //Reset the form field after submission
-                setUsername('');
-                setPassword('');
-                setName('');
-                setGender('');
-                setAddress('');
-                setDateOfBirth('');
-                setPhone('');
-                setInsurance('');
-                setInsuranceNumber('');
-                setEmail('');
-                setPayment('');
-            } else {
-                console.log('Failed to save profile');
-            }
-        } catch (error){
-            console.error('An error occurred while saving profile:', error);
-        }
-     };
+            fetchData();
+    }, [username]);
 
-    // Function to handle adding an appointment to the history
-    const addAppointment = (appointment) => {
-        // Add the appointment to the list of appointments
-        setAppointments([...appointments, appointment]);
-    };
+    // Assuming that the API for restrieving lectures returns an array of lecture objects with properties 'title' and 'url 
+    const fetchLectues = async () => {
+        try {
+            const lecturesRes = await axios.get(`/api/lectures/${username}`);
+            setLectures(lecturesRes.data);
+        } catch(error){
+            console.error(error);
+        }
+    }; 
+
+    useEffect(()=>{
+        fetchLectues();
+    });
 
     return (
         <div>
-            <div style = {{ float: 'left', width: '50%'}}>
-                <h2>Patient Profile</h2> 
-                <form onSubmit={handleSubmit}>
-                    {/* ... */}
-                </form>
-            </div> 
-            <div style = {{ float: 'right', width: '50%'}}>
-                <h2>Appointment</h2>
-                <ul>
-                    {appointments.map((appointment, index) => (
-                        <li key={index}>{appointment}</li>
-                    ))}
-                </ul>
-                <button onClick={() => addAppointment('New Appointment')}>
-                    Add Appointment
-                </button>
+            <h1>Hello, {username}!</h1>
+            <div className="columns">
+                <div className = "column is-one-quarter">
+                    <h2>Personal Information</h2>
+                    <p>Name:{userInfo.name}</p>
+                    <p>Gender:{userInfo.gender}</p>
+                    <p>filling later</p>
+                </div>
+                <div className="column">
+                    <h2>Appointments</h2>
+                    <ul>
+                        {appointments.map(appointment => (
+                            <li key={appointment.id}>
+                            {appointment.title}-{appointment.date}
+                            </li>
+                        ))}
+                    </ul>
+                    <h2>Collected Lectures</h2>
+                    <ul>
+                        {lectures.map(lecture => (
+                            <li key = {lecture.url}>
+                                <a href = {lecture.url} target="_blank" rel="noopener noreferrer " >{lecture.title}</a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );
-
 };
 
 export default PatientProfile;
