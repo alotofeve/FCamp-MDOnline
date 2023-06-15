@@ -9,6 +9,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @RestController
 public class PatientController {
+    private final PatientService patientService;
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
+    }
 
     /**
      * Register a patient
@@ -25,19 +29,20 @@ public class PatientController {
      * @param user  a user object contains the information of a patient in order to locate the patient in the database
      * @return PatientEntity a PatientEntity object contains all the information of a patient
      */
+
     @GetMapping("/getPatientProfile")
-    PatientEntity getPatientProfile(@AuthenticationPrincipal User user){
+    public PatientEntity getPatientProfile(@AuthenticationPrincipal User user){
         return null;
     }
-
     /**
      * Update patient profile
      * @param user a user object contains the information of a patient in order to locate the patient in the database
      * @param body a RegisterPatientBody object contains all the information of a patient
      */
+
     @PutMapping("/updatePatientProfile")
     @ResponseStatus(value = HttpStatus.OK)
-    void updatePatientProfile(@AuthenticationPrincipal User user, @RequestBody RegisterPatientBody body){
+    public void updatePatientProfile(@AuthenticationPrincipal User user, @RequestBody RegisterPatientBody body){
     }
 
     /**
@@ -46,6 +51,6 @@ public class PatientController {
      */
     @DeleteMapping("/deletePatientProfile")
     @ResponseStatus(value = HttpStatus.OK)
-    void deletePatientProfile(@AuthenticationPrincipal User user){
+    public void deletePatientProfile(@AuthenticationPrincipal User user){
     }
 }

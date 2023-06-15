@@ -5,7 +5,8 @@ import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
-public interface AppointmentRepository extends ListCrudRepository<AppointmentEntity, Long> {
+public interface
+AppointmentRepository extends ListCrudRepository<AppointmentEntity, Long> {
     AppointmentEntity findAllByPatientId(Long patientId);
 
     AppointmentEntity findByPatientIdAndAppointmentId(Long patientId, Long appointmentId);

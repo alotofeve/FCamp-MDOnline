@@ -6,8 +6,13 @@ import com.google.cloud.dialogflow.v2.SessionsSettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 
-import java.io.FileInputStream;                   
+import javax.sql.DataSource;
+import java.io.FileInputStream;
 import java.io.IOException;
 @Configuration
 public class AppConfig {
@@ -19,6 +24,16 @@ public class AppConfig {
                 .setCredentialsProvider(() -> credentials)
                 .build();
         return SessionsClient.create(sessionsSettings);
+    }
+
+    @Bean
+    UserDetailsManager users(DataSource datasource) {
+        return new JdbcUserDetailsManager(datasource);
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
 
