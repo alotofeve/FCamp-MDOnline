@@ -7,6 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public record AvailableTimeEntity(
         @Id Long availableTimeId,
         Long doctorId,
-        Long time
-) {
+        Long time,
+        boolean isOccupied
+){
 }
