@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS available_times;
 DROP TABLE IF EXISTS appointments;
+DROP TABLE IF EXISTS available_times;
 DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS lectures;
 DROP TABLE IF EXISTS patients;

@@ -18,7 +18,7 @@ public abstract class UserService<T, V> {
 
     public abstract T getProfileByUsername(String username);
 
-    public abstract void updateProfile(V v);
+    public abstract void updateProfile(T t, V v);
 
     public abstract void deleteProfile(String username);
 }

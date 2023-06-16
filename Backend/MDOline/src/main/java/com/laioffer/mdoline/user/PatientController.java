@@ -9,10 +9,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @RestController
 public class PatientController {
-    private final PatientService patientService;
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
-    }
+//    private final PatientService patientService;
+//    public PatientController(PatientService patientService) {
+//        this.patientService = patientService;
+//    }
 
     /**
      * Register a patient
