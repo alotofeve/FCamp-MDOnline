@@ -5,18 +5,22 @@ import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
+import java.util.List;
+
 public interface
 AppointmentRepository extends ListCrudRepository<AppointmentEntity, Long> {
-    AppointmentEntity findAllByPatientId(Long patientId);
+    List<AppointmentEntity> findAllByPatientId(Long patientId);
+
+    List<AppointmentEntity> findAllByDoctorId(Long doctorId);
 
     AppointmentEntity findByPatientIdAndAppointmentId(Long patientId, Long appointmentId);
 
     @Modifying
-    @Query("DELETE FROM appointments WHERE appointment_id= :appointmentId")
-    void delete(Long appointmentId);
+    @Query("DELETE FROM appointments WHERE appointment_date = :appointmentDate AND doctor_ID = :doctorId")
+    void delete(String appointmentDate, Long doctorId);
 
     @Modifying
-    @Query("UPDATE appointments SET is_ongoing = :isOngoing WHERE appointment_ID =:appointmentId")
-    void updateIsOngoingByAppointmentId(Long appointmentId, Boolean isOngoing);
+    @Query("UPDATE appointments SET is_ongoing = :isOngoing WHERE appointment_date = :appointmentDate AND doctor_ID = :doctorId")
+    void updateIsOngoingByAppointmentDateAndDoctorId(String appointmentDate, Long doctorId, Boolean isOngoing);
 
 }

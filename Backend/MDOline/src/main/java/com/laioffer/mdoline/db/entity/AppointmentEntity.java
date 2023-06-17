@@ -8,7 +8,6 @@ public record AppointmentEntity(
         @Id Long appointmentId,
         Long patientId,
         Long doctorId,
-        Long availableTimeId,
         String appointmentDate,
         String description,
         Boolean isOngoing
