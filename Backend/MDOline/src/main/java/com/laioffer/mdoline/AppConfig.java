@@ -10,12 +10,12 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
-
 import javax.sql.DataSource;
-import java.io.FileInputStream;
 import java.io.IOException;
+
 @Configuration
 public class AppConfig {
+
     @Bean
     public SessionsClient sessionsClient() throws IOException {
         ClassPathResource resource = new ClassPathResource("md-test-1-qweq-ff214b215c88.json");

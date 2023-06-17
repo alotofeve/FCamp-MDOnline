@@ -4,12 +4,20 @@ DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS lectures;
 DROP TABLE IF EXISTS patients;
 DROP TABLE IF EXISTS doctors;
+DROP TABLE IF EXISTS users;
+
+
+CREATE TABLE users
+(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
 
 CREATE TABLE patients
 (
-    patient_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    patient_ID INT NOT NULL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     gender VARCHAR(10) NOT NULL,
@@ -23,9 +31,7 @@ CREATE TABLE patients
 
 CREATE TABLE doctors
 (
-    doctor_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    doctor_ID INT NOT NULL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     gender VARCHAR(10) NOT NULL,

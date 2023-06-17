@@ -9,8 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 @Service
-public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>{
+public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody> {
 //    private final DoctorRepository doctorRepository;
     private final AvailableTimeRepository availableTimeRepository;
     private final DoctorRepository doctorRepository;
@@ -41,6 +43,7 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
 
     }
 
+
     public void setCurrentCertainAvailableTime(String availableTime, Long doctorID, Boolean isOccupied) {
         AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByDoctorIdAndTime(doctorID, availableTime);
         if (availableTimeEntity != null) {
@@ -54,4 +57,6 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
             availableTimeRepository.delete(doctorID, availableTime);
         }
     }
+
+
 }
