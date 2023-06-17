@@ -12,4 +12,5 @@ public record AppointmentEntity(
         String description,
         Boolean isOngoing
 ) {
+) {
 }
