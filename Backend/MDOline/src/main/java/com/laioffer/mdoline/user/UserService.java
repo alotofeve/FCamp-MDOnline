@@ -30,15 +30,15 @@ public abstract class UserService<T, V> {
         userRepository.updateRoleByUsername(username, role);
     }
 
-    Long getUserId(String username) {
+    public Long getUserId(String username) {
         return userRepository.findUserIdByUsername(username);
     }
 
-    abstract void createUserProfile(String username, V v);
+    protected abstract void createUserProfile(String username, V v);
 
-    abstract T getProfileByUsername(String username);
+    protected abstract T getProfileByUsername(String username);
 
-    abstract void updateProfile(String username, V v);
+    protected abstract void updateProfile(String username, V v);
 
-    abstract void deleteProfile(String username);
+    protected abstract void deleteProfile(String username);
 }

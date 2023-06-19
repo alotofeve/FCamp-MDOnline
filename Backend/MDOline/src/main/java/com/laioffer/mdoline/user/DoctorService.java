@@ -30,7 +30,7 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
     }
 
     @Override
-    void createUserProfile(String username, RegisterDoctorBody body) {
+    protected void createUserProfile(String username, RegisterDoctorBody body) {
         DoctorEntity newDoctor = new DoctorEntity(
                 super.getUserId(username),
                 body.firstName(),

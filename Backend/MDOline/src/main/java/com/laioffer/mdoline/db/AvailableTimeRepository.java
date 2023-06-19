@@ -10,9 +10,9 @@ public interface AvailableTimeRepository extends ListCrudRepository<AvailableTim
 
     @Modifying
     @Query("UPDATE available_times SET is_occupied = :isOccupied WHERE doctor_ID =:doctorId AND time =:time")
-    public void setIsOccupiedByDoctorIdAndTime(Long doctorId, String time, Boolean isOccupied);
+    void setIsOccupiedByDoctorIdAndTime(Long doctorId, String time, Boolean isOccupied);
 
     @Modifying
     @Query("DELETE FROM available_times WHERE doctor_id= :doctorId AND time= :time")
-    public void delete(Long doctorId, String time);
+    void delete(Long doctorId, String time);
 }

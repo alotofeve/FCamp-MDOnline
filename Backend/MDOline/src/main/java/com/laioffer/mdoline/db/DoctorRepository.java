@@ -21,17 +21,17 @@ public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long>
             "mail_address = :mailAddress, " +
             "license = :license " +
             "WHERE doctor_id = :doctorId")
-    public void updateDoctorProfile(
-            String firstName,
-            String lastName,
-            String gender,
-            String dateOfBirth,
-            String email,
-            String phone,
-            String spec,
-            String mailAddress,
-            String license,
-            Long doctorId
+    void updateDoctorProfile(
+        String firstName,
+        String lastName,
+        String gender,
+        String dateOfBirth,
+        String email,
+        String phone,
+        String spec,
+        String mailAddress,
+        String license,
+        Long doctorId
     );
 }
 
