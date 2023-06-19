@@ -33,6 +33,10 @@ public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long>
         String license,
         Long doctorId
     );
+
+    @Modifying
+    @Query("DELETE FROM doctors WHERE doctor_id = :doctorId")
+    void deleteByDoctorId(Long doctorId);
 }
 
 

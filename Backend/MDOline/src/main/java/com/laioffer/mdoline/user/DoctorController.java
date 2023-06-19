@@ -28,14 +28,24 @@ public class DoctorController {
 
     /**
      * Register a doctor
-     * @param body  a RegisterBody object contains all the information of a doctor
+     * @param credentialBody  a RegisterUserCredentialBody object contains the username and password of a doctor
      *
      */
     @PostMapping("/registerDoctor")
     @ResponseStatus(value = HttpStatus.OK)
-    public void registerDoctor(@RequestBody RegisterUserCredentialBody credentialBody, @RequestBody RegisterDoctorBody doctorBody) {
+    public void registerDoctor(@RequestBody RegisterUserCredentialBody credentialBody) {
         doctorService.register(credentialBody.username(), credentialBody.password(), UserRole.DOCTOR);
-        doctorService.createUserProfile(credentialBody.username(), doctorBody);
+    }
+
+    /**
+     * Set doctor profile
+     * @param user a user object contains the information of a doctor in order to locate the doctor in the database
+     * @param body a RegisterDoctorBody object contains all the information of a doctor
+     */
+    @PostMapping("setDoctorProfile")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void setDoctorProfile(@AuthenticationPrincipal User user, @RequestBody RegisterDoctorBody body){
+        doctorService.createUserProfile(user.getUsername(), body);
     }
 
     /**
@@ -66,40 +76,6 @@ public class DoctorController {
     @DeleteMapping("/deleteDoctorProfile")
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteDoctorProfile(@AuthenticationPrincipal User user){
+        doctorService.deleteProfile(user.getUsername());
     }
-
-    /**
-     * add doctor's available times into database
-     * @param user a user object contains the information of a doctor in order to locate the doctor in the database
-     * @param availableTimes a list of string, each string represents a time slot
-     */
-    @PostMapping("/setAvailableTimes")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void setAvailableTimes(@AuthenticationPrincipal User user, @RequestBody List<String> availableTimes){
-    }
-
-    /**
-     * get all available times of a doctor
-     * @param user a user object contains the information of a doctor in order to locate the doctor in the database
-     * @return a list of string, each string represents a time slot
-     */
-    @GetMapping("/getAllAvailableTimes")
-    public List<String> getAllAvailableTimes(@AuthenticationPrincipal User user){
-        return null;
-    }
-
-    /**
-     * set a certain available time of a doctor to occupied after the appointment is created
-     * @param user a user object contains the information of a doctor in order to locate the doctor in the database
-     * @param availableTimeID the id of the available time
-     * @param isAvailable a boolean value indicates whether the time slot is occupied or not
-     */
-    @PutMapping("/updateCertainAvailableTime")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void updateCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("available_time_id") String availableTimeID, @RequestParam("is_available") boolean isAvailable){
-    }
-
-
-
-
 }

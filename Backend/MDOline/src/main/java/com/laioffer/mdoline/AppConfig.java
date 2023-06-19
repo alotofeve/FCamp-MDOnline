@@ -1,12 +1,8 @@
 package com.laioffer.mdoline;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.dialogflow.v2.SessionsClient;
-import com.google.cloud.dialogflow.v2.SessionsSettings;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,9 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-
 import javax.sql.DataSource;
-import java.io.IOException;
+
 
 @Configuration
 public class AppConfig {
@@ -35,36 +30,36 @@ public class AppConfig {
 //        return SessionsClient.create(sessionsSettings);
 //    }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http
-//                .csrf().disable()
-//                .authorizeHttpRequests(auth ->
-//                        auth
-//                                /*
-//                                前端数据通行　
-//                                 */
-//                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-//                                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.json", "/*.png", "/static/**").permitAll()
-//                                .requestMatchers("/hello/**").permitAll()
-//                                .requestMatchers(HttpMethod.POST, "/login", "/registerDoctor", "/registerPatient", "/logout").permitAll()
-//                                .requestMatchers(HttpMethod.GET, "/recommendation", "/game", "/search").permitAll()
-//                                .anyRequest().authenticated()
-//                )
-//                .exceptionHandling()
-//                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-//                .and()
-//                /*
-//                session based login in
-//                 */
-//                .formLogin()
-//                .successHandler((req, res, auth) -> res.setStatus(HttpStatus.NO_CONTENT.value()))
-//                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
-//                .and()
-//                .logout()
-//                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT));
-//        return http.build();
-//    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http
+                .csrf().disable()
+                .authorizeHttpRequests(auth ->
+                        auth
+                                /*
+                                前端数据通行　
+                                 */
+                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.json", "/*.png", "/static/**").permitAll()
+                                .requestMatchers("/hello/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/login", "/registerDoctor", "/registerPatient", "/logout").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/recommendation", "/game", "/search").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .exceptionHandling()
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .and()
+                /*
+                session based login in
+                 */
+                .formLogin()
+                .successHandler((req, res, auth) -> res.setStatus(HttpStatus.NO_CONTENT.value()))
+                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
+                .and()
+                .logout()
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT));
+        return http.build();
+    }
 
     @Bean
     UserDetailsManager users(DataSource datasource) {

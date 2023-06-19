@@ -1,7 +1,9 @@
 package com.laioffer.mdoline.appointment;
 
+import com.laioffer.mdoline.availableTime.AvailableTimeService;
 import com.laioffer.mdoline.db.AppointmentRepository;
 import com.laioffer.mdoline.db.entity.AppointmentEntity;
+import com.laioffer.mdoline.db.entity.AvailableTimeEntity;
 import com.laioffer.mdoline.db.entity.UserEntity;
 import com.laioffer.mdoline.model.AppointmentRequestBody;
 import com.laioffer.mdoline.model.UserRole;
@@ -15,17 +17,18 @@ import java.util.List;
 @Service
 public class AppointmentService {
     AppointmentRepository appointmentRepository;
-    DoctorService doctorService;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, DoctorService doctorService) {
+    AvailableTimeService availableTimeService;
+
+    public AppointmentService(AppointmentRepository appointmentRepository, AvailableTimeService availableTimeService) {
         this.appointmentRepository = appointmentRepository;
-        this.doctorService = doctorService;
+        this.availableTimeService = availableTimeService;
     }
     public void createAppointment(AppointmentRequestBody body) {
 
         //call doctorService to update isOccupied field of the availabletime record with
         // the specific availabletimeId to true
-        doctorService.setCurrentCertainAvailableTime(body.appointmentDate(), body.doctorId(), true);
+        availableTimeService.setCurrentCertainAvailableTime(body.appointmentDate(), body.doctorId(), true);
         AppointmentEntity appointment =
                 new AppointmentEntity(null, body.patientId(), body.doctorId(),
                         body.appointmentDate(), body.description(), body.isOngoing());
@@ -35,7 +38,7 @@ public class AppointmentService {
     public void cancelAppointment(String appointmentDate, Long doctorId) {
         //call doctorService to update isOccupied field of the availabletime record with
         // the specific availabletimeId to false
-        doctorService.setCurrentCertainAvailableTime(appointmentDate, doctorId, false);
+        availableTimeService.setCurrentCertainAvailableTime(appointmentDate, doctorId, false);
         appointmentRepository.delete(appointmentDate, doctorId);
     }
     @Transactional
@@ -44,7 +47,7 @@ public class AppointmentService {
         appointmentRepository.updateIsOngoingByAppointmentDateAndDoctorId(appointmentDate, doctorId, isOnGoing);
 
         //call doctor service to delete the availabletime record with the specific availabletimeId
-        doctorService.deleteCertainAvailableTime(appointmentDate, doctorId);
+        availableTimeService.deleteCertainAvailableTime(appointmentDate, doctorId);
     }
 
     public List<AppointmentEntity> getAppointments(UserEntity user) {

@@ -12,21 +12,19 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody> {
-    private final AvailableTimeRepository availableTimeRepository;
     private final DoctorRepository doctorRepository;
 
     public DoctorService(
             UserDetailsManager userDetailsManager,
             PasswordEncoder passwordEncoder,
             DoctorRepository doctorRepository,
-            UserRepository userRepository,
-            AvailableTimeRepository availableTimeRepository) {
+            UserRepository userRepository) {
         super(userDetailsManager, passwordEncoder, userRepository);
         this.doctorRepository = doctorRepository;
-        this.availableTimeRepository = availableTimeRepository;
     }
 
     @Override
@@ -70,20 +68,6 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
 
     @Override
     public void deleteProfile(String username) {
-
-    }
-
-    public void setCurrentCertainAvailableTime(String availableTime, Long doctorID, Boolean isOccupied) {
-        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByDoctorIdAndTime(doctorID, availableTime);
-        if (availableTimeEntity != null) {
-            availableTimeRepository.setIsOccupiedByDoctorIdAndTime(doctorID, availableTime, isOccupied);
-        }
-    }
-
-    public void deleteCertainAvailableTime(String availableTime, Long doctorID) {
-        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByDoctorIdAndTime(doctorID, availableTime);
-        if (availableTimeEntity != null) {
-            availableTimeRepository.delete(doctorID, availableTime);
-        }
+        doctorRepository.deleteByDoctorId(super.getUserId(username));
     }
 }
