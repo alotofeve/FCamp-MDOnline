@@ -4,6 +4,8 @@ import com.laioffer.mdoline.db.entity.DoctorEntity;
 import com.laioffer.mdoline.db.entity.PatientEntity;
 import com.laioffer.mdoline.model.RegisterDoctorBody;
 import com.laioffer.mdoline.model.RegisterPatientBody;
+import com.laioffer.mdoline.model.RegisterUserCredentialBody;
+import com.laioffer.mdoline.model.UserRole;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +20,12 @@ import java.util.List;
 @RestController
 public class DoctorController {
 
+    private final UserService<DoctorEntity, RegisterDoctorBody> doctorService;
+
+    public DoctorController(DoctorService doctorService) {
+        this.doctorService = doctorService;
+    }
+
     /**
      * Register a doctor
      * @param body  a RegisterBody object contains all the information of a doctor
@@ -25,7 +33,9 @@ public class DoctorController {
      */
     @PostMapping("/registerDoctor")
     @ResponseStatus(value = HttpStatus.OK)
-    public void registerDoctor(@RequestBody RegisterDoctorBody body) {
+    public void registerDoctor(@RequestBody RegisterUserCredentialBody credentialBody, @RequestBody RegisterDoctorBody doctorBody) {
+        doctorService.register(credentialBody.username(), credentialBody.password(), UserRole.DOCTOR);
+        doctorService.createUserProfile(credentialBody.username(), doctorBody);
     }
 
     /**
@@ -35,7 +45,7 @@ public class DoctorController {
      */
     @GetMapping("/getDoctorProfile")
     public DoctorEntity getDoctorProfile(@AuthenticationPrincipal User user){
-        return null;
+        return doctorService.getProfileByUsername(user.getUsername());
     }
 
     /**
@@ -46,6 +56,7 @@ public class DoctorController {
     @PutMapping("/updateDoctorProfile")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateDoctorProfile(@AuthenticationPrincipal User user, @RequestBody RegisterDoctorBody body){
+        doctorService.updateProfile(user.getUsername(), body);
     }
 
     /**

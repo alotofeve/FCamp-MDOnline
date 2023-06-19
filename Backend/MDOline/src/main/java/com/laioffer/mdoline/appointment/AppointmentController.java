@@ -37,8 +37,8 @@ public class AppointmentController {
 
     @GetMapping("/appointments")
     public List<AppointmentEntity> getAppointments(@AuthenticationPrincipal User user) {
-        //UserEntity userEntity = userService.findByUserName(user.getUsername());
-        //return appointmentService.getAppointments(userEntity);
+//        UserEntity userEntity = userService.findByUserName(user.getUsername());
+//        return appointmentService.getAppointments(userEntity);
         return null;
     }
 

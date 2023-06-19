@@ -48,7 +48,7 @@ public class AppointmentService {
     }
 
     public List<AppointmentEntity> getAppointments(UserEntity user) {
-        Enum role = user.role();
+        UserRole role = user.role();
         Long userId = user.userId();
         if (role == UserRole.DOCTOR) {
             return appointmentRepository.findAllByDoctorId(userId);
