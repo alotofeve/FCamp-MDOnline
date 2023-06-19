@@ -16,6 +16,18 @@ public class AvailableTimeService {
 
     private final UserService<DoctorEntity, RegisterDoctorBody> doctorService;
 
+    public void setAvailableTimes(String username, List<String> availableTimes) {
+        for (String time : availableTimes) {
+            AvailableTimeEntity availableTimeEntity = new AvailableTimeEntity(
+                    null,
+                    doctorService.getUserId(username),
+                    time,
+                    false
+            );
+            availableTimeRepository.save(availableTimeEntity);
+        }
+    }
+
     public AvailableTimeService(AvailableTimeRepository availableTimeRepository, DoctorService doctorService) {
         this.availableTimeRepository = availableTimeRepository;
         this.doctorService = doctorService;
@@ -35,16 +47,19 @@ public class AvailableTimeService {
         }
     }
 
-    public void setAvailableTimes(String username, List<String> availableTimes) {
-        for (String time : availableTimes) {
-            AvailableTimeEntity availableTimeEntity = new AvailableTimeEntity(
-                    null,
-                    doctorService.getUserId(username),
-                    time,
-                    false
-            );
-            availableTimeRepository.save(availableTimeEntity);
+    public void deleteCertainAvailableTime(String availableTime, String username) {
+        var doctorID = doctorService.getUserId(username);
+        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByDoctorIdAndTime(doctorID, availableTime);
+        if (availableTimeEntity != null) {
+            availableTimeRepository.delete(doctorID, availableTime);
         }
+    }
 
+    public List<String> getAllAvailableTimes(String username) {
+        return availableTimeRepository.findAllAvailableTimesByDoctorId(doctorService.getUserId(username));
+    }
+
+    public void updateCertainAvailableTime(String username, String timeSlot, boolean isAvailable) {
+        availableTimeRepository.updateCertainAvailableTime(doctorService.getUserId(username), timeSlot, isAvailable);
     }
 }

@@ -1,10 +1,5 @@
 package com.laioffer.mdoline.availableTime;
 
-import com.laioffer.mdoline.db.AvailableTimeRepository;
-import com.laioffer.mdoline.db.entity.DoctorEntity;
-import com.laioffer.mdoline.model.RegisterDoctorBody;
-import com.laioffer.mdoline.user.DoctorService;
-import com.laioffer.mdoline.user.UserService;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,7 +33,7 @@ public class AvailableTimesController {
      */
     @GetMapping("/getAllAvailableTimes")
     public List<String> getAllAvailableTimes(@AuthenticationPrincipal User user){
-        return null;
+        return availableTimeService.getAllAvailableTimes(user.getUsername());
     }
 
     /**
@@ -49,7 +44,19 @@ public class AvailableTimesController {
      */
     @PutMapping("/updateCertainAvailableTime")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("available_time_id") String availableTimeID, @RequestParam("is_available") boolean isAvailable){
+    public void updateCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("available_time_id") String timeSlot, @RequestParam("is_available") boolean isAvailable){
+        availableTimeService.updateCertainAvailableTime(user.getUsername(), timeSlot, isAvailable);
+    }
+
+    /**
+     * delete a certain available time of a doctor
+     * @param user a user object contains the information of a doctor in order to locate the doctor in the database
+     * @param timeSlot the time slot that needs to be deleted
+     */
+    @DeleteMapping("/deleteCertainAvailableTime")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("available_time_id") String timeSlot){
+        availableTimeService.deleteCertainAvailableTime(user.getUsername(), timeSlot);
     }
 
 

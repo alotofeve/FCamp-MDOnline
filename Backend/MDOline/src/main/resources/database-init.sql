@@ -69,7 +69,7 @@ CREATE TABLE lectures
  (
     available_time_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     doctor_ID INT NOT NULL,
-    available_time VARCHAR(100) NOT NULL,
+    available_Time VARCHAR(100) NOT NULL,
     is_Occupied BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
  );

@@ -1,18 +1,12 @@
 package com.laioffer.mdoline.user;
 
-import com.laioffer.mdoline.db.AvailableTimeRepository;
 import com.laioffer.mdoline.db.DoctorRepository;
 import com.laioffer.mdoline.db.UserRepository;
-import com.laioffer.mdoline.db.entity.AvailableTimeEntity;
 import com.laioffer.mdoline.db.entity.DoctorEntity;
 import com.laioffer.mdoline.model.RegisterDoctorBody;
-import com.laioffer.mdoline.model.UserRole;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody> {
