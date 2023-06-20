@@ -9,6 +9,8 @@
       - String username
       - String password
 
+ ---
+
  ### public void registerDoctor(@RequestBody RegisterUserCredentialBody credentialBody)
    - @PostMapping("/registerDoctor")
    - Set doctor profile
