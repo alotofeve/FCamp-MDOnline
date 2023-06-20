@@ -1,8 +1,26 @@
-# FCamp-MDOnline
+# Controller lever API list:
 
+## DoctorController:
 
-这是一个Read Me.
+ ### public void registerDoctor(@RequestBody RegisterUserCredentialBody credentialBody) 
+   - @PostMapping("/registerDoctor")
+   - Register a doctor
+   - @param credentialBody  
+      - String username
+      - String password
 
-1. 请大家不要把 code push 到 mian 里面。 这是留给deployment的。多谢
-2. 前端和后端会有俩个独立的branch，
-3. 请大家把自己的code push 到各自的 branch 多谢
+ ### public void registerDoctor(@RequestBody RegisterUserCredentialBody credentialBody)
+   - @PostMapping("/registerDoctor")
+   - Set doctor profile
+   - @param body
+      - String username
+      - String password,
+      - String firstName,
+      - String lastName,
+      - String gender,
+      - String dateOfBirth,
+      - Boolean insurance,
+      - String email,
+      - String phone,
+      - String mailAddress,
+      - String payment
