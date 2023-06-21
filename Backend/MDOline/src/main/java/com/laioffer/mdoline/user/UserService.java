@@ -36,11 +36,11 @@ public abstract class UserService<T, V> {
         return userRepository.findUserIdByUsername(username);
     }
 
-    protected abstract void createUserProfile(String username, V v);
+    public abstract void createUserProfile(String username, V v);
 
-    protected abstract T getProfileByUsername(String username);
+    public abstract T getProfileByUsername(String username);
 
-    protected abstract void updateProfile(String username, V v);
+    public abstract void updateProfile(String username, V v);
 
-    protected abstract void deleteProfile(String username);
+    public abstract void deleteProfile(String username);
 }

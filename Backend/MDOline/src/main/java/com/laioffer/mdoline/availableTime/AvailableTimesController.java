@@ -20,7 +20,7 @@ public class AvailableTimesController {
      * @param user a user object contains the information of a doctor in order to locate the doctor in the database
      * @param availableTimes a list of string, each string represents a time slot
      */
-    @PostMapping("/setAvailableTimes")
+    @PostMapping("/set-available-times")
     @ResponseStatus(value = HttpStatus.OK)
     public void setAvailableTimes(@AuthenticationPrincipal User user, @RequestBody List<String> availableTimes){
         availableTimeService.setAvailableTimes(user.getUsername(), availableTimes);
@@ -31,7 +31,7 @@ public class AvailableTimesController {
      * @param user a user object contains the information of a doctor in order to locate the doctor in the database
      * @return a list of string, each string represents a time slot
      */
-    @GetMapping("/getAllAvailableTimes")
+    @GetMapping("/get-all-available-times")
     public List<String> getAllAvailableTimes(@AuthenticationPrincipal User user){
         return availableTimeService.getAllAvailableTimes(user.getUsername());
     }
@@ -42,7 +42,7 @@ public class AvailableTimesController {
      * @param availableTimeID the id of the available time
      * @param isAvailable a boolean value indicates whether the time slot is occupied or not
      */
-    @PutMapping("/updateCertainAvailableTime")
+    @PutMapping("/update-certain-available-time")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("available_time_id") String timeSlot, @RequestParam("is_available") boolean isAvailable){
         availableTimeService.updateCertainAvailableTime(user.getUsername(), timeSlot, isAvailable);
@@ -53,17 +53,9 @@ public class AvailableTimesController {
      * @param user a user object contains the information of a doctor in order to locate the doctor in the database
      * @param timeSlot the time slot that needs to be deleted
      */
-    @DeleteMapping("/deleteCertainAvailableTime")
+    @DeleteMapping("/delete-certain-available0-time")
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("available_time_id") String timeSlot){
         availableTimeService.deleteCertainAvailableTime(user.getUsername(), timeSlot);
     }
-
-
-
-
-
-
-
-
 }

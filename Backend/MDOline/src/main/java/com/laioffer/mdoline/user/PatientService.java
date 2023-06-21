@@ -21,7 +21,7 @@ public class PatientService extends UserService<PatientEntity, RegisterPatientBo
         this.patientRepository = patientRepository;
     }
 
-    protected void createUserProfile(String username, RegisterPatientBody body) {
+    public void createUserProfile(String username, RegisterPatientBody body) {
         PatientEntity newPatient = new PatientEntity(
                 super.getUserId(username),
                 body.firstName(),
@@ -37,11 +37,11 @@ public class PatientService extends UserService<PatientEntity, RegisterPatientBo
         patientRepository.save(newPatient);
     }
 
-    protected PatientEntity getProfileByUsername(String username) {
+    public PatientEntity getProfileByUsername(String username) {
         return patientRepository.findByPatientsID(super.getUserId(username));
     }
 
-    protected  void updateProfile(String username, RegisterPatientBody body) {
+    public  void updateProfile(String username, RegisterPatientBody body) {
         patientRepository.updatePatientProfile(
                 body.firstName(),
                 body.lastName(),
@@ -56,7 +56,7 @@ public class PatientService extends UserService<PatientEntity, RegisterPatientBo
         );
     }
 
-    protected void deleteProfile(String username) {
+    public void deleteProfile(String username) {
         patientRepository.deleteByPatientsID(super.getUserId(username));
     }
 }

@@ -24,7 +24,7 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
     }
 
     @Override
-    protected void createUserProfile(String username, RegisterDoctorBody body) {
+    public void createUserProfile(String username, RegisterDoctorBody body) {
         DoctorEntity newDoctor = new DoctorEntity(
                 super.getUserId(username),
                 body.firstName(),
@@ -71,7 +71,7 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
         return doctorRepository.findByLastNameAndFirstName(firstName, lastName);
     }
 
-    public List<DoctorEntity> getDoctorBySpec(String spec) {
+    public List<DoctorEntity> getDoctorsBySpec(String spec) {
         return doctorRepository.findBySpec(spec);
     }
 

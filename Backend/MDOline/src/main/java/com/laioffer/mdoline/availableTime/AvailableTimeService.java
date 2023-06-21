@@ -59,6 +59,10 @@ public class AvailableTimeService {
         return availableTimeRepository.findAllAvailableTimesByDoctorId(doctorService.getUserId(username));
     }
 
+    public List<String> getAllAvailableTimes(Long doctorID) {
+        return availableTimeRepository.findAllAvailableTimesByDoctorId(doctorID);
+    }
+
     public void updateCertainAvailableTime(String username, String timeSlot, boolean isAvailable) {
         availableTimeRepository.updateCertainAvailableTime(doctorService.getUserId(username), timeSlot, isAvailable);
     }
