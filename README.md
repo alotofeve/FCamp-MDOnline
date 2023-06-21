@@ -119,6 +119,7 @@ Example
   "gender": "male",
   "dateOfBirth": "19891122",
   "insurance": true,
+  "email": "1324@gmail.com",
   "phone": "1231231234",
   "mailAddress": "1234 A street San_jose CA United_States",
   "payment": null
@@ -170,7 +171,7 @@ Example Request Body:
   "date_of_birth": "19900423",
   "insurance": true,
   "email": "123456@gmail.com",
-  "phone": "1231231234"
+  "phone": "1231231234",
   "mail_address": "1234 A street San_jose CA United_States",
   "payment": null
 }
@@ -268,7 +269,6 @@ The request body should contain the following JSON fields:
 - `last_name` (String):
 - `gender` (String):
 - `date_of_birth` (String):
-- `insurance` (Boolean):
 - `email` (String):
 - `phone` (String):
 - `spec` (String):
@@ -283,7 +283,6 @@ Example Request Body:
   "password": "smith",
   "gender": "male",
   "date_of_birth": "19900423",
-  "insurance": true,
   "email": "123456@gmail.com",
   "phone": "1231231234"
   "spec": "BrainDead",
@@ -291,9 +290,103 @@ Example Request Body:
   "licese": "fakelicense12345"
 }
 ```
+***
+***
 
+# Get Doctor Profile
 
+Get current doctor profile
 
+- **URL:** `/api/get-doctor-profile`
+- **Method:** GET
+- **Content-Type:** application/json
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If the patient profile is found, the response body will contain the profile information in the following JSON format:
+Example
+
+```json
+{
+  "Id": "123456",
+  "firstName": "John Doe",
+  "lastName": 35,
+  "gender": "male",
+  "dateOfBirth": "19891122",
+  "email": "123@gmail.com",
+  "phone": "1231231234",
+  "spec": "BrainDead",
+  "mailAddress": "1234 A street San_jose CA United_States",
+  "license": "guessguess123"
+}
+```
+- `Id` (Long):
+- `first_name` (String):
+- `last_name` (String):
+- `gender` (String):
+- `date_of_birth` (String):
+- `email` (String):
+- `phone` (String):
+- `spec` (String):
+- `mail_address` (String):
+- `license` (String): 
+
+***
+***
+
+# Update Doctor Profile
+
+Update current doctor profile
+
+- **URL:** `/api/update-doctor-profile`
+- **Method:** PUT
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain the following JSON fields:
+
+- `first_name` (String):
+- `last_name` (String):
+- `gender` (String):
+- `date_of_birth` (String):
+- `email` (String):
+- `phone` (String):
+- `spec` (String):
+- `mail_address` (String):
+- `license` (String): 
+
+Example Request Body:
+
+```json
+{
+  "first_name": "Mike",
+  "password": "smith",
+  "gender": "male",
+  "date_of_birth": "19900423",
+  "email": "123456@gmail.com",
+  "phone": "1231231234",
+  "spec": "BrainDead",
+  "mail_address": "1234 A street San_jose CA United_States",
+  "license": "1234guesgues"
+}
+```
+***
+***
+
+# Delete Doctor Profile
+
+Delete current doctor file
+
+- **URL:** `/api/delete-doctor-profile`
+- **Method:** DELETE
+- **Content-Type:** application/json
+
+## Response
+
+- **HTTP Status:** 200 OK
 
 
 
