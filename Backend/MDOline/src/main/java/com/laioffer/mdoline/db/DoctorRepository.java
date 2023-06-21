@@ -5,9 +5,12 @@ import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
+import javax.print.Doc;
+import java.util.List;
+
 public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long> {
 
-    public DoctorEntity findByDoctorId(Long Id);
+    DoctorEntity findByDoctorId(Long Id);
 
     @Modifying
     @Query("UPDATE doctors " +
@@ -37,6 +40,11 @@ public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long>
     @Modifying
     @Query("DELETE FROM doctors WHERE doctor_id = :doctorId")
     void deleteByDoctorId(Long doctorId);
+    DoctorEntity findByLastNameAndFirstName(String lastName, String firstName);
+
+    @Modifying
+    @Query("SELECT * FROM doctors WHERE spec = :spec")
+    List<DoctorEntity> findBySpec(String spec);
 }
 
 

@@ -13,11 +13,9 @@ import java.util.List;
 @RestController
 public class AppointmentController {
     AppointmentService appointmentService;
-    UserService userService;
 
-    public AppointmentController(AppointmentService appointmentService, UserService userService) {
+    public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
-        this.userService = userService;
     }
 
     @PostMapping("/appointment")

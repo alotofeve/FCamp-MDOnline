@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody> {
     private final DoctorRepository doctorRepository;
@@ -64,4 +66,18 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
     public void deleteProfile(String username) {
         doctorRepository.deleteByDoctorId(super.getUserId(username));
     }
+
+    public DoctorEntity getDoctorProfileByName(String firstName, String lastName) {
+        return doctorRepository.findByLastNameAndFirstName(firstName, lastName);
+    }
+
+    public List<DoctorEntity> getDoctorBySpec(String spec) {
+        return doctorRepository.findBySpec(spec);
+    }
+
+    public List<DoctorEntity> getAllDoctors() {
+        return doctorRepository.findAll();
+    }
 }
+
+
