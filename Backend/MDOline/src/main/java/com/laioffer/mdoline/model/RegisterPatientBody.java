@@ -3,8 +3,6 @@ package com.laioffer.mdoline.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record RegisterPatientBody(
-        String username,
-        String password,
         @JsonProperty("first_name") String firstName,
         @JsonProperty("last_name") String lastName,
         String gender,
@@ -12,7 +10,7 @@ public record RegisterPatientBody(
         Boolean insurance,
         String email,
         String phone,
-        String mailAddress,
+        @JsonProperty("mail_address") String mailAddress,
         String payment
 ) {
 }
