@@ -56,6 +56,143 @@ Example Error Response:
 ***
 ***
 
+# Set Patient Profile
+
+Set a new patient file using RegisterPatientBody
+
+- **URL:** `/api/set-patient-profile`
+- **Method:** POST
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain the following JSON fields:
+
+- `first_name` (String):
+- `last_name` (String):
+- `gender` (String):
+- `date_of_birth` (String):
+- `insurance` (Boolean):
+- `email` (String):
+- `phone` (String):
+- `mail_address` (String):
+- `payment` (String): return null if not have payment methods
+
+Example Request Body:
+
+```json
+{
+  "first_name": "Mike",
+  "password": "smith",
+  "gender": "male",
+  "date_of_birth": "19900423",
+  "insurance": true,
+  "email": "123456@gmail.com",
+  "phone": "1231231234"
+  "mail_address": "1234 A street San_jose CA United_States",
+  "payment": null
+}
+```
+***
+***
+
+# Get Patient Profile
+
+Get current patient file
+
+- **URL:** `/api/set-patient-profile`
+- **Method:** GET
+- **Content-Type:** application/json
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If the patient profile is found, the response body will contain the profile information in the following JSON format:
+Example
+
+```json
+{
+  "Id": "123456",
+  "firstName": "John Doe",
+  "lastName": 35,
+  "gender": "male",
+  "dateOfBirth": "19891122",
+  "insurance": true,
+  "phone": "1231231234",
+  "mailAddress": "1234 A street San_jose CA United_States",
+  "payment": null
+}
+```
+- `Id` (Long):
+- `first_name` (String):
+- `last_name` (String):
+- `gender` (String):
+- `date_of_birth` (String):
+- `insurance` (Boolean):
+- `email` (String):
+- `phone` (String):
+- `mail_address` (String):
+- `payment` (String): return null if not have payment methods
+
+***
+***
+
+# Update Patient Profile
+
+Update current patient file
+
+- **URL:** `/api/update-patient-profile`
+- **Method:** PUT
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain the following JSON fields:
+
+- `first_name` (String):
+- `last_name` (String):
+- `gender` (String):
+- `date_of_birth` (String):
+- `insurance` (Boolean):
+- `email` (String):
+- `phone` (String):
+- `mail_address` (String):
+- `payment` (String): return null if not have payment methods
+
+Example Request Body:
+
+```json
+{
+  "first_name": "Mike",
+  "password": "smith",
+  "gender": "male",
+  "date_of_birth": "19900423",
+  "insurance": true,
+  "email": "123456@gmail.com",
+  "phone": "1231231234"
+  "mail_address": "1234 A street San_jose CA United_States",
+  "payment": null
+}
+```
+***
+***
+
+# Delete Patient Profile
+
+Delete current patient file
+
+- **URL:** `/api/delete-patient-profile`
+- **Method:** DELETE
+- **Content-Type:** application/json
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+***
+***
+
 # Register Doctor
 
 Registers a new doctor with the provided credentials.
@@ -111,3 +248,52 @@ Example Error Response:
   "message": "An unexpected error occurred while registering the doctor."
 }
 ```
+
+***
+***
+
+# Set Doctor Profile
+
+Set a new doctor file using RegisterDoctorBody
+
+- **URL:** `/api/set-doctor-profile`
+- **Method:** POST
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain the following JSON fields:
+
+- `first_name` (String):
+- `last_name` (String):
+- `gender` (String):
+- `date_of_birth` (String):
+- `insurance` (Boolean):
+- `email` (String):
+- `phone` (String):
+- `spec` (String):
+- `mail_address` (String):
+- `license` (String):
+
+Example Request Body:
+
+```json
+{
+  "first_name": "Mike",
+  "password": "smith",
+  "gender": "male",
+  "date_of_birth": "19900423",
+  "insurance": true,
+  "email": "123456@gmail.com",
+  "phone": "1231231234"
+  "spec": "BrainDead",
+  "mail_address": "1234 A street San_jose CA United_States",
+  "licese": "fakelicense12345"
+}
+```
+
+
+
+
+
+
