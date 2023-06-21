@@ -388,5 +388,105 @@ Delete current doctor file
 
 - **HTTP Status:** 200 OK
 
+***
+***
+
+# Set Available Times
+
+Sets the available times for a user.
+
+- **URL:** `/api/set-available-times`
+- **Method:** POST
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain a list of available times in the following format:
+
+- `availableTimes` (array of strings): The available times for the user.
+
+Example Request Body:
+
+```json
+[
+  "9:00",
+  "10:30",
+  "14:00"
+]
+```
+## Response
+
+- **HTTP Status:** 200 OK
+
+If the available times are set successfully, no response body is returned.
+
+***
+***
+
+# Get All Available Times
+
+Retrieves all available times for a user.
+
+- **URL:** `/api/get-all-available-times`
+- **Method:** GET
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If the available times are found, the response body will contain a list of available times in the following JSON format:
+
+```json
+[
+  "9:00",
+  "10:30",
+  "14:00"
+]
+```
+
+Each element in the list represents an available time slot.
+
+***
+***
+
+# Update Certain Available Time
+
+Updates the availability status of a certain time slot for a user.
+
+- **URL:** `/api/update-certain-available-time`
+- **Method:** PUT
+
+## Request Parameters
+
+- `available_time_id` (string): The ID of the available time slot to update.
+- `is_available` (boolean): The new availability status of the time slot. Set to `true` if the time slot should be marked as available, or `false` if it should be marked as unavailable.
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If the update is successful, no response body is returned.
+
+***
+***
+
+# Delete Certain Available Time
+
+Deletes a certain time slot from the available times for a user.
+
+- **URL:** `/api/delete-certain-available-time`
+- **Method:** DELETE
+
+## Request Parameters
+
+- `available_time_id` (string): The ID of the available time slot to delete.
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If the deletion is successful, no response body is returned.
+
+
 
 
