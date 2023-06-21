@@ -4,7 +4,7 @@
 @RestController
 
 public class SearchController {
-    private final UserService<DoctorEntity, RegisterDoctorBody> doctorService;
+    private final SearchService(DoctorEntity, RegisterDoctorBody) searchService;
     SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
