@@ -6,18 +6,19 @@ import com.laioffer.mdoline.db.entity.FavoriteEntity;
 import com.laioffer.mdoline.db.entity.LectureEntity;
 import com.laioffer.mdoline.lecture.LectureService;
 import com.laioffer.mdoline.model.FavoriteBody;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FavoriteService {
     FavoriteRepository favoriteRepository;
 
-    public void  FavoriteService(FavoriteRepository favoriteRepository){
+    public FavoriteService(FavoriteRepository favoriteRepository){
         this.favoriteRepository = favoriteRepository;
     }
 
-    public List<FavoriteEntity> getLectureByPatient(Long patientId){
-
+    public List<FavoriteEntity> getLectureByPatient(Long patientId) {
         return favoriteRepository.findAllByPatientId(patientId);
     }
     public void favoriteLecture(FavoriteBody favoriteBody){
@@ -27,7 +28,7 @@ public class FavoriteService {
         );
         favoriteRepository.save(favoriteRecord);
     }
-    public void unfavoritelecture(Long patientId, Long lectureId){
+    public void unsetFavoriteLecture(Long patientId, Long lectureId){
         favoriteRepository.deleteByPatientIdAndLectureId(patientId,lectureId);
     }
 }

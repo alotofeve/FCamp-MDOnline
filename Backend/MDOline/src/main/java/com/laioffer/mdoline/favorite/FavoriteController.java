@@ -19,22 +19,20 @@ public class FavoriteController {
     FavoriteService favoriteService;
     UserService<PatientEntity, RegisterPatientBody> patientService;
 
-    public void FavoriteController(FavoriteService favoriteService){
+    public FavoriteController(FavoriteService favoriteService) {
         this.favoriteService = favoriteService;
     }
-    @PostMapping("/favoriteLecture")
+    @PostMapping("/favorite-lecture")
     public void favoriteLecture(@RequestBody FavoriteBody favoriteRecord){
         favoriteService.favoriteLecture(favoriteRecord);
     }
-    @GetMapping("/getLectureByPatient")
+    @GetMapping("/get-lecture-by-patient")
     public List<FavoriteEntity> getLectureByPatient(@AuthenticationPrincipal User user){
-
-//       List<FavoriteEntity> favoriteRecord = favoriteService.getLectureByPatient(patientService.getUserId(user.getUsername()));
         return favoriteService.getLectureByPatient(patientService.getUserId(user.getUsername()));
     }
-    @DeleteMapping("/unfavoriteLecture")
-    public void unfavoriteLecture(@AuthenticationPrincipal User user,@RequestBody FavoriteBody favoriteBody){
-        favoriteService.unfavoritelecture(patientService.getUserId(user.getUsername()), favoriteBody.lectureId());
+    @DeleteMapping("/unset-favorite-lecture")
+    public void unsetFavoriteLecture(@AuthenticationPrincipal User user,@RequestBody FavoriteBody favoriteBody){
+        favoriteService.unsetFavoriteLecture(patientService.getUserId(user.getUsername()), favoriteBody.lectureId());
     }
 
 }

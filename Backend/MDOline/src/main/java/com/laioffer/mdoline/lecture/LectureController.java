@@ -19,21 +19,20 @@ public class LectureController{
     LectureService lectureService;
     UserService<DoctorEntity, RegisterDoctorBody> doctorService;
 
-    public void LectureController(LectureService lecture){
-        this.lectureService = lecture;
-    }
-    public void DoctorController(DoctorService doctorService) {
+    public LectureController(LectureService lectureService, DoctorService doctorService) {
+        this.lectureService = lectureService;
         this.doctorService = doctorService;
     }
-    @PostMapping("/postLecture")
-    public void postLecture(@RequestBody LectureBody lectureBody){
+
+    @PostMapping("/post-lecture")
+    public void postLecture(@RequestBody LectureBody lectureBody) {
         lectureService.postLecture(lectureBody);
     }
-    @GetMapping("/getLectureByDoctor")
-    List<LectureEntity> getLectureByDoctor(@AuthenticationPrincipal User user){
+    @GetMapping("/get-lecture-by-doctor")
+    List<LectureEntity> getLectureByDoctor(@AuthenticationPrincipal User user) {
         return lectureService.getLectureByDoctor(doctorService.getUserId(user.getUsername()));
     }
-    @DeleteMapping("/deleteLecture")
+    @DeleteMapping("/delete-lecture")
     void deleteLecture(Long lectureId){
         lectureService.deleteLecture(lectureId);
     }
