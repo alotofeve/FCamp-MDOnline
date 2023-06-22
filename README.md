@@ -609,7 +609,102 @@ Each object in the list represents a doctor and contains the following propertie
 
 If no doctors are found matching the provided parameters, an empty response body (`[]`) will be returned.
 
+***
+***
 
+# Post Lecture
 
+Creates and posts a new lecture.
 
+- **URL:** `/api/post-lecture`
+- **Method:** POST
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain the following JSON fields:
+
+- `lectureTitle` (string): The title of the lecture.
+- `lectureDescription` (string): The description or content of the lecture.
+
+Example Request Body:
+
+```json
+{
+  "lectureTitle": "Introduction to Java Programming",
+  "lectureDescription": "This lecture covers the basics of Java programming language."
+}
+```
+
+## Request Headers
+
+- `Authorization` (string): The access token or authentication token for the request.
+
+***
+***
+
+# Get Lectures by Doctor
+
+Retrieves the lectures posted by a doctor.
+
+- **URL:** `/api/get-lecture-by-doctor`
+- **Method:** GET
+
+## Request Headers
+
+- `Authorization` (string): The access token or authentication token for the request.
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If lectures are found for the specified doctor, the response body will contain a list of lecture information in the following JSON format:
+
+```json
+[
+  {
+    "lectureId": "123456",
+    "doctorId": "789012",
+    "lectureTitle": "Introduction to Java Programming",
+    "lectureDescription": "This lecture covers the basics of Java programming language.",
+  },
+  {
+    "lectureId": "345678",
+    "doctorId": "789012",
+    "lectureTitle": "Object-Oriented Programming in Python",
+    "lectureDescription": "This lecture explores the concepts of object-oriented programming in Python.",
+  }
+]
+```
+
+Each object in the list represents a lecture and contains the following properties:
+
+- `lectureId` (string): The ID of the lecture.
+- `lectureTitle` (string): The title of the lecture.
+- `doctorId` (string): The ID of the doctor who posted the lecture.
+- `lectureDescription` (string): The description or content of the lecture.
+
+If no lectures are found for the specified doctor, an empty response body (`[]`) will be returned.
+
+***
+***
+
+Certainly! Here's the API documentation for the `/delete-lecture` endpoint in Markdown format:
+
+# Delete Lecture
+
+Deletes a lecture by its ID.
+
+- **URL:** `/api/delete-lecture`
+- **Method:** DELETE
+
+## Query Parameters
+
+- `lectureId` (number): The ID of the lecture to delete.
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If the lecture is deleted successfully, no response body is returned.
 
