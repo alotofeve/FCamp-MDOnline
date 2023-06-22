@@ -487,6 +487,41 @@ Deletes a certain time slot from the available times for a user.
 
 If the deletion is successful, no response body is returned.
 
+***
+***
+
+# Search Doctor by Name
+
+Searches for a doctor by their first name and last name.
+
+- **URL:** `/api/search-doctor-by-name`
+- **Method:** GET
+
+## Query Parameters
+
+- `firstName` (string): The first name of the doctor.
+- `lastName` (string): The last name of the doctor.
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If a doctor is found matching the provided first name and last name, the response body will contain the doctor's information in the following JSON format:
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "spec": "Cardiology",
+  "availableTimes": "12:00, 14:00"
+}
+```
+
+- `firstName` (string): The first name of the doctor.
+- `lastName` (string): The last name of the doctor.
+- `spec` (string): The specialty of the doctor.
+- `availableTimes` (List<String>): list of doctor's available times
+
 
 
 
