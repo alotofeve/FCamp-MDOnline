@@ -522,6 +522,94 @@ If a doctor is found matching the provided first name and last name, the respons
 - `spec` (string): The specialty of the doctor.
 - `availableTimes` (List<String>): list of doctor's available times
 
+***
+***
+
+# Search Doctor by Specialty
+
+Searches for doctors by their specialty.
+
+- **URL:** `/api/search-doctor-by-spec`
+- **Method:** GET
+
+## Query Parameters
+
+- `spec` (string): The specialty of the doctors to search for.
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If doctors are found matching the provided specialty, the response body will contain a list of doctor information in the following JSON format:
+
+```json
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "specialty": "Cardiology",
+    "availableTimes": "11:00,14:00"
+  },
+  {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "specialty": "Cardiology",
+    "availableTimes": "11:00,14:00"
+  }
+]
+```
+
+Each object in the list represents a doctor and contains the following properties:
+
+- `firstName` (string): The first name of the doctor.
+- `lastName` (string): The last name of the doctor.
+- `specialty` (string): The specialty of the doctor.
+-  `availableTimes` (List<String>): List of doctor's available times
+
+If no doctors are found matching the provided specialty, an empty response body (`[]`) will be returned.
+
+***
+***
+
+# Search Doctors by All Parameters
+
+Searches for doctors using all available parameters.
+
+- **URL:** `/api/search-doctor-by-all`
+- **Method:** GET
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+If doctors are found matching the provided parameters, the response body will contain a list of doctor information in the following JSON format:
+
+```json
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "availableTimes": "12:00, 13:00"
+  },
+  {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "specialty": "Dermatology",
+    "availableTimes": "12:00, 13:00"
+  }
+]
+```
+
+Each object in the list represents a doctor and contains the following properties:
+
+- `firstName` (string): The first name of the doctor.
+- `lastName` (string): The last name of the doctor.
+- `specialty` (string): The specialty of the doctor.
+- `availableTimes` (List<String>) list of doctor's available times
+
+If no doctors are found matching the provided parameters, an empty response body (`[]`) will be returned.
+
+
 
 
 
