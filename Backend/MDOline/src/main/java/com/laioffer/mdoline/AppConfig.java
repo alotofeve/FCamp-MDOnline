@@ -42,7 +42,7 @@ public class AppConfig {
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.json", "/*.png", "/static/**").permitAll()
                                 .requestMatchers("/hello/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login", "/register-doctor", "/register-patient", "/logout").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/login", "/register-doctor", "/register-patient", "/logout","postLecture").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/recommendation", "/game", "/search").permitAll()
                                 .anyRequest().authenticated()
                 )

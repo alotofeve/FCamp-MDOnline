@@ -5,6 +5,6 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("favorites")
 public record FavoriteEntity(
         Long patientId,
-        Long doctorId
+        Long lectureId
 ) {
 }

@@ -7,7 +7,6 @@ import org.springframework.data.relational.core.mapping.Table;
 public record LectureEntity(
         @Id Long lectureId,
         Long doctorId,
-        Long patientId,
         String title,
         String body
 ) {
