@@ -1,12 +1,11 @@
 package com.laioffer.mdoline.user;
 
 import com.laioffer.mdoline.db.entity.PatientEntity;
-import com.laioffer.mdoline.model.RegisterDoctorBody;
 import com.laioffer.mdoline.model.RegisterPatientBody;
 import com.laioffer.mdoline.model.RegisterUserCredentialBody;
 import com.laioffer.mdoline.model.UserRole;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

@@ -69,7 +69,7 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
     }
 
     public DoctorEntity getDoctorProfileByName(String firstName, String lastName) {
-        return doctorRepository.findByLastNameAndFirstName(firstName, lastName);
+        return doctorRepository.findByLastNameAndFirstName(lastName, firstName);
     }
 
     public List<DoctorEntity> getDoctorsBySpec(String spec) {

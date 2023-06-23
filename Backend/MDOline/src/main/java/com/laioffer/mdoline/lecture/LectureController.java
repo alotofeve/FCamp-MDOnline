@@ -6,9 +6,7 @@ import com.laioffer.mdoline.model.LectureBody;
 import com.laioffer.mdoline.model.RegisterDoctorBody;
 import com.laioffer.mdoline.user.DoctorService;
 import com.laioffer.mdoline.user.UserService;
-import com.laioffer.mdoline.lecture.LectureService;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +30,8 @@ public class LectureController{
     List<LectureEntity> getLectureByDoctor(@AuthenticationPrincipal User user) {
         return lectureService.getLectureByDoctor(doctorService.getUserId(user.getUsername()));
     }
-    @DeleteMapping("/delete-lecture")
-    void deleteLecture(Long lectureId){
+    @DeleteMapping("/delete-lecture-by-id")
+    void deleteLecture(@RequestParam("lecture_id") Long lectureId){
         lectureService.deleteLecture(lectureId);
     }
 }

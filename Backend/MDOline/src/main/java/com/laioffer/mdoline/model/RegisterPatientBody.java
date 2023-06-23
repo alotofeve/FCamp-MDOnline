@@ -6,7 +6,7 @@ public record RegisterPatientBody(
         @JsonProperty("first_name") String firstName,
         @JsonProperty("last_name") String lastName,
         String gender,
-        String dateOfBirth,
+        @JsonProperty("date_of_birth") String dateOfBirth,
         Boolean insurance,
         String email,
         String phone,

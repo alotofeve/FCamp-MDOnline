@@ -42,8 +42,12 @@ public class AppConfig {
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.json", "/*.png", "/static/**").permitAll()
                                 .requestMatchers("/hello/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login", "/register-doctor", "/register-patient", "/logout","postLecture").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/recommendation", "/game", "/search").permitAll()
+                                .requestMatchers(HttpMethod.POST,
+                                        "/login",
+                                        "/register-doctor",
+                                        "/register-patient",
+                                        "/logout").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/search-doctor-by-name", "/search-doctor-by-spec", "/search-doctor-by-all").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling()

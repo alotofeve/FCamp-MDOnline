@@ -27,7 +27,8 @@ CREATE TABLE authorities
 
 CREATE TABLE patients
 (
-    patient_ID INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    patient_ID INT NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     gender VARCHAR(10) NOT NULL,
@@ -36,7 +37,8 @@ CREATE TABLE patients
     email VARCHAR(50) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     mail_address VARCHAR(50) NOT NULL,
-    payment VARCHAR(50)
+    payment VARCHAR(50),
+    FOREIGN KEY (patient_ID) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE doctors
@@ -59,20 +61,18 @@ CREATE TABLE lectures
 (
     lecture_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     doctor_ID INT NOT NULL,
-    patient_ID INT NOT NULL,
     title VARCHAR(100) NOT NULL,
     body VARCHAR(500) NOT NULL,
-    FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
     FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
 );
 
  CREATE TABLE available_times
  (
     available_time_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    doctor_ID INT NOT NULL,
-    available_Time VARCHAR(100) NOT NULL,
+    user_Id INT NOT NULL,
+    time VARCHAR(100) NOT NULL,
     is_Occupied BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
+    FOREIGN KEY (user_Id) REFERENCES users(id) ON DELETE CASCADE
  );
 
 CREATE TABLE appointments
@@ -92,6 +92,7 @@ CREATE TABLE appointments
 
 CREATE TABLE favorites
 (
+    favorite_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     patient_ID INT NOT NULL,
     lecture_ID INT NOT NULL,
     FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
