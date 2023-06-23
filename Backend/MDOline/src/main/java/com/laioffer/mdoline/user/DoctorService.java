@@ -26,6 +26,7 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
     @Override
     public void createUserProfile(String username, RegisterDoctorBody body) {
         DoctorEntity newDoctor = new DoctorEntity(
+                null,
                 super.getUserId(username),
                 body.firstName(),
                 body.lastName(),

@@ -6,12 +6,13 @@ import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
+import java.util.List;
+
 public interface UserRepository extends ListCrudRepository<UserEntity, Long> {
     @Modifying
     @Query("UPDATE users SET role := role WHERE username = :username")
     void updateRoleByUsername(String username, UserRole role);
 
-    @Modifying
-    @Query("SELECT user_id FROM users WHERE username = :username")
+    @Query("SELECT id FROM users WHERE username = :username")
     Long findUserIdByUsername(String username);
 }

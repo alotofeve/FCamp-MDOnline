@@ -25,8 +25,8 @@ public class LectureController{
     }
 
     @PostMapping("/post-lecture")
-    public void postLecture(@RequestBody LectureBody lectureBody) {
-        lectureService.postLecture(lectureBody);
+    public void postLecture(@AuthenticationPrincipal User user, @RequestBody LectureBody lectureBody) {
+        lectureService.postLecture(doctorService.getUserId(user.getUsername()), lectureBody);
     }
     @GetMapping("/get-lecture-by-doctor")
     List<LectureEntity> getLectureByDoctor(@AuthenticationPrincipal User user) {
@@ -36,5 +36,4 @@ public class LectureController{
     void deleteLecture(Long lectureId){
         lectureService.deleteLecture(lectureId);
     }
-
 }

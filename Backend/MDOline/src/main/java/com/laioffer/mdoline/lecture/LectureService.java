@@ -17,10 +17,10 @@ public class LectureService {
     public LectureService(LectureRepository lectureRepository){
         this.lectureRepository = lectureRepository;
     }
-    public void postLecture(LectureBody lectureBody){
+    public void postLecture(Long doctorId, LectureBody lectureBody){
         LectureEntity lecture = new LectureEntity(
-                lectureBody.lectureId(),
-                lectureBody.doctorId(),
+                null,
+                doctorId,
                 lectureBody.title(),
                 lectureBody.body()
         );

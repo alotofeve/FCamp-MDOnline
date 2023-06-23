@@ -41,7 +41,8 @@ CREATE TABLE patients
 
 CREATE TABLE doctors
 (
-    doctor_ID INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    doctor_ID INT NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     gender VARCHAR(10) NOT NULL,
@@ -51,7 +52,7 @@ CREATE TABLE doctors
     spec VARCHAR(20) NOT NULL,
     mail_address VARCHAR(50) NOT NULL,
     license VARCHAR(50) NOT NULL,
-    available_time VARCHAR(100) NOT NULL
+    FOREIGN KEY (doctor_ID) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE lectures

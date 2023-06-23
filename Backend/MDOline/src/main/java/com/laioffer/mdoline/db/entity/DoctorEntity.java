@@ -5,7 +5,8 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("doctors")
 public record DoctorEntity(
-        @Id Long doctorId,
+        @Id Long id,
+        Long doctorId,
         String firstName,
         String lastName,
         String gender,
