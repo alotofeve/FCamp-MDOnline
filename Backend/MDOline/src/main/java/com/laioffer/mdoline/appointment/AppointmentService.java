@@ -59,11 +59,9 @@ public class AppointmentService {
     public List<AppointmentEntity> getAppointments(User user) {
         String username = user.getUsername();
         //System.out.println("USERNAME:---" + user.getUsername());
-        UserEntity entity = userRepository.findUserEntityByUsername(user.getUsername());
-        //System.out.println("ENTITY USERNAME:---" + entity.username());
-        UserRole role = entity.role();
+        UserRole role = userRepository.findRoleByUsername(username);
         Long userId = userRepository.findUserIdByUsername(username);
-        //role = UserRole.PATIENT;
+
         if (role == UserRole.DOCTOR) {
           //  System.out.println("AARIVE-----");
           //  System.out.println(userId);
