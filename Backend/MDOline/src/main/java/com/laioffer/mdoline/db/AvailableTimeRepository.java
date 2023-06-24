@@ -8,22 +8,21 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.util.List;
 
 public interface AvailableTimeRepository extends ListCrudRepository<AvailableTimeEntity, Long> {
-    AvailableTimeEntity findByDoctorIdAndTime(Long doctorId, String availableTime);
+    AvailableTimeEntity findByUserIdAndTime(Long userId, String availableTime);
 
     @Modifying
-    @Query("UPDATE available_times SET is_occupied = :isOccupied WHERE doctor_ID =:doctorId AND available_time =:time")
-    void setIsOccupiedByDoctorIdAndTime(Long doctorId, String time, Boolean isOccupied);
+    @Query("UPDATE available_times SET is_occupied = :isOccupied WHERE user_id = :user_Id AND time =:time")
+    void setIsOccupiedByDoctorIdAndTime(Long user_Id, String time, Boolean isOccupied);
 
     @Modifying
-    @Query("DELETE FROM available_times WHERE doctor_id= :doctorId AND available_time= :time")
-    void delete(Long doctorId, String time);
+    @Query("DELETE FROM available_times WHERE user_id = :user_Id AND time= :time")
+    void delete(Long user_Id, String time);
+
+    @Query("SELECT time FROM available_times WHERE user_Id = :user_Id")
+    List<String> findAllAvailableTimesByDoctorId(Long user_Id);
 
     @Modifying
-    @Query("SELECT time FROM available_times WHERE doctor_id = :doctorId")
-    List<String> findAllAvailableTimesByDoctorId(Long doctorId);
-
-    @Modifying
-    @Query("UPDATE available_times SET is_occupied = :isOccupied WHERE doctor_ID =:doctorId AND available_time =:timeslot")
-    void updateCertainAvailableTime(Long doctorId, String timeslot, Boolean isOccupied);
+    @Query("UPDATE available_times SET is_occupied = :isOccupied WHERE user_Id =:user_Id AND time =:timeslot")
+    void updateCertainAvailableTime(Long user_Id, String timeslot, Boolean isOccupied);
 
 }

@@ -2,10 +2,8 @@ package com.laioffer.mdoline.lecture;
 
 
 import com.laioffer.mdoline.db.LectureRepository;
-import com.laioffer.mdoline.db.entity.FavoriteEntity;
 import com.laioffer.mdoline.db.entity.LectureEntity;
 import com.laioffer.mdoline.model.LectureBody;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

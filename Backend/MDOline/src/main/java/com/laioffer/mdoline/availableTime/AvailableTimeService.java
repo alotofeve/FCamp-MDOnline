@@ -16,6 +16,11 @@ public class AvailableTimeService {
 
     private final UserService<DoctorEntity, RegisterDoctorBody> doctorService;
 
+    public AvailableTimeService(AvailableTimeRepository availableTimeRepository, DoctorService doctorService) {
+        this.availableTimeRepository = availableTimeRepository;
+        this.doctorService = doctorService;
+    }
+
     public void setAvailableTimes(String username, List<String> availableTimes) {
         for (String time : availableTimes) {
             AvailableTimeEntity availableTimeEntity = new AvailableTimeEntity(
@@ -28,30 +33,25 @@ public class AvailableTimeService {
         }
     }
 
-    public AvailableTimeService(AvailableTimeRepository availableTimeRepository, DoctorService doctorService) {
-        this.availableTimeRepository = availableTimeRepository;
-        this.doctorService = doctorService;
-    }
-
-    public void setCurrentCertainAvailableTime(String availableTime, Long doctorID, Boolean isOccupied) {
-        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByDoctorIdAndTime(doctorID, availableTime);
+    public void setCurrentCertainAvailableTime(String availableTime, Long userId, Boolean isOccupied) {
+        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByUserIdAndTime(userId, availableTime);
         if (availableTimeEntity != null) {
-            availableTimeRepository.setIsOccupiedByDoctorIdAndTime(doctorID, availableTime, isOccupied);
+            availableTimeRepository.setIsOccupiedByDoctorIdAndTime(userId, availableTime, isOccupied);
         }
     }
 
-    public void deleteCertainAvailableTime(String availableTime, Long doctorID) {
-        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByDoctorIdAndTime(doctorID, availableTime);
+    public void deleteCertainAvailableTime(String availableTime, Long userId) {
+        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByUserIdAndTime(userId, availableTime);
         if (availableTimeEntity != null) {
-            availableTimeRepository.delete(doctorID, availableTime);
+            availableTimeRepository.delete(userId, availableTime);
         }
     }
 
-    public void deleteCertainAvailableTime(String availableTime, String username) {
-        var doctorID = doctorService.getUserId(username);
-        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByDoctorIdAndTime(doctorID, availableTime);
+    public void deleteCertainAvailableTime(String username, String availableTime) {
+        var userId = doctorService.getUserId(username);
+        AvailableTimeEntity availableTimeEntity = availableTimeRepository.findByUserIdAndTime(userId, availableTime);
         if (availableTimeEntity != null) {
-            availableTimeRepository.delete(doctorID, availableTime);
+            availableTimeRepository.delete(userId, availableTime);
         }
     }
 
@@ -59,11 +59,11 @@ public class AvailableTimeService {
         return availableTimeRepository.findAllAvailableTimesByDoctorId(doctorService.getUserId(username));
     }
 
-    public List<String> getAllAvailableTimes(Long doctorID) {
-        return availableTimeRepository.findAllAvailableTimesByDoctorId(doctorID);
+    public List<String> getAllAvailableTimes(Long userId) {
+        return availableTimeRepository.findAllAvailableTimesByDoctorId(userId);
     }
 
-    public void updateCertainAvailableTime(String username, String timeSlot, boolean isAvailable) {
-        availableTimeRepository.updateCertainAvailableTime(doctorService.getUserId(username), timeSlot, isAvailable);
+    public void updateCertainAvailableTime(String username, String timeSlot, boolean isOccupied) {
+        availableTimeRepository.updateCertainAvailableTime(doctorService.getUserId(username), timeSlot, isOccupied);
     }
 }

@@ -6,11 +6,11 @@ public record RegisterDoctorBody(
         @JsonProperty("first_name") String firstName,
         @JsonProperty("last_name") String lastName,
         String gender,
-        String dateOfBirth,
+        @JsonProperty("date_of_birth") String dateOfBirth,
         String email,
         String phone,
         String spec,
-        String mailAddress,
+        @JsonProperty("mail_address") String mailAddress,
         String license
 ) {
 }

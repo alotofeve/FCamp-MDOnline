@@ -61,20 +61,18 @@ CREATE TABLE lectures
 (
     lecture_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     doctor_ID INT NOT NULL,
-    patient_ID INT NOT NULL,
     title VARCHAR(100) NOT NULL,
     body VARCHAR(500) NOT NULL,
-    FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
     FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
 );
 
  CREATE TABLE available_times
  (
     available_time_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    doctor_ID INT NOT NULL,
-    available_Time VARCHAR(100) NOT NULL,
+    user_Id INT NOT NULL,
+    time VARCHAR(100) NOT NULL,
     is_Occupied BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
+    FOREIGN KEY (user_Id) REFERENCES users(id) ON DELETE CASCADE
  );
 
 CREATE TABLE appointments
@@ -92,6 +90,7 @@ CREATE TABLE appointments
 
 CREATE TABLE favorites
 (
+    favorite_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     patient_ID INT NOT NULL,
     lecture_ID INT NOT NULL,
     FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,

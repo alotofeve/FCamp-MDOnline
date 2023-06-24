@@ -21,10 +21,11 @@ public class FavoriteService {
     public List<FavoriteEntity> getLectureByPatient(Long patientId) {
         return favoriteRepository.findAllByPatientId(patientId);
     }
-    public void favoriteLecture(FavoriteBody favoriteBody){
+    public void favoriteLecture(Long userId, Long lectureId){
         FavoriteEntity favoriteRecord = new FavoriteEntity(
-                favoriteBody.patientId(),
-                favoriteBody.lectureId()
+                null,
+                userId,
+                lectureId
         );
         favoriteRepository.save(favoriteRecord);
     }
