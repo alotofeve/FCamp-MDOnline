@@ -23,6 +23,7 @@ public class PatientService extends UserService<PatientEntity, RegisterPatientBo
 
     public void createUserProfile(String username, RegisterPatientBody body) {
         PatientEntity newPatient = new PatientEntity(
+                null,
                 super.getUserId(username),
                 body.firstName(),
                 body.lastName(),
@@ -38,7 +39,7 @@ public class PatientService extends UserService<PatientEntity, RegisterPatientBo
     }
 
     public PatientEntity getProfileByUsername(String username) {
-        return patientRepository.findByPatientsID(super.getUserId(username));
+        return patientRepository.findByPatientID(super.getUserId(username));
     }
 
     public  void updateProfile(String username, RegisterPatientBody body) {
@@ -57,7 +58,7 @@ public class PatientService extends UserService<PatientEntity, RegisterPatientBo
     }
 
     public void deleteProfile(String username) {
-        patientRepository.deleteByPatientsID(super.getUserId(username));
+        patientRepository.deleteByPatientID(super.getUserId(username));
     }
 }
 

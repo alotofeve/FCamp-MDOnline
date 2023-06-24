@@ -6,7 +6,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
 public interface PatientRepository extends ListCrudRepository<PatientEntity, Long> {
-    PatientEntity findByPatientsID(Long patientsID);
+    PatientEntity findByPatientID(Long patientID);
 
     @Modifying
     @Query("UPDATE patients " +
@@ -35,5 +35,5 @@ public interface PatientRepository extends ListCrudRepository<PatientEntity, Lon
 
     @Modifying
     @Query("DELETE FROM patients WHERE patient_ID = :patientId")
-    void deleteByPatientsID(Long patientId);
+    void deleteByPatientID(Long patientId);
 }

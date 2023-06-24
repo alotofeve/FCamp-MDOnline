@@ -27,7 +27,8 @@ CREATE TABLE authorities
 
 CREATE TABLE patients
 (
-    patient_ID INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    patient_ID INT NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     gender VARCHAR(10) NOT NULL,
@@ -36,7 +37,8 @@ CREATE TABLE patients
     email VARCHAR(50) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     mail_address VARCHAR(50) NOT NULL,
-    payment VARCHAR(50)
+    payment VARCHAR(50),
+    FOREIGN KEY (patient_ID) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE doctors
@@ -80,13 +82,11 @@ CREATE TABLE appointments
     appointment_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     patient_ID INT NOT NULL,
     doctor_ID INT NOT NULL,
-    available_time_ID INT NOT NULL,
     appointment_date VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
     is_ongoing BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (patient_ID) REFERENCES patients(patient_ID) ON DELETE CASCADE,
-    FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE,
-    FOREIGN KEY (available_time_ID) REFERENCES available_times(available_time_ID) ON DELETE CASCADE
+    FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
 );
 
 

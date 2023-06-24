@@ -1,9 +1,9 @@
 package com.laioffer.mdoline.appointment;
 
 import com.laioffer.mdoline.db.entity.AppointmentEntity;
-import com.laioffer.mdoline.db.entity.UserEntity;
+
 import com.laioffer.mdoline.model.AppointmentRequestBody;
-import com.laioffer.mdoline.user.UserService;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +14,10 @@ import java.util.List;
 public class AppointmentController {
     AppointmentService appointmentService;
 
+
     public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
+
     }
 
     @PostMapping("/appointment")
@@ -35,9 +37,8 @@ public class AppointmentController {
 
     @GetMapping("/appointments")
     public List<AppointmentEntity> getAppointments(@AuthenticationPrincipal User user) {
-//        UserEntity userEntity = userService.findByUserName(user.getUsername());
-//        return appointmentService.getAppointments(userEntity);
-        return null;
+            return appointmentService.getAppointments(user);
+
     }
 
 }

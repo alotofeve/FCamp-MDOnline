@@ -1,6 +1,7 @@
 package com.laioffer.mdoline.user;
 
 import com.laioffer.mdoline.db.UserRepository;
+import com.laioffer.mdoline.db.entity.UserEntity;
 import com.laioffer.mdoline.model.UserRole;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
