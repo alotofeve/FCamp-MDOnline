@@ -2,6 +2,7 @@ package com.laioffer.mdoline.search;
 
 import com.laioffer.mdoline.availableTime.AvailableTimeService;
 import com.laioffer.mdoline.db.entity.DoctorEntity;
+import com.laioffer.mdoline.model.RegisterAvailableTimeBody;
 import com.laioffer.mdoline.model.ResponseSearchBody;
 import com.laioffer.mdoline.user.DoctorService;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,9 @@ public class SearchService {
             ));
         }
         return response;
+    }
+
+    public List<String> getAllSpecs() {
+        return doctorService.getAllSpecs();
     }
 }

@@ -12,8 +12,10 @@ public interface UserRepository extends ListCrudRepository<UserEntity, Long> {
     @Modifying
     @Query("UPDATE users SET role = :role WHERE username = :username")
     void updateRoleByUsername(String username, UserRole role);
+
     @Query("SELECT id FROM users WHERE username = :username")
     Long findUserIdByUsername(String username);
+
     @Query("SELECT role FROM users WHERE username = :username")
     UserRole findRoleByUsername(String username);
 }

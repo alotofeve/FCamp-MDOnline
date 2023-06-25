@@ -16,7 +16,9 @@ public class SearchController {
     }
 
     @GetMapping("/search-doctor-by-name")
-    public ResponseSearchBody searchDoctorByName(@RequestParam("first_name") String firstName, @RequestParam("last_name") String lastName) {
+    public ResponseSearchBody searchDoctorByName(
+            @RequestParam("first_name") String firstName,
+            @RequestParam("last_name") String lastName) {
         return searchService.searchDoctorByName(firstName, lastName);
     }
     @GetMapping ("/search-doctor-by-spec")
@@ -26,5 +28,10 @@ public class SearchController {
     @GetMapping ("/search-doctor-by-all")
     public List<ResponseSearchBody> searchDoctorByAll() {
         return searchService.searchDoctorByAll();
+    }
+
+    @GetMapping("/get-all-specs")
+    public List<String> getAllSpecs(){
+        return searchService.getAllSpecs();
     }
 }

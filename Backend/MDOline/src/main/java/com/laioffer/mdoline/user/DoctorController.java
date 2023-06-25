@@ -31,7 +31,8 @@ public class DoctorController {
     @PostMapping("/register-doctor")
     @ResponseStatus(value = HttpStatus.OK)
     public void registerDoctor(@RequestBody RegisterUserCredentialBody credentialBody) {
-        doctorService.register(credentialBody.username(), credentialBody.password(), UserRole.DOCTOR);
+        doctorService.
+                register(credentialBody.username(), credentialBody.password(), UserRole.DOCTOR);
     }
 
     /**
@@ -41,7 +42,8 @@ public class DoctorController {
      */
     @PostMapping("set-doctor-profile")
     @ResponseStatus(value = HttpStatus.OK)
-    public void setDoctorProfile(@AuthenticationPrincipal User user, @RequestBody RegisterDoctorBody body){
+    public void setDoctorProfile(
+            @AuthenticationPrincipal User user, @RequestBody RegisterDoctorBody body){
         doctorService.createUserProfile(user.getUsername(), body);
     }
 
@@ -62,7 +64,8 @@ public class DoctorController {
      */
     @PutMapping("/update-doctor-profile")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateDoctorProfile(@AuthenticationPrincipal User user, @RequestBody RegisterDoctorBody body){
+    public void updateDoctorProfile(
+            @AuthenticationPrincipal User user, @RequestBody RegisterDoctorBody body){
         doctorService.updateProfile(user.getUsername(), body);
     }
 

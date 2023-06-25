@@ -1,8 +1,9 @@
 package com.laioffer.mdoline.model;
 
-public record AppointmentRequestBody( Long patientId,
-                                      Long doctorId,
-                                      String appointmentDate,
-                                      String description,
-                                      Boolean isOngoing) {
+public record AppointmentRequestBody(
+        Long doctorId,
+        String appointmentDate,
+        String appointmentTime,
+        String description,
+        Boolean isOngoing) {
 }

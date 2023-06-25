@@ -79,6 +79,10 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
     public List<DoctorEntity> getAllDoctors() {
         return doctorRepository.findAll();
     }
+
+    public List<String> getAllSpecs() {
+        return doctorRepository.findAllSpecs();
+    }
 }
 
 

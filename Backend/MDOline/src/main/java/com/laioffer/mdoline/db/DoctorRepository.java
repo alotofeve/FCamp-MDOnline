@@ -44,6 +44,9 @@ public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long>
 
     @Query("SELECT * FROM doctors WHERE spec = :spec")
     List<DoctorEntity> findBySpec(String spec);
+
+    @Query("SELECT DISTINCT spec FROM doctors")
+    List<String> findAllSpecs();
 }
 
 

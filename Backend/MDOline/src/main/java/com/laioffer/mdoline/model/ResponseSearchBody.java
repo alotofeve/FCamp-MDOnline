@@ -6,6 +6,6 @@ public record ResponseSearchBody(
         String firstName,
         String lastName,
         String spec,
-        List<String> availableTimes
+        List<RegisterAvailableTimeBody> availables
 ) {
 }

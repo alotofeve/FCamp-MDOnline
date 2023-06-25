@@ -1,5 +1,7 @@
 package com.laioffer.mdoline.availableTime;
 
+import com.laioffer.mdoline.model.RegisterAvailableTimeBody;
+import com.laioffer.mdoline.model.RegisterDoctorBody;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,8 +24,10 @@ public class AvailableTimesController {
      */
     @PostMapping("/set-available-times")
     @ResponseStatus(value = HttpStatus.OK)
-    public void setAvailableTimes(@AuthenticationPrincipal User user, @RequestBody List<String> availableTimes){
-        availableTimeService.setAvailableTimes(user.getUsername(), availableTimes);
+    public void setAvailableTimes(
+            @AuthenticationPrincipal User user,
+            @RequestBody List<RegisterAvailableTimeBody> body){
+        availableTimeService.setAvailableTimes(user.getUsername(), body);
     }
 
     /**
@@ -31,8 +35,10 @@ public class AvailableTimesController {
      * @param user a user object contains the information of a doctor in order to locate the doctor in the database
      * @return a list of string, each string represents a time slot
      */
+
     @GetMapping("/get-all-available-times")
-    public List<String> getAllAvailableTimes(@AuthenticationPrincipal User user){
+    public List<RegisterAvailableTimeBody> getAllAvailableTimes(
+            @AuthenticationPrincipal User user){
         return availableTimeService.getAllAvailableTimes(user.getUsername());
     }
 
@@ -44,8 +50,11 @@ public class AvailableTimesController {
      */
     @PutMapping("/update-certain-available-time")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("time_slot") String timeSlot, @RequestParam("is_occupied") boolean isOccupied){
-        availableTimeService.updateCertainAvailableTime(user.getUsername(), timeSlot, isOccupied);
+    public void updateCertainAvailableTime(
+            @AuthenticationPrincipal User user,
+            @RequestBody RegisterAvailableTimeBody body,
+            @RequestParam("is_occupied") boolean isOccupied){
+        availableTimeService.updateCertainAvailableTime(user.getUsername(), body, isOccupied);
     }
 
     /**
@@ -55,7 +64,10 @@ public class AvailableTimesController {
      */
     @DeleteMapping("/delete-certain-available-time")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCertainAvailableTime(@AuthenticationPrincipal User user, @RequestParam("time_slot") String timeSlot){
-        availableTimeService.deleteCertainAvailableTime(user.getUsername(), timeSlot);
+    public void deleteCertainAvailableTime(
+            @AuthenticationPrincipal User user,
+            @RequestBody RegisterAvailableTimeBody body){
+        availableTimeService.
+                deleteCertainAvailableTime(user.getUsername(), body.date(), body.time());
     }
 }

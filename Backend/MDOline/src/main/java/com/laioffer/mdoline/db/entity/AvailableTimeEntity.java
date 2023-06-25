@@ -8,6 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public record AvailableTimeEntity(
         @Id Long availableTimeId,
         Long userId,
+        String date,
         String time,
         Boolean isOccupied
 ){

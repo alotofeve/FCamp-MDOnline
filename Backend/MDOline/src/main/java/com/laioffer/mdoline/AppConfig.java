@@ -47,7 +47,11 @@ public class AppConfig {
                                         "/register-doctor",
                                         "/register-patient",
                                         "/logout").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/search-doctor-by-name", "/search-doctor-by-spec", "/search-doctor-by-all").permitAll()
+                                .requestMatchers(HttpMethod.GET,
+                                        "/search-doctor-by-name",
+                                        "/search-doctor-by-spec",
+                                        "/search-doctor-by-all",
+                                        "/get-all-specs").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling()

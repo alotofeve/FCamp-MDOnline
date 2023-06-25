@@ -16,11 +16,23 @@ AppointmentRepository extends ListCrudRepository<AppointmentEntity, Long> {
     AppointmentEntity findByPatientIdAndAppointmentId(Long patientId, Long appointmentId);
 
     @Modifying
-    @Query("DELETE FROM appointments WHERE appointment_date = :appointmentDate AND doctor_ID = :doctorId")
-    void delete(String appointmentDate, Long doctorId);
+    @Query("DELETE FROM " +
+            "appointments WHERE " +
+            "appointment_date = :appointmentDate AND " +
+            "appointment_time = :appointmentTime AND " +
+            " doctor_ID = :doctorId")
+    void delete(String appointmentDate, String availableTime, Long doctorId);
 
     @Modifying
-    @Query("UPDATE appointments SET is_ongoing = :isOngoing WHERE appointment_date = :appointmentDate AND doctor_ID = :doctorId")
-    void updateIsOngoingByAppointmentDateAndDoctorId(String appointmentDate, Long doctorId, Boolean isOngoing);
+    @Query("UPDATE appointments SET " +
+            "is_ongoing = :isOngoing WHERE " +
+            "appointment_date = :appointmentDate AND " +
+            "appointment_time = :appointmentTime AND " +
+            "doctor_ID = :doctorId")
+    void updateIsOngoingByAppointmentDateAndDoctorId(
+            String appointmentDate,
+            String appointmentTime,
+            Long doctorId,
+            Boolean isOngoing);
 
 }

@@ -17,43 +17,50 @@ import java.util.List;
 import org.springframework.security.core.userdetails.User;
 @Service
 public class AppointmentService {
-    AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final UserRepository userRepository;
+    private final AvailableTimeService availableTimeService;
 
-    UserRepository userRepository;
-
-    AvailableTimeService availableTimeService;
-
-    public AppointmentService(AppointmentRepository appointmentRepository,
-                              AvailableTimeService availableTimeService,
-                              UserRepository userRepository) {
+    public AppointmentService(
+            AppointmentRepository appointmentRepository,
+            AvailableTimeService availableTimeService,
+            UserRepository userRepository) {
         this.appointmentRepository = appointmentRepository;
         this.availableTimeService = availableTimeService;
         this.userRepository = userRepository;
     }
-    public void createAppointment(AppointmentRequestBody body) {
-
-        //call doctorService to update isOccupied field of the availabletime record with
-        // the specific availabletimeId to true
-        //availableTimeService.setCurrentCertainAvailableTime(body.appointmentDate(), body.doctorId(), true);
+    public void createAppointment(Long userId, AppointmentRequestBody body) {
+        availableTimeService.setCurrentCertainAvailableTime(
+                body.appointmentDate(),
+                body.appointmentTime(),
+                body.doctorId(),
+                true);
         AppointmentEntity appointment =
-                new AppointmentEntity(null, body.patientId(), body.doctorId(),
-                        body.appointmentDate(), body.description(), body.isOngoing());
+                new AppointmentEntity(
+                        null,
+                        userId,
+                        body.doctorId(),
+                        body.appointmentDate(),
+                        body.appointmentTime(),
+                        body.description(),
+                        body.isOngoing());
         appointmentRepository.save(appointment);
     }
 
-    public void cancelAppointment(String appointmentDate, Long doctorId) {
-        //call doctorService to update isOccupied field of the availabletime record with
-        // the specific availabletimeId to false
-        //availableTimeService.setCurrentCertainAvailableTime(appointmentDate, doctorId, false);
-        appointmentRepository.delete(appointmentDate, doctorId);
+    public void cancelAppointment(Long doctorId, String appointmentDate, String appointmentTime) {
+        availableTimeService.
+                setCurrentCertainAvailableTime(
+                        appointmentDate, appointmentTime, doctorId, false);
+        appointmentRepository.delete(appointmentDate, appointmentTime, doctorId);
     }
     @Transactional
-    public void updateIsOngoing(String appointmentDate, Long doctorId) {
+    public void updateIsOngoing(Long doctorId, String appointmentDate, String appointmentTime) {
         Boolean isOnGoing = false;
-        appointmentRepository.updateIsOngoingByAppointmentDateAndDoctorId(appointmentDate, doctorId, isOnGoing);
-
-        //call doctor service to delete the availabletime record with the specific availabletimeId
-        //availableTimeService.deleteCertainAvailableTime(appointmentDate, doctorId);
+        appointmentRepository.
+                updateIsOngoingByAppointmentDateAndDoctorId(
+                        appointmentDate, appointmentTime, doctorId, isOnGoing);
+        availableTimeService.
+                deleteCertainAvailableTime(doctorId, appointmentDate, appointmentTime);
     }
 
     public List<AppointmentEntity> getAppointments(User user) {
