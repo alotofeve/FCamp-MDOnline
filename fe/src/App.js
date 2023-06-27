@@ -6,6 +6,7 @@ import React, {useState}from 'react';
 import LoginPage from './components/Login';
 import MainPage from './components/MainPage';
 import PageHeader from './components/Header';
+import { BrowserRouter } from 'react-router-dom';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,
