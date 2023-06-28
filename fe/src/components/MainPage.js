@@ -1,7 +1,7 @@
-import React, {Link}from 'react';
+import React from 'react';
 import { Breadcrumb, Layout, Menu, Button,Divider, List, Typography } from 'antd';
-// import Link from 'antd/lib/typography/Link';
-import SearchDoctor from './SearchDoctor';
+import SearchPage from './SearchPage';
+// import { Link, Route, BrowserRouter, Routes } from "react-router-dom";
 const { Header, Content } = Layout;
 function MainPage(){
     const data = [
@@ -10,7 +10,17 @@ function MainPage(){
         'Australian walks 100km after outback crash.',
         'Man charged over missing wedding girl.',
         'Los Angeles battles huge wildfires.',
-      ];
+    ];
+    const handleDoctor = () =>{
+        // return(
+        //     <BrowserRouter>
+        //         <Routes>
+        //             {/* <Route path="/" element={<Button type="primary" shape="round"><Link to="/SearchPage">See a doctor</Link></Button>}></Route> */}
+        //             <Route path="SearchPage" element={<SearchPage />}></Route>
+        //         </Routes>
+        //     </BrowserRouter>
+        // )
+    }
     return (
         <Content
             style={{
@@ -20,12 +30,8 @@ function MainPage(){
             }}
           >
             <div style={{height: '300px',}}>
-                <Button type="primary" shape="round">Chat with bot</Button>
-                <Button type="primary" shape="round">See a doctor</Button>
-                {/* <Link to="./SearchDoctor">
-                    <Button type="primary" shape="round">See a doctor</Button>
-                </Link> */}
-                
+                {/* <Button type="primary" shape="round">Chat with bot</Button>
+                <Button type="primary" shape="round" onClick={handleDoctor}>See a doctor</Button>  */}
             </div>
             <div>
                 <List

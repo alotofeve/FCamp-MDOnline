@@ -6,7 +6,7 @@ import React, {useState}from 'react';
 import LoginPage from './components/Login';
 import MainPage from './components/MainPage';
 import PageHeader from './components/Header';
-import { BrowserRouter } from 'react-router-dom';
+import SearchPage from './components/SearchPage';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,
@@ -29,6 +29,8 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
 });
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const[buttonState, setButtonState] = useState(true)
+  const [pageState, setPageState] = useState('');
   const signinOnSuccess = () => {
     console.log("sign in")
   }
@@ -38,9 +40,28 @@ function App() {
   const handleLogin = () => {
     return (<LoginPage/>);
   }
+  const showButton = () => {
+    if (buttonState) {
+      return(
+        <div>
+          <Button type="primary" shape="round">Chat with bot</Button>
+          <Button type="primary" shape="round" onClick={searchDoctor}>See a doctor</Button> 
+        </div>
+      )
+    }
+  }
   const renderContent = () => {
-    console.log("click");
-    return <MainPage />;
+    if (pageState === "search") {
+      return <SearchPage />
+    }
+    else{
+      return <MainPage />;
+    }
+    
+  }
+  const searchDoctor = () => {
+    setPageState("search")
+    setButtonState(false)
   }
   // const {
   //   token: { colorBgContainer },
@@ -68,7 +89,7 @@ function App() {
           padding: '0 50px',
         }}
       >
-        <Breadcrumb
+        {/* <Breadcrumb
           style={{
             margin: '16px 0',
           }}
@@ -76,7 +97,7 @@ function App() {
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>List</Breadcrumb.Item>
           <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
+        </Breadcrumb> */}
         <Layout
           style={{
             padding: '24px 0',
@@ -90,6 +111,7 @@ function App() {
               // height: 100%
             }}
           >
+            {showButton()}
             {renderContent()}
             {/* <Button type="primary" shape="round" onClick={renderContent}>See a doctor</Button> */}
           </Content>

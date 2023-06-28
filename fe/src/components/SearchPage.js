@@ -3,7 +3,7 @@ import { Dropdown, Layout, Button, message, Menu, Form, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { DepartmentItems, DoctorItems } from "./Items";
-
+import { Link, Route, Switch } from "react-router-dom";
 
 const { Header, Content } = Layout;
 
@@ -30,41 +30,41 @@ const SearchPage = () => {
   }, []);
 
   const searchByAll = async() => {
-    setLoading(true)
-    try {
-      const response = await searchDoctorByAll();
-      setDoctors(response || []);
-    } catch (error) {
-      message.error(error.message);
-    } finally {
-      setLoading(false);
-    }
+    // setLoading(true)
+    // try {
+    //   const response = await searchDoctorByAll();
+    //   setDoctors(response || []);
+    // } catch (error) {
+    //   message.error(error.message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const searchByName = async(query) => {
-    setLoading(true);
-    try {
-      const response = await searchDoctorByName(query);
-      setDoctors(response || []);
-      setSearched(true);
-    } catch (error) {
-      message.error(error.message);
-    } finally {
-      setLoading(false);
-    }
+    // setLoading(true);
+    // try {
+    //   const response = await searchDoctorByName(query);
+    //   setDoctors(response || []);
+    //   setSearched(true);
+    // } catch (error) {
+    //   message.error(error.message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const searchBySpec = async(query) => {
-    setLoading(true)
-    try {
-      const response = await searchDoctorBySpec(query);
-      setDoctors(response || []);
-      setSearched(true);
-    } catch (error) {
-      message.error(error.message);
-    } finally {
-      setLoading(false);
-    }
+    // setLoading(true)
+    // try {
+    //   const response = await searchDoctorBySpec(query);
+    //   setDoctors(response || []);
+    //   setSearched(true);
+    // } catch (error) {
+    //   message.error(error.message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const userMenu = (
@@ -81,7 +81,7 @@ const SearchPage = () => {
 
   return(
       <Layout style={{ height: "100vh" }}>
-      <Header style={{ position: "sticky", top: 0, zIndex: 100, display: "flex", justifyContent: "space-between", backgroundColor: "#7dbcea" }}> 
+      {/* <Header style={{ position: "sticky", top: 0, zIndex: 100, display: "flex", justifyContent: "space-between", backgroundColor: "#7dbcea" }}> 
       <div style={{ fontSize: 16, fontWeight: 600, color: "white"}}>
         SearchPage
       </div>
@@ -92,7 +92,7 @@ const SearchPage = () => {
               </Dropdown>
           </div>
       )}
-      </Header>
+      </Header> */}
       <Content style={{ height: "calc(100% - 64px)", overflow: "auto", padding: "15px"}}>
         <Layout style={{ padding: '10px', minHeight: "584px"}}>
           <div style={{display: "flex", justifyContent: "center"}}>
