@@ -1,13 +1,27 @@
 import React, {useState} from 'react';
 import Login from './Login';
 import Register from './Register';
-import { Layout, Row, Col, Button } from 'antd';
+import renderContent from '../App';
+import { Layout, Row, Col, Button, Dropdown, Menu } from 'antd';
+import { UserOutlined } from "@ant-design/icons";
 import styles from "../styles.js";
 const { Header, Content } = Layout;
 
 function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess}){
     const [loginState] = useState(false);
-
+    const showProfile = () => {
+        renderContent("profile")
+    }
+    const userMenu = (
+        <Menu>
+          <Menu.Item key="logout">
+            Log out 
+          </Menu.Item>
+          {/* <Menu.Item key="profile" onClick={showProfile}>
+            My profile 
+          </Menu.Item> */}
+        </Menu>
+    )
     return (
         // <Header
         //     style={{
@@ -33,7 +47,14 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess}){
                     </div>
                 </Col>
                 <Col>
-                    {loggedIn && <Button shape="round" onClick={signoutOnClick}>Logout</Button>}
+                    {/* {loggedIn && <Button shape="round" onClick={signoutOnClick}>Logout</Button>} */}
+                    {loggedIn && (
+                        <div>
+                            <Dropdown trigger="click" overlay={userMenu}>
+                                <Button icon={<UserOutlined />} shape="circle" />
+                            </Dropdown>
+                        </div>
+                    )}
                     {!loggedIn && (
                         <>
                             <Login onSuccess={signinOnSuccess}/>

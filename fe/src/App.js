@@ -7,6 +7,7 @@ import LoginPage from './components/Login';
 import MainPage from './components/MainPage';
 import PageHeader from './components/Header';
 import SearchPage from './components/SearchPage';
+import DoctorProfile from './components/DoctorProfile';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,
@@ -28,7 +29,7 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
   };
 });
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const[buttonState, setButtonState] = useState(true)
   const [pageState, setPageState] = useState('');
   const signinOnSuccess = () => {
@@ -50,9 +51,12 @@ function App() {
       )
     }
   }
-  const renderContent = () => {
+  const renderContent = (pageState) => {
     if (pageState === "search") {
       return <SearchPage />
+    }
+    if (pageState === "profile") {
+      return <DoctorProfile />
     }
     else{
       return <MainPage />;
@@ -112,7 +116,7 @@ function App() {
             }}
           >
             {showButton()}
-            {renderContent()}
+            {renderContent(pageState)}
             {/* <Button type="primary" shape="round" onClick={renderContent}>See a doctor</Button> */}
           </Content>
         </Layout>
