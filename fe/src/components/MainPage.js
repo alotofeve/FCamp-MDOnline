@@ -11,16 +11,6 @@ function MainPage(){
         'Man charged over missing wedding girl.',
         'Los Angeles battles huge wildfires.',
     ];
-    const handleDoctor = () =>{
-        // return(
-        //     <BrowserRouter>
-        //         <Routes>
-        //             {/* <Route path="/" element={<Button type="primary" shape="round"><Link to="/SearchPage">See a doctor</Link></Button>}></Route> */}
-        //             <Route path="SearchPage" element={<SearchPage />}></Route>
-        //         </Routes>
-        //     </BrowserRouter>
-        // )
-    }
     return (
         <Content
             style={{
