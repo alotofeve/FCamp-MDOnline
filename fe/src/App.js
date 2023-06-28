@@ -51,6 +51,10 @@ function App() {
       )
     }
   }
+  const showProfile = () => {
+    setPageState("profile");
+    setButtonState(false)
+  }
   const renderContent = (pageState) => {
     if (pageState === "search") {
       return <SearchPage />
@@ -86,6 +90,7 @@ function App() {
               loggedIn={loggedIn}
               signoutOnClick={signoutOnClick}
               signinOnSuccess={signinOnSuccess}
+              showProfile = {showProfile}
           />
         </Header>
       <Content

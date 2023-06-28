@@ -7,19 +7,19 @@ import { UserOutlined } from "@ant-design/icons";
 import styles from "../styles.js";
 const { Header, Content } = Layout;
 
-function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess}){
+function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,showProfile}){
     const [loginState] = useState(false);
-    const showProfile = () => {
-        renderContent("profile")
+    const handleProfile = () => {
+        showProfile()
     }
     const userMenu = (
         <Menu>
           <Menu.Item key="logout">
             Log out 
           </Menu.Item>
-          {/* <Menu.Item key="profile" onClick={showProfile}>
+          <Menu.Item key="profile" onClick={handleProfile}>
             My profile 
-          </Menu.Item> */}
+          </Menu.Item>
         </Menu>
     )
     return (
