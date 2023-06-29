@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Select } from 'antd';
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { register } from '../utils';
+import { login, registerPatient, setPatientProfile, registerDoctor, setDoctorProfile } from '../utils';
 const { Option } = Select;
 function Register() {
     const [displayDoctorModal, setDisplayDoctorModal] = useState(false)
@@ -38,8 +38,33 @@ function Register() {
         setSelectRole(event)
     }
     
-    const onFinish = (data) => {
-        register(data)
+    const finishDoctorRegister = (data) => {
+        const registerData = {"username": data.username, "password":data.password}
+        const profileData = {"first_name": data.first_name, "last_name":data.last_name,
+                             "gender": data.gender, "date_of_birth": data.date_of_birth,
+                             "email": data.email, "phone": data.phone, "spec": data.spec,
+                             "mail_address": data.mail_address, "licence": data.licence}
+        registerDoctor(registerData)
+            .then(() => {
+                console.log("register doctor")
+                setDisplayDoctorModal(false)
+                setDisplayPatientModal(false)
+                // message.success('Successfully signed up');
+                login(registerData).then(()=>{
+                    console.log("log in")
+                    setDoctorProfile(profileData)
+                        .then(() => {
+                            message.success('Successfully signed up');
+                        })
+                })
+            }).catch((err) => {
+            message.error(err.message);
+        })
+    }
+
+    const finishPatientRegister = (data) => {
+        // console.log(data)
+        registerPatient(data)
             .then(() => {
                 setDisplayDoctorModal(false)
                 setDisplayPatientModal(false)
@@ -48,7 +73,6 @@ function Register() {
             message.error(err.message);
         })
     }
-
 
     return (
         <>
@@ -85,7 +109,7 @@ function Register() {
                 <Form
                     name="normal_register"
                     initialValues={{ remember: true }}
-                    onFinish={onFinish}
+                    onFinish={finishDoctorRegister}
                     preserve={false}
                 >
                     <Form.Item
@@ -191,7 +215,7 @@ function Register() {
                 <Form
                     name="normal_register"
                     initialValues={{ remember: true }}
-                    onFinish={onFinish}
+                    onFinish={finishPatientRegister}
                     preserve={false}
                 >
                     <Form.Item

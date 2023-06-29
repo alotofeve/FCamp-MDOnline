@@ -29,11 +29,11 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
   };
 });
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const[buttonState, setButtonState] = useState(true)
   const [pageState, setPageState] = useState('');
   const signinOnSuccess = () => {
-    console.log("sign in")
+    setLoggedIn(true);
   }
   const signoutOnClick = () => {
     
@@ -76,15 +76,6 @@ function App() {
   // } = theme.useToken();
   return (
     <Layout>
-      {/* <Header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <div className="demo-logo" />
-        <Button type="primary" shape="round" onClick={handleLogin}>Log in</Button>
-      </Header> */}
       <Header>
           <PageHeader
               loggedIn={loggedIn}
