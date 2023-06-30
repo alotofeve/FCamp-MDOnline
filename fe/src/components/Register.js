@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { login, registerPatient, setPatientProfile, registerDoctor, setDoctorProfile } from '../utils';
 const { Option } = Select;
-function Register({ onSuccess }) {
+function Register({ onSuccess, closeReminder }) {
     const [displayDoctorModal, setDisplayDoctorModal] = useState(false)
     const [displayPatientModal, setDisplayPatientModal] = useState(false)
     const [RoleSelectModal, setRoleSelectModal] = useState(false)
@@ -50,6 +50,7 @@ function Register({ onSuccess }) {
                 console.log("register doctor")
                 setDisplayDoctorModal(false)
                 setDisplayPatientModal(false)
+                closeReminder()
                 // message.success('Successfully signed up');
                 login(registerData).then(()=>{
                     console.log("log in")
@@ -73,9 +74,10 @@ function Register({ onSuccess }) {
                              "mail_address": data.mail_address}
         registerPatient(registerData)
             .then(() => {
-                console.log("register doctor")
+                console.log("register patient")
                 setDisplayDoctorModal(false)
                 setDisplayPatientModal(false)
+                closeReminder()
                 // message.success('Successfully signed up');
                 login(registerData).then(()=>{
                     console.log("log in")

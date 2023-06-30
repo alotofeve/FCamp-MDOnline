@@ -1,9 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Button,message} from 'antd';
+import { Breadcrumb, Layout, Menu, Button, message, Modal} from 'antd';
 import React, {useState}from 'react';
-import LoginPage from './components/Login';
+import Login from './components/Login';
+import Register from './components/Register';
 import MainPage from './components/MainPage';
 import PageHeader from './components/Header';
 import SearchPage from './components/SearchPage';
@@ -33,6 +34,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const[buttonState, setButtonState] = useState(true)
   const [pageState, setPageState] = useState('');
+  const [loginReminder, setLoginReminder] = useState(false);
   const signinOnSuccess = () => {
     setLoggedIn(true);
   }
@@ -43,9 +45,9 @@ function App() {
     }).catch((err) => {
         message.error(err.message)
     })
-}
-  const handleLogin = () => {
-    return (<LoginPage/>);
+  }
+  const handleCancel = () => {
+    setLoginReminder(false);
   }
   const showButton = () => {
     if (buttonState) {
@@ -74,12 +76,16 @@ function App() {
     
   }
   const searchDoctor = () => {
-    setPageState("search")
-    setButtonState(false)
+    if (!loggedIn) {
+      setLoginReminder(true);
+    }else{
+      setPageState("search")
+      setButtonState(false)
+    }
   }
-  // const {
-  //   token: { colorBgContainer },
-  // } = theme.useToken();
+  const closeReminder = () => {
+    setLoginReminder(false);
+  }
   return (
     <Layout>
       <Header>
@@ -117,6 +123,22 @@ function App() {
               // height: 100%
             }}
           >
+            <Modal 
+              title="Login Required"
+              visible={loginReminder}
+              onCancel={handleCancel}
+              footer={null}
+              destroyOnClose={true}
+            >
+              <p>You need to log in before using this function</p>
+              <div style={{height:'20px'}}>
+                  
+              </div> 
+              <div>
+              <Login onSuccess={signinOnSuccess} closeReminder={closeReminder}/>
+              <Register onSuccess={signinOnSuccess} closeReminder={closeReminder}/>
+              </div> 
+            </Modal>
             {showButton()}
             {renderContent(pageState)}
             {/* <Button type="primary" shape="round" onClick={renderContent}>See a doctor</Button> */}

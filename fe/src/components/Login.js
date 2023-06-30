@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { login } from '../utils'
 const { Option } = Select;
-function Login({ onSuccess }) {
+function Login({ onSuccess, closeReminder }) {
     const [displayModal, setDisplayModal] = useState(false)
     const handleCancel = () => {
         setDisplayModal(false)
@@ -17,6 +17,7 @@ function Login({ onSuccess }) {
         login(data)
             .then(() => {
                 setDisplayModal(false)
+                closeReminder()
                 message.success(`Welcome back`)
                 onSuccess()
             }).catch((err) => {
