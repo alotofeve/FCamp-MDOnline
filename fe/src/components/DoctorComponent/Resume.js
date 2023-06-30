@@ -1,23 +1,25 @@
 
-import { Card, Image, List, Skeleton } from "antd";
+import { Card, Image, List, Skeleton, message } from "antd";
+import { getDoctorInfo } from "../../utils";
+import { useState, useEffect } from "react";
 
 const { Meta } = Card;
 
 const Resume = () => {
-    const data = [
-        {
-            title: "gender"
-        },
-        {
-            title: "email"
-        },
-        {
-            title: "phone"
-        },
-        {
-            title: "doctor license"
+    const [doctorInfo, setDoctorInfo] = useState([]);
+
+    useEffect(async() => {
+        try {
+            const data = getDoctorInfo();
+            setDoctorInfo(data || []);
+        } catch (error) {
+            message.error(error.message);
         }
-    ]
+    })
+
+
+    const fields = ["Gender", "Email", "Phone", "license"]
+
     return (
         <>
         <Card 
@@ -33,18 +35,18 @@ const Resume = () => {
 
             <Meta
             style={{textAlign: "center", padding: 15}}
-            title="Doctor Name"
-            description="description" 
+            title={doctorInfo.lastName}
+            description={doctorInfo.spec} 
             />
         </Card>
         <List 
             itemLayout="horizontal"
-            dataSource={data}
-            renderItem={(item, idnex) => (
+            dataSource={fields}
+            renderItem={(field) => (
                 <List.Item>
                     <List.Item.Meta 
-                        title={item.title}
-                        description="TBD"
+                        title={field}
+                        description={doctorInfo[field]}
                     />
                 </List.Item>
             )}
