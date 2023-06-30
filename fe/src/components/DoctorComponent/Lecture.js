@@ -1,23 +1,37 @@
-import { Tabs } from "antd";
+import { Tabs, message, List} from "antd";
+import { useEffect, useState } from "react";
+import { getLecture } from "../../utils";
 
 const Lecture = () => {
-    const onChange = (key) => {
-        console.log(key);
-    };
-    const items = [
-        {
-            key: '1',
-            label: 'Lecture',
-            children: 'Content of Lecture'
-        },
-        {
-            key: '2',
-            label: 'Information',
-            children: 'Content of Information'
+    const [lecture, setLecture] = useState([]);
+    const [loading, setLoading] = useState(false);
+    useEffect(async() => {
+        setLoading(true);
+        try {
+            const data = await getLecture();
+            setLecture(data || []);
+        } catch (error) {
+            message.error(error.message)
+        } finally {
+            setLoading(false);
         }
-    ]
+    })
     return (
-        <Tabs defaultActiveKey="1" items={items} onChange={onChange} type='card' />
-    );
+    <>
+        <h1>Lecture</h1>
+        <List
+        itemLayout='horizontal'
+        dataSource={lecture}
+        renderItem={(item) => (
+            <List.Item>
+                <List.Item.Meta
+                    title={item.lectureTitle}
+                    description={item.lectureDescription}
+                />
+            </List.Item>
+        )}
+    />
+    </>
+    )
 }
 export default Lecture;
