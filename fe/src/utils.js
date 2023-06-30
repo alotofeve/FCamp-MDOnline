@@ -29,6 +29,18 @@ export const login = (credential) => {
   })
 };
 
+const logoutUrl = `${domain}/logout`;
+export const logout = () => {
+    return fetch(logoutUrl, {
+        method: 'POST',
+        credentials: 'include',
+    }).then((response) => {
+        if (response.status !== 204) {
+            throw Error('Fail to log out');
+        }
+    })
+};
+
 export const registerPatient = (credential) => {
   const registerUrl = `${domain}/register-patient`;
   return fetch(registerUrl, {

@@ -1,13 +1,14 @@
-import { Button, Form, Input, message, Modal, Select } from 'antd';
+import { Button, Form, Input, message, Modal, Select, Radio } from 'antd';
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { login, registerPatient, setPatientProfile, registerDoctor, setDoctorProfile } from '../utils';
 const { Option } = Select;
-function Register() {
+function Register({ onSuccess }) {
     const [displayDoctorModal, setDisplayDoctorModal] = useState(false)
     const [displayPatientModal, setDisplayPatientModal] = useState(false)
     const [RoleSelectModal, setRoleSelectModal] = useState(false)
     const [selectRole, setSelectRole] = useState('')
+    const [value, setValue] = useState("");
     const handleCancel = () => {
         if (displayDoctorModal) {
             setDisplayDoctorModal(false)
@@ -43,7 +44,7 @@ function Register() {
         const profileData = {"first_name": data.first_name, "last_name":data.last_name,
                              "gender": data.gender, "date_of_birth": data.date_of_birth,
                              "email": data.email, "phone": data.phone, "spec": data.spec,
-                             "mail_address": data.mail_address, "licence": data.licence}
+                             "mail_address": data.mail_address, "license": data.license}
         registerDoctor(registerData)
             .then(() => {
                 console.log("register doctor")
@@ -55,6 +56,7 @@ function Register() {
                     setDoctorProfile(profileData)
                         .then(() => {
                             message.success('Successfully signed up');
+                            { onSuccess() }
                         })
                 })
             }).catch((err) => {
@@ -64,11 +66,25 @@ function Register() {
 
     const finishPatientRegister = (data) => {
         // console.log(data)
-        registerPatient(data)
+        const registerData = {"username": data.username, "password":data.password}
+        const profileData = {"first_name": data.first_name, "last_name":data.last_name,
+                             "gender": data.gender, "date_of_birth": data.date_of_birth,
+                             "email": data.email, "phone": data.phone, "insurance": data.insurance,
+                             "mail_address": data.mail_address}
+        registerPatient(registerData)
             .then(() => {
+                console.log("register doctor")
                 setDisplayDoctorModal(false)
                 setDisplayPatientModal(false)
-                message.success('Successfully signed up');
+                // message.success('Successfully signed up');
+                login(registerData).then(()=>{
+                    console.log("log in")
+                    setPatientProfile(profileData)
+                        .then(() => {
+                            message.success('Successfully signed up');
+                            { onSuccess() }
+                        })
+                })
             }).catch((err) => {
             message.error(err.message);
         })
@@ -280,20 +296,21 @@ function Register() {
                         />
                     </Form.Item>
                     <Form.Item
-                        name="insurance"
-                        rules={[{ required: true, message: 'Please input your Insurance Number!' }]}
-                    >
-                        <Input
-                            placeholder="insurance"
-                        />
-                    </Form.Item>
-                    <Form.Item
                         name="mail_address"
                         rules={[{ required: true, message: 'Please input your Mail Address!' }]}
                     >
                         <Input
                             placeholder="address"
                         />
+                    </Form.Item>
+                    <Form.Item
+                        name="insurance"
+                        rules={[{ required: true, message: 'Please input your Insurance Number!' }]}
+                    >
+                        <Radio.Group value={value}>
+                            <Radio value={true}>I have insurance</Radio>
+                            <Radio value={false}>I don't have insurance</Radio>
+                        </Radio.Group>
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">

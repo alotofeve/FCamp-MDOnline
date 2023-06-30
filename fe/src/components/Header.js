@@ -14,7 +14,7 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,showProfile}){
     }
     const userMenu = (
         <Menu>
-          <Menu.Item key="logout">
+          <Menu.Item key="logout" onClick={signoutOnClick}>
             Log out 
           </Menu.Item>
           <Menu.Item key="profile" onClick={handleProfile}>
@@ -23,16 +23,6 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,showProfile}){
         </Menu>
     )
     return (
-        // <Header
-        //     style={{
-        //     display: 'flex',
-        //     alignItems: 'center',
-        //     }}
-        // >
-        //     <div className="demo-logo" />
-        //     {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} /> */}
-        //     <Button type="primary" shape="round" onClick={handleLogin}>Log in</Button>
-        // </Header>
         <Header style={{ backgroundColor: styles.headerBackgroundColor }}>
             <Row justify="space-between" align="middle">
                 <Col style={{color: "#6B69D6"}}>
@@ -58,7 +48,7 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,showProfile}){
                     {!loggedIn && (
                         <>
                             <Login onSuccess={signinOnSuccess}/>
-                            <Register />
+                            <Register onSuccess={signinOnSuccess}/>
                         </>
                     )}
                 </Col>

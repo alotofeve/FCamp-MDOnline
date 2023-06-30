@@ -1,13 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Button} from 'antd';
+import { Breadcrumb, Layout, Menu, Button,message} from 'antd';
 import React, {useState}from 'react';
 import LoginPage from './components/Login';
 import MainPage from './components/MainPage';
 import PageHeader from './components/Header';
 import SearchPage from './components/SearchPage';
 import DoctorProfile from './components/DoctorProfile';
+import { logout } from './utils';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,
@@ -36,8 +37,13 @@ function App() {
     setLoggedIn(true);
   }
   const signoutOnClick = () => {
-    
-  }
+    logout().then(() => {
+        setLoggedIn(false)
+        message.success('Successfully Signed out')
+    }).catch((err) => {
+        message.error(err.message)
+    })
+}
   const handleLogin = () => {
     return (<LoginPage/>);
   }
