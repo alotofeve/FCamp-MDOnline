@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Button} from 'antd';
+import { Breadcrumb, Layout, Menu, Button,message} from 'antd';
 import React, {useState}from 'react';
 import LoginPage from './components/Login';
 import MainPage from './components/MainPage';
@@ -10,6 +10,7 @@ import SearchPage from './components/SearchPage';
 import DoctorProfile from './components/DoctorProfile';
 import Setting from './components/Setting';
 import UpdateInfo from './components/UpdateInfo';
+import { logout } from './utils';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,
@@ -30,40 +31,50 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
     }),
   };
 });
-// function App() {
-//   const [loggedIn, setLoggedIn] = useState(true);
-//   const[buttonState, setButtonState] = useState(true)
-//   const [pageState, setPageState] = useState('');
-//   const signinOnSuccess = () => {
-//     console.log("sign in")
-//   }
-//   const signoutOnClick = () => {
-    
-//   }
-//   const handleLogin = () => {
-//     return (<LoginPage/>);
-//   }
-//   const showButton = () => {
-//     if (buttonState) {
-//       return(
-//         <div>
-//           <Button type="primary" shape="round">Chat with bot</Button>
-//           <Button type="primary" shape="round" onClick={searchDoctor}>See a doctor</Button> 
-//         </div>
-//       )
-//     }
-//   }
-//   const renderContent = (pageState) => {
-//     if (pageState === "search") {
-//       return <SearchPage />
-//     }
-//     if (pageState === "profile") {
-//       return <DoctorProfile />
-//     }
-//     else{
-//       return <MainPage />;
-//     }
-    
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const[buttonState, setButtonState] = useState(true)
+  const [pageState, setPageState] = useState('');
+  const signinOnSuccess = () => {
+    setLoggedIn(true);
+  }
+  const signoutOnClick = () => {
+    logout().then(() => {
+        setLoggedIn(false)
+        message.success('Successfully Signed out')
+    }).catch((err) => {
+        message.error(err.message)
+    })
+}
+  const handleLogin = () => {
+    return (<LoginPage/>);
+  }
+  const showButton = () => {
+    if (buttonState) {
+      return(
+        <div>
+          <Button type="primary" shape="round">Chat with bot</Button>
+          <Button type="primary" shape="round" onClick={searchDoctor}>See a doctor</Button> 
+        </div>
+      )
+    }
+  }
+  const showProfile = () => {
+    setPageState("profile");
+    setButtonState(false)
+  }
+  const renderContent = (pageState) => {
+    if (pageState === "search") {
+      return <SearchPage />
+    }
+    if (pageState === "profile") {
+      return <DoctorProfile />
+    }
+    else{
+      return <MainPage />;
+    }
+  }
+}
 //   }
 //   const searchDoctor = () => {
 //     setPageState("search")
@@ -129,9 +140,51 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
 
 const App = () => {
   return (
-    <Setting />
-  )
-}
+    <Layout>
+      <Header>
+          <PageHeader
+              loggedIn={loggedIn}
+              signoutOnClick={signoutOnClick}
+              signinOnSuccess={signinOnSuccess}
+              showProfile = {showProfile}
+          />
+        </Header>
+      <Content
+        style={{
+          padding: '0 50px',
+        }}
+      >
+        {/* <Breadcrumb
+          style={{
+            margin: '16px 0',
+          }}
+        >
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>List</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item>
+        </Breadcrumb> */}
+        <Layout
+          style={{
+            padding: '24px 0',
+            // background: colorBgContainer,
+          }}
+        >
+          <Content
+            style={{
+              padding: '0 24px',
+              minHeight: 280,
+              // height: 100%
+            }}
+          >
+            {showButton()}
+            {renderContent(pageState)}
+            {/* <Button type="primary" shape="round" onClick={renderContent}>See a doctor</Button> */}
+          </Content>
+        </Layout>
+      </Content>
+    </Layout>
+  );
+};
 export default App;
 
 // function App() {
@@ -155,5 +208,4 @@ export default App;
 //   );
 // }
 
-// export default App;
 

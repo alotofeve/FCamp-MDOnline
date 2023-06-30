@@ -8,7 +8,8 @@ import { Link, Route, Switch } from "react-router-dom";
 const { Header, Content } = Layout;
 
 const SearchPage = () => {
-  const specs = [{specialty: "BrainDead"}, {specialty: "Cardiology"}];
+  const specs = [{specialty: "General Illness"}, {specialty: "Respiratory"},{specialty: "Gastrointestinal"},
+                 {specialty: "Urinary"}, {specialty: "Skin"},{specialty: "Injuries"}, {specialty: "Chronic"}];
   const [doctors, setDoctors] = useState([]);
   const [searched, setSearched] = useState(false);
   // const [specs, setSpecs] = useState([]);
@@ -81,18 +82,6 @@ const SearchPage = () => {
 
   return(
       <Layout style={{ height: "100vh" }}>
-      {/* <Header style={{ position: "sticky", top: 0, zIndex: 100, display: "flex", justifyContent: "space-between", backgroundColor: "#7dbcea" }}> 
-      <div style={{ fontSize: 16, fontWeight: 600, color: "white"}}>
-        SearchPage
-      </div>
-      {authed && (
-          <div>
-              <Dropdown trigger="click" overlay={userMenu}>
-                  <Button icon={<UserOutlined />} shape="circle" />
-              </Dropdown>
-          </div>
-      )}
-      </Header> */}
       <Content style={{ height: "calc(100% - 64px)", overflow: "auto", padding: "15px"}}>
         <Layout style={{ padding: '10px', minHeight: "584px"}}>
           <div style={{display: "flex", justifyContent: "center"}}>

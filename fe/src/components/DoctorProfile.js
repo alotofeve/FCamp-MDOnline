@@ -14,18 +14,6 @@ const DoctorProfile = () => {
     const { token: { colorBgContainer } } = theme.useToken();
     return(
         <Layout style={{ height: "100vh" }}>
-        <Header style={{ position: "sticky", top: 0, zIndex: 100, display: "flex", justifyContent: "space-between", backgroundColor: "#7dbcea" }}> 
-        <div style={{ fontSize: 16, fontWeight: 600, color: "white"}}>
-            DOCTOR_PROFILE
-        </div>
-        {authed && (
-            <div>
-                <Dropdown>
-                    <Button icon={<UserOutlined />} shape="circle" />
-                </Dropdown>
-            </div>
-        )}
-        </Header>
         <Content style={{ height: "calc(100% - 64px)", overflow: "auto", padding: "15px"}}>
             <Layout style={{ padding: '10px', background: colorBgContainer}}>
                 < Sider style={{ minHeight: 1000, background: colorBgContainer}} width={380} >

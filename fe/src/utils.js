@@ -16,35 +16,82 @@ const handleResponseStatus = (response, errMsg) => {
 };
 
 export const login = (credential) => {
-    const loginUrl = `${domain}/signin`;
+    const loginUrl = `${domain}/login`;
+    const formData = new FormData();
+    formData.append("username", credential.username);
+    formData.append("password", credential.password);
     return fetch(loginUrl, {
       method: 'POST',
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credential),
-    }).then((response) => {
-      if (!response.ok) {
-          throw Error("Fail to log in");
+      credentials: 'include',
+      body: formData
+  }).then((response) => {
+      if (response.status !== 204) {
+          throw Error('Fail to log in');
       }
-      return response.json();     
-    })
-    .then((token) => {
-        localStorage.setItem("authToken",token);
-    });
-  };
+  })
+};
 
-  export const register = (credential) => {
-    const registerUrl = `${domain}/signup`;
-    return fetch(registerUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credential),
+const logoutUrl = `${domain}/logout`;
+export const logout = () => {
+    return fetch(logoutUrl, {
+        method: 'POST',
+        credentials: 'include',
     }).then((response) => {
-      handleResponseStatus(response, "Fail to register");
-    });
+        if (response.status !== 204) {
+            throw Error('Fail to log out');
+        }
+    })
+};
+
+export const registerPatient = (credential) => {
+  const registerUrl = `${domain}/register-patient`;
+  return fetch(registerUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credential),
+  }).then((response) => {
+    handleResponseStatus(response, "Fail to register");
+  });
+};
+
+export const setPatientProfile = (patientData) => {
+  const profileUrl = `${domain}/set-patient-profile`;
+  return fetch(profileUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(patientData),
+  }).then((response) => {
+    handleResponseStatus(response, "Fail to set Profile");
+  });
+};
+
+export const registerDoctor = (credential) => {
+  const registerUrl = `${domain}/register-doctor`;
+  return fetch(registerUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credential),
+  }).then((response) => {
+    handleResponseStatus(response, "Fail to register");
+  });
+};
+export const setDoctorProfile = (doctorData) => {
+  const profileUrl = `${domain}/set-doctor-profile`;
+  return fetch(profileUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(doctorData),
+  }).then((response) => {
+    handleResponseStatus(response, "Fail to set Profile");
+  });
 };
 
 export const searchDoctorByAll = () => {
