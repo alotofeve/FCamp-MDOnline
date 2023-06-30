@@ -588,3 +588,122 @@ Deletes a lecture by its ID.
 
 If the lecture is deleted successfully, no response body is returned.
 
+***
+***
+
+# Create An Appointment
+
+create a new appointment
+
+- **URL:** `/api/appointment`
+- **Method:** POST
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain the following JSON fields:
+
+- `doctorId` (Long): The id of the doctor.
+- `appointmentDate` (String): The date of the appointment.
+- `appointmentTime` (String): The time of the appointment.
+- `description` (String): The symptom of the patient.
+- `isOngoing`(Boolean): The status of the appointment(default value is true).
+
+Example Request Body:
+
+```json
+{
+    "doctorId": 1,
+    "appointmentDate": "2023-01-02",
+    "appointmentTime": "15:04:03",
+    "description": "fever",
+    "isOngoing": true
+}
+```
+
+***
+***
+
+# Cancel An Appointment
+
+cancel a booked appointment
+
+- **URL:** `/api/appointment`
+- **Method:** DELETE
+- **Content-Type:** application/json
+
+The request body should contain the following JSON fields:
+
+- `doctorId` (Long): The id of the doctor.
+- `appointmentDate` (String): The date of the appointment.
+- `appointmentTime` (String): The time of the appointment.
+- `description` (String): The symptom of the patient.
+- `isOngoing`(Boolean): The status of the appointment(default value is true).
+
+Example Request Body:
+
+```json
+{
+    "doctorId": 1,
+    "appointmentDate": "2023-01-02",
+    "appointmentTime": "15:04:03",
+    "description": "fever",
+    "isOngoing": true
+}
+```
+## Response
+
+- **HTTP Status:** 200 OK
+
+***
+***
+
+# Update Appointment
+
+Update the isOngoing field to false
+
+- **URL:** `/api/appointment`
+- **Method:** PUT
+- **Content-Type:** application/json
+
+## Request Body
+
+The request body should contain the following JSON fields:
+
+- `doctorId` (Long): The id of the doctor.
+- `appointmentDate` (String): The date of the appointment.
+- `appointmentTime` (String): The time of the appointment.
+- `description` (String): The symptom of the patient.
+- `isOngoing`(Boolean): The status of the appointment(default value is true).
+
+Example Request Body:
+
+```json
+{
+    "doctorId": 1,
+    "appointmentDate": "2023-01-02",
+    "appointmentTime": "15:04:03",
+    "description": "fever",
+    "isOngoing": true
+}
+```
+## Response
+
+- **HTTP Status:** 200 OK
+  
+***
+***
+
+
+# Get appointments by doctor or patient
+
+Retrieves the ongoing and past appointments information by a doctor or patient.
+
+- **URL:** `api/appointment`
+- **Method:** GET
+
+## Response
+
+- **HTTP Status:** 200 OK
+
+
