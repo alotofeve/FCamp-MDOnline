@@ -37,22 +37,24 @@ public class AppointmentController {
 
     @DeleteMapping
     public void cancelAppointment(
-            @AuthenticationPrincipal User user,
+         //   @AuthenticationPrincipal User user,
             @RequestBody AppointmentRequestBody body) {
         appointmentService.
                 cancelAppointment(
-                        patientService.getUserId(user.getUsername()),
+                        //patientService.getUserId(user.getUsername()),
+                        body.doctorId(),
                         body.appointmentDate(),
                         body.appointmentTime());
     }
 
     @PutMapping
     public void updateAppointment(
-            @AuthenticationPrincipal User user,
+        //    @AuthenticationPrincipal User user,
             @RequestBody AppointmentRequestBody body) {
         appointmentService.
                 updateIsOngoing(
-                        patientService.getUserId(user.getUsername()),
+                 //       patientService.getUserId(user.getUsername()),
+                        body.doctorId(),
                         body.appointmentDate(),
                         body.appointmentTime());
     }
