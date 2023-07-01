@@ -1,10 +1,8 @@
-import { searchDoctorByName, searchDoctorBySpec, searchDoctorByAll } from "../utils"
-import { Dropdown, Layout, Button, message, Menu, Form, Input } from "antd";
+import { Dropdown, Layout, Button, message, Menu, Form, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { DepartmentItems, DoctorItems } from "./Items";
-import { Link, Route, Switch } from "react-router-dom";
-
+import { searchDoctorBySpec } from "../utils/SearchUtils";
 const { Header, Content } = Layout;
 
 const SearchPage = () => {
@@ -15,14 +13,6 @@ const SearchPage = () => {
   // const [specs, setSpecs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [authed, setAuthed] = useState();
-  // const allSpecs = [
-  //   {specialty: "cardiology"},
-  //   {specialty: "General surgery"},
-  //   {specialty: "Neurology"},
-  //   {specialty: "internal medicine"}
-  // ]
-
-  
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     setAuthed(authToken === null);
@@ -30,6 +20,20 @@ const SearchPage = () => {
     // setSpecs(doctors.map((doctors) => doctors.specialty));
   }, []);
 
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+  const onSearch = (value) => {
+    console.log('search:', value);
+  };
+  const finishSearch = (data) => {
+    if (data.firstName != undefined && data.lastName != undefined && data.spec === undefined) {
+      searchByName({"firstName": data.firstName,"lastName":data.lastName});
+    }
+    else if (data.firstName === undefined && data.lastName === undefined && data.spec != undefined) {
+      searchBySpec(data.spec);
+    }
+  }
   const searchByAll = async() => {
     // setLoading(true)
     // try {
@@ -56,25 +60,19 @@ const SearchPage = () => {
   };
 
   const searchBySpec = async(query) => {
-    // setLoading(true)
-    // try {
-    //   const response = await searchDoctorBySpec(query);
-    //   setDoctors(response || []);
-    //   setSearched(true);
-    // } catch (error) {
-    //   message.error(error.message);
-    // } finally {
-    //   setLoading(false);
-    // }
+    setLoading(true)
+    try {
+      const response = await searchDoctorBySpec(query);
+      console.log(response);
+      setDoctors(response);
+      setSearched(true);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+      console.log(doctors)
+    }
   };
-
-  const userMenu = (
-    <Menu>
-      <Menu.Item key="logout">
-        Log out 
-      </Menu.Item>
-    </Menu>
-  )
 
   const onDoctorChange = (spec) => {
     searchBySpec(spec);
@@ -87,29 +85,35 @@ const SearchPage = () => {
           <div style={{display: "flex", justifyContent: "center"}}>
             <div style={{display: "flex", flexDirection: "row", alignItems: "baseline", paddingRight: "50px"}}>
               <span style={{ padding: "0 15px", fontWeight: "bold", fontFamily: "sans-serif"}}>NameSearch: </span>
-              <Form onFinish={searchByName} layout="inline">
+              <Form onFinish={finishSearch} layout="inline">
                 <Form.Item name="firstName">
                   <Input placeholder="FirstName"/>
                 </Form.Item>
                 <Form.Item name="lastName">
                   <Input placeholder="LastName"/>
                 </Form.Item>
+                <Form.Item name = "spec">
+                  <Select
+                    showSearch
+                    placeholder="specialization"
+                    optionFilterProp="children"
+                    onChange={onChange}
+                    // onSearch={onSearch}
+                    filterOption={(input, option) =>
+                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                    }
+                    options={[{value: 'General Illness',label: 'General Illness',},
+                              {value: 'Respiratory',label: 'Respiratory',},
+                              {value: 'Gastrointestinal',label: 'Gastrointestinal',},
+                              {value: 'Urinary',label: 'Urinary',},
+                              {value: 'Skin',label: 'Skin',},
+                              {value: 'Injuries',label: 'Injuries',},
+                              {value: 'Chronic',label: 'Chronic',},]}
+                  />
+                </Form.Item>
                 <Button loading={loading} type="primary" htmlType="submit">
                   Search
                 </Button>
-              </Form>
-            </div>
-            <div style={{ display: "flex", flexDirection: "row", alignItems: "baseline", paddingLeft: "50px"}}>
-              <span style={{padding: "0 15px", fontWeight: "bold", fontFamily: "sans-serif"}}>DepartmentSearch: </span>
-              <Form onFinish={searchBySpec} layout="inline">  
-                <Form.Item onFinish={searchBySpec} layout="inline">
-                  <Input placeholder="Department"/>
-                </Form.Item>
-                <Form.Item name="spec">
-                  <Button loading={loading} type="primary" htmlType="submit">
-                    Search
-                  </Button>
-                </Form.Item>
               </Form>
             </div>
           </div>

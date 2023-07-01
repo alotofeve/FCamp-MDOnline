@@ -51,7 +51,7 @@ export const DoctorItems = ({ doctors, loading }) => {
       dataSource={doctors}
       renderItem={(item) => (
         <List.Item>
-          <Link to={{ pathname: `/DoctorProfile`, state: { doctor: item }}}>
+          {/* <Link to={{ pathname: `/DoctorProfile`, state: { doctor: item }}}> */}
           <Card 
             hoverable
             title={item.firstName }
@@ -62,7 +62,7 @@ export const DoctorItems = ({ doctors, loading }) => {
             <p>{item.spec}</p>
             <p>{item.availableTimes}</p>
           </Card>
-          </Link>
+          {/* </Link> */}
         </List.Item>
       )}
     />

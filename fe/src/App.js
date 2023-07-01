@@ -95,6 +95,7 @@ function App() {
               signoutOnClick={signoutOnClick}
               signinOnSuccess={signinOnSuccess}
               showProfile = {showProfile}
+              closeReminder = {closeReminder}
           />
         </Header>
       <Content
