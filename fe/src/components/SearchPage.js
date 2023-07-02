@@ -2,7 +2,7 @@ import { Dropdown, Layout, Button, message, Menu, Form, Input, Select } from "an
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { DepartmentItems, DoctorItems } from "./Items";
-import { searchDoctorBySpec } from "../utils/SearchUtils";
+import { searchDoctorBySpec, searchDoctorByName } from "../utils/SearchUtils";
 const { Header, Content } = Layout;
 
 const SearchPage = () => {
@@ -47,16 +47,16 @@ const SearchPage = () => {
   };
 
   const searchByName = async(query) => {
-    // setLoading(true);
-    // try {
-    //   const response = await searchDoctorByName(query);
-    //   setDoctors(response || []);
-    //   setSearched(true);
-    // } catch (error) {
-    //   message.error(error.message);
-    // } finally {
-    //   setLoading(false);
-    // }
+    setLoading(true);
+    try {
+      const response = await searchDoctorByName(query);
+      setDoctors(response);
+      setSearched(true);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const searchBySpec = async(query) => {

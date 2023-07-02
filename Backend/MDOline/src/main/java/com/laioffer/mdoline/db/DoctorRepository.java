@@ -41,7 +41,10 @@ public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long>
     @Query("DELETE FROM doctors WHERE doctor_id = :doctorId")
     void deleteByDoctorId(Long doctorId);
     DoctorEntity findByLastNameAndFirstName(String lastName, String firstName);
-
+//    @Query("SELECT * FROM doctors WHERE first_name = :firstName")
+    List<DoctorEntity> findDoctorEntitiesByFirstName(String firstName);
+//    @Query("SELECT * FROM doctors WHERE last_name = :lastName")
+    List<DoctorEntity> findDoctorEntitiesByLastName(String lastName);
     @Query("SELECT * FROM doctors WHERE spec = :spec")
     List<DoctorEntity> findBySpec(String spec);
 

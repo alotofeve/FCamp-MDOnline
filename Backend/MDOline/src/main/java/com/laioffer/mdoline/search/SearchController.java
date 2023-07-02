@@ -15,6 +15,14 @@ public class SearchController {
         this.searchService = searchService;
     }
 
+    @GetMapping("/search-doctor-by-firstname")
+    public List<ResponseSearchBody> seachDoctorByFirstName (@RequestParam("first_name") String firstname){
+        return searchService.seachDoctorByFirstname(firstname);
+    }
+    @GetMapping("/search-doctor-by-lastname")
+    public List<ResponseSearchBody> seachDoctorByLastName (@RequestParam("last_name") String lastname){
+        return searchService.seachDoctorByLastname(lastname);
+    }
     @GetMapping("/search-doctor-by-name")
     public ResponseSearchBody searchDoctorByName(
             @RequestParam("first_name") String firstName,

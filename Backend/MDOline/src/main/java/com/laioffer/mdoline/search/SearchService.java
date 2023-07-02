@@ -29,6 +29,34 @@ public class SearchService {
                 availableTimeService.getAllAvailableTimes(doctorProfile.doctorId())
         );
     }
+    public List<ResponseSearchBody> seachDoctorByFirstname(String firstname){
+        List<DoctorEntity> doctorsProfile = doctorService.getDoctorsByFirstname(firstname);
+        List<ResponseSearchBody> response = new ArrayList<>();
+        for (DoctorEntity profile : doctorsProfile) {
+            response.add(new ResponseSearchBody(
+                    profile.firstName(),
+                    profile.lastName(),
+                    profile.spec(),
+                    availableTimeService.getAllAvailableTimes(profile.doctorId())
+            ));
+        }
+        return response;
+    }
+
+    public List<ResponseSearchBody> seachDoctorByLastname(String lastname){
+        List<DoctorEntity> doctorsProfile = doctorService.getDoctorsByLastname(lastname);
+        List<ResponseSearchBody> response = new ArrayList<>();
+        for (DoctorEntity profile : doctorsProfile) {
+            response.add(new ResponseSearchBody(
+                    profile.firstName(),
+                    profile.lastName(),
+                    profile.spec(),
+                    availableTimeService.getAllAvailableTimes(profile.doctorId())
+            ));
+        }
+        return response;
+    }
+
 
     public List<ResponseSearchBody> searchDoctorBySpec(String spec) {
         List<DoctorEntity> doctorsProfile = doctorService.getDoctorsBySpec(spec);

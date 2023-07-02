@@ -22,20 +22,10 @@ export const searchDoctorByAll = () => {
       });
   };
   
-  export const searchDoctorByName = (query) => {
-    const firstName = query?.firstName?? "";
-    const lastName = query?.lastName?? "";
-    const searchDoctorByNameUrl = new URL(`${domain}/search-doctor-by-name`);
-    const authToken = localStorage.getItem("authToken");
-    searchDoctorByName.searchParams.append("firstName", firstName);
-    searchDoctorByName.searchParams.append("lastName", lastName);
-  
-    return fetch(searchDoctorByNameUrl,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        }
-      }).then((response) => {
+  export const searchDoctorByName = (name) => {
+    
+    const searchDoctorByNameUrl = `${domain}/search-doctor-by-name?first_name=`;
+    return fetch(`${searchDoctorByNameUrl}${name.firstName}&last_name=${name.lastName}`,).then((response) => {
         handleResponseStatus(response, "Fail to get doctors by name");
         return response.json();
       });

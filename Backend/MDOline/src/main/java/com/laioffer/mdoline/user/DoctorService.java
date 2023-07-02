@@ -71,7 +71,9 @@ public class DoctorService extends UserService<DoctorEntity, RegisterDoctorBody>
     public DoctorEntity getDoctorProfileByName(String firstName, String lastName) {
         return doctorRepository.findByLastNameAndFirstName(lastName, firstName);
     }
+    public List<DoctorEntity> getDoctorsByFirstname(String firstname){return doctorRepository.findDoctorEntitiesByFirstName(firstname);}
 
+    public List<DoctorEntity> getDoctorsByLastname(String lastname){return doctorRepository.findDoctorEntitiesByLastName(lastname);}
     public List<DoctorEntity> getDoctorsBySpec(String spec) {
         return doctorRepository.findBySpec(spec);
     }

@@ -49,6 +49,8 @@ public class AppConfig {
                                         "/logout").permitAll()
                                 .requestMatchers(HttpMethod.GET,
                                         "/search-doctor-by-name",
+                                        "/search-doctor-by-firstname",
+                                        "/search-doctor-by-lastname",
                                         "/search-doctor-by-spec",
                                         "/search-doctor-by-all",
                                         "/get-all-specs").permitAll()
