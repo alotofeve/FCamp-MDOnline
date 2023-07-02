@@ -2,7 +2,7 @@ import { Dropdown, Layout, Button, message, Menu, Form, Input, Select } from "an
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { DepartmentItems, DoctorItems } from "./Items";
-import { searchDoctorBySpec, searchDoctorByName } from "../utils/SearchUtils";
+import { searchDoctorBySpec, searchDoctorByName, searchDoctorByFirstName, searchDoctorByLastName} from "../utils/SearchUtils";
 const { Header, Content } = Layout;
 
 const SearchPage = () => {
@@ -33,6 +33,12 @@ const SearchPage = () => {
     else if (data.firstName === undefined && data.lastName === undefined && data.spec != undefined) {
       searchBySpec(data.spec);
     }
+    else if (data.firstName != undefined && data.lastName === undefined && data.spec === undefined){
+      searchByFirstName(data.firstName)
+    }
+    else if (data.firstName === undefined && data.lastName != undefined && data.spec === undefined) {
+      searchByLastName(data.lastName)
+    }
   }
   const searchByAll = async() => {
     // setLoading(true)
@@ -50,6 +56,34 @@ const SearchPage = () => {
     setLoading(true);
     try {
       const response = await searchDoctorByName(query);
+      setDoctors(response);
+      setSearched(true);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchByFirstName = async(query) => {
+    setLoading(true)
+    try {
+      const response = await searchDoctorByFirstName(query);
+      console.log("search by first name: ",response);
+      setDoctors(response);
+      setSearched(true);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchByLastName = async(query) => {
+    setLoading(true)
+    try {
+      const response = await searchDoctorByLastName(query);
+      console.log("search by last name",response);
       setDoctors(response);
       setSearched(true);
     } catch (error) {
@@ -85,7 +119,7 @@ const SearchPage = () => {
           <div style={{display: "flex", justifyContent: "center"}}>
             <div style={{display: "flex", flexDirection: "row", alignItems: "baseline", paddingRight: "50px"}}>
               <span style={{ padding: "0 15px", fontWeight: "bold", fontFamily: "sans-serif"}}>NameSearch: </span>
-              <Form onFinish={finishSearch} layout="inline">
+              <Form onFinish={finishSearch} layout="inline" preserve={false}>
                 <Form.Item name="firstName">
                   <Input placeholder="FirstName"/>
                 </Form.Item>

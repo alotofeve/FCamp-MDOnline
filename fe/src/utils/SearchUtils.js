@@ -22,21 +22,39 @@ export const searchDoctorByAll = () => {
       });
   };
   
-  export const searchDoctorByName = (name) => {
+export const searchDoctorByName = (name) => {
+
+const searchDoctorByNameUrl = `${domain}/search-doctor-by-name?first_name=`;
+return fetch(`${searchDoctorByNameUrl}${name.firstName}&last_name=${name.lastName}`).then((response) => {
+    handleResponseStatus(response, "Fail to get doctors by name");
+    return response.json();
+    });
+};
+
+export const searchDoctorByFirstName = (name) => {
     
-    const searchDoctorByNameUrl = `${domain}/search-doctor-by-name?first_name=`;
-    return fetch(`${searchDoctorByNameUrl}${name.firstName}&last_name=${name.lastName}`,).then((response) => {
-        handleResponseStatus(response, "Fail to get doctors by name");
+    const searchDoctorUrl = `${domain}/search-doctor-by-firstname?first_name=`;
+    return fetch(`${searchDoctorUrl}${name}`).then((response) => {
+        handleResponseStatus(response, "Fail to get doctors by firstname");
         return response.json();
-      });
-  };
-  
-  export const searchDoctorBySpec = (spec) => {
-    const searchDoctorBySpecUrl = `${domain}/search-doctor-by-spec?spec=`;
-    // searchDoctorByName.searchParams.append("spec", spec);
+    });
+};
+
+export const searchDoctorByLastName = (name) => {
     
-    return fetch(`${searchDoctorBySpecUrl}${spec}`).then((response) => {
-        handleResponseStatus(response, "Fail to search doctor by spec");
+    const searchDoctorUrl = `${domain}/search-doctor-by-lastname?last_name=`;
+    return fetch(`${searchDoctorUrl}${name}`).then((response) => {
+        handleResponseStatus(response, "Fail to get doctors by lastname");
         return response.json();
-      });
-  };
+    });
+};
+
+export const searchDoctorBySpec = (spec) => {
+const searchDoctorBySpecUrl = `${domain}/search-doctor-by-spec?spec=`;
+// searchDoctorByName.searchParams.append("spec", spec);
+
+return fetch(`${searchDoctorBySpecUrl}${spec}`).then((response) => {
+    handleResponseStatus(response, "Fail to search doctor by spec");
+    return response.json();
+    });
+};
