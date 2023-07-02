@@ -5,19 +5,7 @@ import { useState, useEffect } from "react";
 
 const { Meta } = Card;
 
-const Resume = () => {
-    const [doctorInfo, setDoctorInfo] = useState([]);
-
-    useEffect(async() => {
-        try {
-            const data = getDoctorInfo();
-            setDoctorInfo(data || []);
-        } catch (error) {
-            message.error(error.message);
-        }
-    })
-
-
+const Resume = ({doctorInfo}) => {
     const fields = ["Gender", "Email", "Phone", "license"]
 
     return (

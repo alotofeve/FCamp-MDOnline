@@ -1,57 +1,137 @@
-import { Space, Table, Tag } from "antd";
+import { Button, Table, Form, Modal, message, Select, Divider, Input} from "antd";
+import React, {useState, useEffect} from "react";
+import { ScheduleOutlined } from "@ant-design/icons";
+import { searchDoctorByName } from "../../utils/SearchUtils";
+import { createAppointment } from "../../utils/AppointmentUtils";
 const { Column, ColumnGroup } = Table;
-const data = [
-    {
-        key: '1',
-        date: 'Monday',
-        time: '2pm - 4.30pm',
-        comment: ''
-    },
-    {
-        key: '1',
-        date: 'Tuesday',
-        time: '2pm - 4.30pm',
-        comment: ''
-    },
-    {
-        key: '1',
-        date: 'Wednesday',
-        time: '2pm - 4.30pm',
-        comment: ''
-    },
-    {
-        key: '1',
-        date: 'Thursday',
-        time: '2pm - 4.30pm',
-        comment: ''
-    },
-    {
-        key: '1',
-        date: 'Friday',
-        time: '2pm - 4.30pm',
-        comment: ''
-    },
-    {
-        key: '1',
-        date: 'Saturday',
-        time: '2pm - 4.30pm',
-        comment: ''
-    },
-    {
-        key: '1',
-        date: 'Sunday',
-        time: '2pm - 4.30pm',
-        comment: ''
-    },
-]
+const {Option} = Select;
+const {TextArea} = Input;
 
-const Calendar = () => {
+const Calendar = ({firstName, lastName, id}) => {
+    const [auth, SetAuth] = useState(false);
+    const [availableTimes, setAvailableTime] = useState([]);
+    const [modal, setModal] = useState(false);
+    const [form] = Form.useForm();
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(null);
+  
+    const handleDateChange = (date) => {
+      setSelectedDate(date);
+      // Clear the selected time when the date changes
+      setSelectedTime(null);
+    };
+  
+    const handleTimeChange = (time) => {
+      setSelectedTime(time);
+    };
+  
+    const filteredTimeOptions = selectedDate
+      ? availableTimes.filter((time) => time.date === selectedDate)
+      : [];
+
+    useEffect(async() => {
+        try {
+            const response = searchDoctorByName({"firstName": firstName, "lastName" :lastName});
+            const {availableTimes} = response;
+            setAvailableTime(availableTimes || {});
+        } catch (error) {
+            message.error(error.messsage);
+        }
+    })
+
+    const columns = [
+        {
+            title: "Date",
+            dataIndex: "date",
+            key: "date"
+        },
+        {
+            title: "Time",
+            dataIndex: "time",
+            key: "time"
+        },
+    ]
+
+    const onHandleCancel = () => {
+        setModal(false);
+    }
+
+    const onclick = () => {
+        setModal(true);
+    }
+
+    const onAppointmentCreated = async(query) => {
+        query.doctorId = id;
+        query.isOngoing = true;
+        try {
+            createAppointment(query);
+            message.success("Successful");
+        } catch (error) {
+            message.error(error.message);
+        }
+    }
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+      };
+
     return (
-        <Table dataSource={data} style={{padding: '5 20px'}}>
-            <Column title="Date" dataIndex="date" key="date" />
-            <Column title="Time" dataIndex="time" key="time" />
-            <Column title="Comment" dataIndex="comment" key="comment" />
-        </Table>
+        <>
+            <div style={{display: "flex", justifyContent: "space-between"}}>
+                <h1> availableTimes </h1>
+                <Button icon={<ScheduleOutlined />} type="primary" onClick={onclick}>Request an Appointment</Button>
+            </div>
+            <Modal title="New Appoitment" open={modal} onCancel={onHandleCancel} footer={null} destroyOnClose={true}>
+                <Divider></Divider>
+                <Form 
+                    form={form} 
+                    labelCol={{
+                        span: 8,
+                        }}
+                        wrapperCol={{
+                        span: 16,
+                        }}
+                        style={{
+                        maxWidth: 600,
+                        }}
+                        initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onAppointmentCreated}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                <Form.Item label="Select Date" name="appointmentDate" rules={[{ required: true, message: 'Please select a date' }]}>
+                    <Select onChange={handleDateChange}>
+                    {availableTimes.map((time) => (
+                        <Option key={time.date} value={time.date}>
+                        {time.date}
+                        </Option>
+                    ))}
+                    </Select>
+                </Form.Item>
+                {selectedDate && (
+                    <Form.Item label="Select Time" name="appointmentTime" rules={[{ required: true, message: 'Please select a time' }]}>
+                    <Select onChange={handleTimeChange}>
+                        {filteredTimeOptions.map((time) => (
+                        <Option key={time.time} value={time.time}>
+                            {time.time}
+                        </Option>
+                        ))}
+                    </Select>                
+                    </Form.Item>
+                )}
+                <Form.Item label="Description" name="description"><TextArea rows={3}/></Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" disabled={!selectedDate || !selectedTime}>
+                    Submit
+                    </Button>
+                </Form.Item>
+                </Form>
+            </Modal>
+            <Table dataSource={availableTimes} columns={columns} />
+        </>
+
     )
     
 }

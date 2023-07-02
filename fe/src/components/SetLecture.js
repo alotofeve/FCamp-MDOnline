@@ -1,7 +1,7 @@
 import { Button, Divider, Form, List, Modal, message, Input, Tooltip } from 'antd';
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import react, {useEffect, useState} from 'react';
-import { deleteLecture, getLecture, postLecture } from '../utils';
+import { deleteLecture, postLecture} from '../utils/LectureUtils';
 
 
 const { TextArea } = Input
@@ -59,7 +59,7 @@ const SetLecture = () => {
     const onPostedLecture = async(data) => {
         setLoading(true);
         try {
-            const response = await postLecture(data);
+            await postLecture(data);
             setIsModalOpen(false);
             message.success("Success");
         } catch (error) {

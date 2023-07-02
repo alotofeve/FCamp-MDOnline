@@ -1,6 +1,6 @@
 import { Tabs, message, List} from "antd";
 import { useEffect, useState } from "react";
-import { getLecture } from "../../utils";
+import { getLecture } from "../../utils/LectureUtils";
 
 const Lecture = () => {
     const [lecture, setLecture] = useState([]);
