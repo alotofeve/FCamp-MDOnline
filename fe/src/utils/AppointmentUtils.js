@@ -60,7 +60,7 @@ export const createAppointment = (appointment) => {
     })
   }
   
-  export const getAppoitment = () => {
+  export const getAppointment = () => {
     const appointmentUrl = `${domain}/appointment`;
     return fetch(
       appointmentUrl,

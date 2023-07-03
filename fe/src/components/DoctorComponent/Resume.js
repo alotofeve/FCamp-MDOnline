@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const { Meta } = Card;
 
 const Resume = ({doctorInfo}) => {
-    const fields = ["Gender", "Email", "Phone", "license"]
+    const fields = ["Gender", "Email", "Phone", "License"]
 
     return (
         <>
@@ -23,7 +23,7 @@ const Resume = ({doctorInfo}) => {
 
             <Meta
             style={{textAlign: "center", padding: 15}}
-            title={doctorInfo.lastName}
+            title={doctorInfo.firstName + " " + doctorInfo.lastName}
             description={doctorInfo.spec} 
             />
         </Card>
@@ -34,7 +34,7 @@ const Resume = ({doctorInfo}) => {
                 <List.Item>
                     <List.Item.Meta 
                         title={field}
-                        description={doctorInfo[field]}
+                        description={doctorInfo[field.toLowerCase()]}
                     />
                 </List.Item>
             )}

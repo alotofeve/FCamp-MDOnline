@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
-import { getAppoitment } from "../utils/AppointmentUtils";
+import { getAppointment } from "../utils/AppointmentUtils";
 import { Table, message } from "antd";
 
 const Appointment = () => {
     const [ongoing, setOngoing] = useState(true);
     const [appointments, setAppointments] = useState([]);
 
-    useEffect( async() => {
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    const fetchData = async () => {
         try {
-            const res = await getAppoitment();
+            const res = await getAppointment();
             setAppointments(res || []);
         } catch (error) {
-            message.error(error.message)
-        } 
-    })
+            message.error(error.message);
+        }
+    };
 
     const columns = [
         {

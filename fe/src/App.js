@@ -9,8 +9,6 @@ import MainPage from './components/MainPage';
 import PageHeader from './components/Header';
 import SearchPage from './components/SearchPage';
 import DoctorProfile from './components/DoctorProfile';
-import Setting from './components/Setting';
-import UpdateInfo from './components/UpdateInfo';
 import { logout } from './utils';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
@@ -148,7 +146,7 @@ function App() {
         </Layout>
       </Content>
     </Layout>
-  );
+  )
 };
 export default App;
 

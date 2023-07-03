@@ -116,7 +116,7 @@ export const updateDoctorProfile = (data) => {
 
 
 export const getDoctorInfo = () => {
-  const getDoctorInfoUrl = new URL(`${domain}/get-doctor-profile`);
+  const getDoctorInfoUrl = `${domain}/get-doctor-profile`;
   return fetch(
     getDoctorInfoUrl,
     {
