@@ -23,6 +23,11 @@ public class SearchController {
     public List<ResponseSearchBody> seachDoctorByLastName (@RequestParam("last_name") String lastname){
         return searchService.seachDoctorByLastname(lastname);
     }
+    @GetMapping("/search-doctor-by-fullname")
+    public List<ResponseSearchBody> searchDoctorByFullName(@RequestParam("first_name") String firstName,
+                                                           @RequestParam("last_name") String lastName) {
+        return searchService.seachDoctorByFullname(firstName,lastName);
+    }
     @GetMapping("/search-doctor-by-name")
     public ResponseSearchBody searchDoctorByName(
             @RequestParam("first_name") String firstName,

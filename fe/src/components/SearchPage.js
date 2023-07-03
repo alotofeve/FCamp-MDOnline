@@ -2,7 +2,7 @@ import { Dropdown, Layout, Button, message, Menu, Form, Input, Select } from "an
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { DepartmentItems, DoctorItems } from "./Items";
-import { searchDoctorBySpec, searchDoctorByName, searchDoctorByFirstName, searchDoctorByLastName} from "../utils/SearchUtils";
+import { searchDoctorBySpec, searchDoctorByFullName, searchDoctorByFirstName, searchDoctorByLastName} from "../utils/SearchUtils";
 const { Header, Content } = Layout;
 
 const SearchPage = () => {
@@ -55,7 +55,8 @@ const SearchPage = () => {
   const searchByName = async(query) => {
     setLoading(true);
     try {
-      const response = await searchDoctorByName(query);
+      const response = await searchDoctorByFullName(query);
+      console.log("search by full name: ",response);
       setDoctors(response);
       setSearched(true);
     } catch (error) {
@@ -80,6 +81,20 @@ const SearchPage = () => {
   };
 
   const searchByLastName = async(query) => {
+    setLoading(true)
+    try {
+      const response = await searchDoctorByLastName(query);
+      console.log("search by last name",response);
+      setDoctors(response);
+      setSearched(true);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchByFullName = async(query) => {
     setLoading(true)
     try {
       const response = await searchDoctorByLastName(query);

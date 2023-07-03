@@ -57,6 +57,20 @@ public class SearchService {
         return response;
     }
 
+    public List<ResponseSearchBody> seachDoctorByFullname(String firstname, String lastname){
+        List<DoctorEntity> doctorsProfile = doctorService.getDoctorsByFullname(firstname,lastname);
+        List<ResponseSearchBody> response = new ArrayList<>();
+        for (DoctorEntity profile : doctorsProfile) {
+            response.add(new ResponseSearchBody(
+                    profile.firstName(),
+                    profile.lastName(),
+                    profile.spec(),
+                    availableTimeService.getAllAvailableTimes(profile.doctorId())
+            ));
+        }
+        return response;
+    }
+
 
     public List<ResponseSearchBody> searchDoctorBySpec(String spec) {
         List<DoctorEntity> doctorsProfile = doctorService.getDoctorsBySpec(spec);

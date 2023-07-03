@@ -45,6 +45,7 @@ public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long>
     List<DoctorEntity> findDoctorEntitiesByFirstName(String firstName);
 //    @Query("SELECT * FROM doctors WHERE last_name = :lastName")
     List<DoctorEntity> findDoctorEntitiesByLastName(String lastName);
+    List<DoctorEntity> findDoctorEntitiesByFirstNameAndLastName(String firstName, String lastName);
     @Query("SELECT * FROM doctors WHERE spec = :spec")
     List<DoctorEntity> findBySpec(String spec);
 

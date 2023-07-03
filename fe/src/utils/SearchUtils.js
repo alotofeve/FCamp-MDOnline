@@ -49,6 +49,15 @@ export const searchDoctorByLastName = (name) => {
     });
 };
 
+export const searchDoctorByFullName = (name) => {
+
+    const searchDoctorByNameUrl = `${domain}/search-doctor-by-fullname?first_name=`;
+    return fetch(`${searchDoctorByNameUrl}${name.firstName}&last_name=${name.lastName}`).then((response) => {
+        handleResponseStatus(response, "Fail to get doctors by fullname");
+        return response.json();
+        });
+    };
+
 export const searchDoctorBySpec = (spec) => {
 const searchDoctorBySpecUrl = `${domain}/search-doctor-by-spec?spec=`;
 // searchDoctorByName.searchParams.append("spec", spec);
