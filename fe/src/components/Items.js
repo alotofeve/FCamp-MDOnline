@@ -1,5 +1,6 @@
-import { List, Card } from "antd";
+import { List, Card, Modal, Select, Option, Button } from "antd";
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 export const DepartmentItems = ({ specs, onDoctorChange, loading }) => {
 
@@ -34,7 +35,15 @@ export const DepartmentItems = ({ specs, onDoctorChange, loading }) => {
     )
 }
 
-export const DoctorItems = ({ doctors, loading }) => {
+export function DoctorItems ({ doctors, loading }) {
+  const [showDetail,setShowDetail] = useState(false);
+  const clickCard = (data) => {
+    console.log("click",data)
+    setShowDetail(true);
+  }
+  const handleCancel = () => {
+    setShowDetail(false);
+  }
   return (
       <List 
       style={{ marginTop: 20}}
@@ -50,20 +59,32 @@ export const DoctorItems = ({ doctors, loading }) => {
       }}
       dataSource={doctors}
       renderItem={(item) => (
+        <div>
+        <Modal 
+          title="Register"
+          visible={showDetail}
+          onCancel={handleCancel}
+          footer={null}
+          destroyOnClose={true}
+      >
+          <p>click the card</p>
+        </Modal>
         <List.Item>
           {/* <Link to={{ pathname: `/DoctorProfile`, state: { doctor: item }}}> */}
           <Card 
             hoverable
-            title={item.firstName }
+            title={item.firstName+" "+item.lastName }
             bordered={false}
             style={{width:300, height:150}}
             loading={loading}
+            // onClick={clickCard(item)}
           >
-            <p>{item.spec}</p>
-            <p>{item.availableTimes}</p>
+            <p>specialization: {item.spec}</p>
+            <p>availableTime: {item.availableTimes}</p>
           </Card>
           {/* </Link> */}
         </List.Item>
+        </div>
       )}
     />
   )

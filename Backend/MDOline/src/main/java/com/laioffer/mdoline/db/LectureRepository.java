@@ -15,6 +15,6 @@ public interface LectureRepository extends ListCrudRepository<LectureEntity, Lon
     @Modifying
     @Query("DELETE FROM lectures WHERE lecture_id = :lectureId")
     void deleteByLectureId(Long lectureId);
-//    void favouriteLecture(long patientID, long LectureID);
-//    void unfavouriteLecture(long patientID, long lectureID);
+    @Query("SELECT * FROM lectures LIMIT 5")
+    List<LectureEntity> getFiveLectures();
 }

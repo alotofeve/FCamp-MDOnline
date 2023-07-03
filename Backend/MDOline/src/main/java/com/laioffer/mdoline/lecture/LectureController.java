@@ -34,4 +34,9 @@ public class LectureController{
     void deleteLecture(@RequestParam("lecture_id") Long lectureId){
         lectureService.deleteLecture(lectureId);
     }
+
+    @GetMapping("/get-five-lectures")
+    List<LectureEntity> getFiveLectures(){
+        return lectureService.getFiveLectures();
+    }
 }

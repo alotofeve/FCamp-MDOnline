@@ -53,6 +53,7 @@ public class AppConfig {
                                         "/search-doctor-by-lastname",
                                         "/search-doctor-by-spec",
                                         "/search-doctor-by-all",
+                                        "/get-five-lectures",
                                         "/get-all-specs").permitAll()
                                 .anyRequest().authenticated()
                 )

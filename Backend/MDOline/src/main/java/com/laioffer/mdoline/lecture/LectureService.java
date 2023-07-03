@@ -33,5 +33,6 @@ public class LectureService {
     public void deleteLecture(Long lectureId) {
         lectureRepository.deleteByLectureId(lectureId);
     }
+    public List<LectureEntity> getFiveLectures(){return lectureRepository.getFiveLectures();}
 
 }

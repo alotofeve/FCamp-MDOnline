@@ -1,16 +1,26 @@
-import React from 'react';
-import { Breadcrumb, Layout, Menu, Button,Divider, List, Typography } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Breadcrumb, Layout, Menu, Button,Divider, List, Typography, message } from 'antd';
 import SearchPage from './SearchPage';
+import { getFiveLectures } from '../utils/LectureUtils';
 // import { Link, Route, BrowserRouter, Routes } from "react-router-dom";
 const { Header, Content } = Layout;
 function MainPage(){
-    const data = [
-        'Racing car sprays burning fuel into crowd.',
-        'Japanese princess to wed commoner.',
-        'Australian walks 100km after outback crash.',
-        'Man charged over missing wedding girl.',
-        'Los Angeles battles huge wildfires.',
-    ];
+    const [lectureData, setLectureData] = useState([]);
+    // const data = [
+    //     'Racing car sprays burning fuel into crowd.',
+    //     'Japanese princess to wed commoner.',
+    //     'Australian walks 100km after outback crash.',
+    //     'Man charged over missing wedding girl.',
+    //     'Los Angeles battles huge wildfires.',
+    // ];
+    useEffect(() => {
+        getFiveLectures()
+            .then((data) => {
+                setLectureData(data)
+            }).catch((err) => {
+            message.error(err.message)
+        })
+    }, [])
     return (
         <Content
             style={{
@@ -28,7 +38,7 @@ function MainPage(){
                     header={<div>Recent Lecture</div>}
                     footer={<div>Footer</div>}
                     bordered
-                    dataSource={data}
+                    dataSource={lectureData}
                     renderItem={(item) => (
                         <List.Item>
                         <Typography.Text mark>[ITEM]</Typography.Text> {item}

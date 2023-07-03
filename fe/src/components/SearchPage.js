@@ -5,7 +5,7 @@ import { DepartmentItems, DoctorItems } from "./Items";
 import { searchDoctorBySpec, searchDoctorByFullName, searchDoctorByFirstName, searchDoctorByLastName} from "../utils/SearchUtils";
 const { Header, Content } = Layout;
 
-const SearchPage = () => {
+function SearchPage(){
   const specs = [{specialty: "General Illness"}, {specialty: "Respiratory"},{specialty: "Gastrointestinal"},
                  {specialty: "Urinary"}, {specialty: "Skin"},{specialty: "Injuries"}, {specialty: "Chronic"}];
   const [doctors, setDoctors] = useState([]);
@@ -27,18 +27,24 @@ const SearchPage = () => {
     console.log('search:', value);
   };
   const finishSearch = (data) => {
-    if (data.firstName != undefined && data.lastName != undefined && data.spec === undefined) {
+    console.log("serch",data)
+    if (data.firstName === undefined){data.firstName = ""}
+    if (data.lastName === undefined){data.lastName = ""}
+    if (data.spec === undefined){data.spec = ""}
+    
+    if (data.firstName != "" && data.lastName != "" && data.spec === "") {
       searchByName({"firstName": data.firstName,"lastName":data.lastName});
     }
-    else if (data.firstName === undefined && data.lastName === undefined && data.spec != undefined) {
+    else if (data.firstName === "" && data.lastName === "" && data.spec != "") {
       searchBySpec(data.spec);
     }
-    else if (data.firstName != undefined && data.lastName === undefined && data.spec === undefined){
+    else if (data.firstName != "" && data.lastName === "" && data.spec === ""){
       searchByFirstName(data.firstName)
     }
-    else if (data.firstName === undefined && data.lastName != undefined && data.spec === undefined) {
+    else if (data.firstName === "" && data.lastName != "" && data.spec === "") {
       searchByLastName(data.lastName)
     }
+    data = ""
   }
   const searchByAll = async() => {
     // setLoading(true)
@@ -160,9 +166,11 @@ const SearchPage = () => {
                               {value: 'Chronic',label: 'Chronic',},]}
                   />
                 </Form.Item>
-                <Button loading={loading} type="primary" htmlType="submit">
-                  Search
-                </Button>
+                {/* <Form.Item> */}
+                  <Button loading={loading} type="primary" htmlType="submit">
+                    Search
+                  </Button>
+                {/* </Form.Item> */}
               </Form>
             </div>
           </div>
