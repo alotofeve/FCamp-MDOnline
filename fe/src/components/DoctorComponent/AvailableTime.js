@@ -7,14 +7,28 @@ const { Column, ColumnGroup } = Table;
 const {Option} = Select;
 const {TextArea} = Input;
 
-const Calendar = ({firstName, lastName, id}) => {
+const AvailableTime = ({firstName, lastName, id}) => {
     const [auth, SetAuth] = useState(false);
     const [availableTimes, setAvailableTime] = useState([]);
     const [modal, setModal] = useState(false);
     const [form] = Form.useForm();
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
-  
+    
+    // useEffect(async() => {
+    //     fetchDoctorInfo();
+    // }, [])
+
+    const fetchDoctorInfo = async () => {
+        try {
+            const response = searchDoctorByName({"firstName": firstName, "lastName" :lastName});
+            const {availableTimes} = response;
+            setAvailableTime(availableTimes || {});
+        } catch (error) {
+            message.error(error.messsage);
+        }
+    }
+
     const handleDateChange = (date) => {
       setSelectedDate(date);
       // Clear the selected time when the date changes
@@ -28,16 +42,6 @@ const Calendar = ({firstName, lastName, id}) => {
     const filteredTimeOptions = selectedDate
       ? availableTimes.filter((time) => time.date === selectedDate)
       : [];
-
-    useEffect(async() => {
-        try {
-            const response = searchDoctorByName({"firstName": firstName, "lastName" :lastName});
-            const {availableTimes} = response;
-            setAvailableTime(availableTimes || {});
-        } catch (error) {
-            message.error(error.messsage);
-        }
-    })
 
     const columns = [
         {
@@ -77,8 +81,8 @@ const Calendar = ({firstName, lastName, id}) => {
 
     return (
         <>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
-                <h1> availableTimes </h1>
+            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <h1> AvailableTimes </h1>
                 <Button icon={<ScheduleOutlined />} type="primary" onClick={onclick}>Request an Appointment</Button>
             </div>
             <Modal title="New Appoitment" open={modal} onCancel={onHandleCancel} footer={null} destroyOnClose={true}>
@@ -135,4 +139,4 @@ const Calendar = ({firstName, lastName, id}) => {
     )
     
 }
-export default Calendar
+export default AvailableTime;

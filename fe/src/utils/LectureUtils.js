@@ -14,7 +14,7 @@ const handleResponseStatus = (response, errMsg) => {
 };
 
 export const getLecture = () => {
-    const getLectureUrl = new URL(`${domain}/get-lecture-by-doctor`);
+    const getLectureUrl = `${domain}/get-lecture-by-doctor`;
     const authToken = localStorage.getItem("authToken");
     return fetch(
       getLectureUrl,

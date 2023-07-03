@@ -5,7 +5,12 @@ import { getLecture } from "../../utils/LectureUtils";
 const Lecture = () => {
     const [lecture, setLecture] = useState([]);
     const [loading, setLoading] = useState(false);
-    useEffect(async() => {
+
+    useEffect(() => {
+        fetchLecture();
+    }, [])
+
+    const fetchLecture = async () => {
         setLoading(true);
         try {
             const data = await getLecture();
@@ -15,7 +20,8 @@ const Lecture = () => {
         } finally {
             setLoading(false);
         }
-    })
+    };
+
     return (
     <>
         <h1>Lecture</h1>
