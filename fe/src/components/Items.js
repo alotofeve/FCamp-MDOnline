@@ -77,7 +77,7 @@ export function DoctorItems ({ doctors, loading }) {
             bordered={false}
             style={{width:300, height:150}}
             loading={loading}
-            // onClick={clickCard(item)}
+            onClick={clickCard(item)}
           >
             <p>specialization: {item.spec}</p>
             <p>availableTime: {item.availableTimes}</p>
