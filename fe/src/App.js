@@ -11,7 +11,6 @@ import SearchPage from './components/SearchPage';
 import DoctorProfile from './components/DoctorProfile';
 import Setting from './components/Setting';
 import { logout } from './utils';
-import Setting from './components/Setting';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,

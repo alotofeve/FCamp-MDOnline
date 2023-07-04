@@ -7,9 +7,8 @@ const { Column, ColumnGroup } = Table;
 const {Option} = Select;
 const {TextArea} = Input;
 
-const AvailableTime = ({firstName, lastName, id}) => {
+const AvailableTime = ({availableTimes, id}) => {
     const [auth, SetAuth] = useState(false);
-    const [availableTimes, setAvailableTime] = useState([]);
     const [modal, setModal] = useState(false);
     const [form] = Form.useForm();
     const [selectedDate, setSelectedDate] = useState(null);
@@ -19,15 +18,15 @@ const AvailableTime = ({firstName, lastName, id}) => {
     //     fetchDoctorInfo();
     // }, [])
 
-    const fetchDoctorInfo = async () => {
-        try {
-            const response = searchDoctorByName({"firstName": firstName, "lastName" :lastName});
-            const {availableTimes} = response;
-            setAvailableTime(availableTimes || {});
-        } catch (error) {
-            message.error(error.messsage);
-        }
-    }
+    // const fetchDoctorInfo = async () => {
+    //     try {
+    //         const response = searchDoctorByName({"firstName": firstName, "lastName" :lastName});
+    //         const {availableTimes} = response;
+    //         setAvailableTime(availableTimes || {});
+    //     } catch (error) {
+    //         message.error(error.messsage);
+    //     }
+    // }
 
     const handleDateChange = (date) => {
       setSelectedDate(date);

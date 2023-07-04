@@ -20,6 +20,20 @@ const DoctorProfile = () => {
     "email": "123@gmail.com",
     "phone": "1231231234",
     "spec": "BrainDead",
+    "availables": [
+        {
+            "date": "2023-06-25",
+            "time": "10:00 AM"
+        },
+        {
+            "date": "2023-06-25",
+            "time": "2:30 PM"
+        },
+        {
+            "date": "2023-06-25",
+            "time": "6:15 PM"
+        }
+    ],
     "mailAddress": "1234 A street San_jose CA United_States",
     "license": "guessguess123"
   }
@@ -43,7 +57,7 @@ const DoctorProfile = () => {
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
                     <div>
-                        <AvailableTime firstName={doctorInfo.firstName} lastName={doctorInfo.lastName} id={doctorInfo.Id}/>
+                        <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/>
                     </div>
                     <div style={{ padding: "0 20px"}}>
                         <Lecture />

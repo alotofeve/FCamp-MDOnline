@@ -19,7 +19,7 @@ function Login({ onSuccess, closeReminder, changePageState }) {
             .then(() => {
                 setDisplayModal(false);
                 closeReminder();
-                // changePageState();
+                changePageState();
                 message.success(`Welcome back`);
                 onSuccess()
             }).catch((err) => {
