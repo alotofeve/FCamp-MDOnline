@@ -10,6 +10,7 @@ import PageHeader from './components/Header';
 import SearchPage from './components/SearchPage';
 import DoctorProfile from './components/DoctorProfile';
 import { logout } from './utils';
+import Setting from './components/Setting';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,
@@ -70,6 +71,9 @@ function App() {
     if (pageState === "profile") {
       return <DoctorProfile />
     }
+    if (pageState === "Doctor") {
+      return <Setting />
+    }
     else{
       return <MainPage />;
     }
@@ -84,6 +88,9 @@ function App() {
   }
   const closeReminder = () => {
     setLoginReminder(false);
+  }
+  const changePageState = () => {
+    setPageState("Doctor");
   }
   return (
     <Layout>
@@ -135,8 +142,8 @@ function App() {
                   
               </div> 
               <div>
-              <Login onSuccess={signinOnSuccess} closeReminder={closeReminder}/>
-              <Register onSuccess={signinOnSuccess} closeReminder={closeReminder}/>
+              <Login onSuccess={signinOnSuccess} closeReminder={closeReminder} changePageState={changePageState}/>
+              <Register onSuccess={signinOnSuccess} closeReminder={closeReminder} setPageState={setPageState}/>
               </div> 
             </Modal>
             {showButton()}

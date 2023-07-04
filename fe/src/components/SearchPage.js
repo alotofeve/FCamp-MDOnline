@@ -13,12 +13,12 @@ function SearchPage(){
   // const [specs, setSpecs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [authed, setAuthed] = useState();
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    setAuthed(authToken === null);
-    searchByAll();
-    // setSpecs(doctors.map((doctors) => doctors.specialty));
-  }, []);
+  // useEffect(() => {
+  //   const authToken = localStorage.getItem("authToken");
+  //   setAuthed(authToken === null);
+  //   searchByAll();
+  //   // setSpecs(doctors.map((doctors) => doctors.specialty));
+  // }, []);
 
   const onChange = (value) => {
     console.log(`selected ${value}`);

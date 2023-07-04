@@ -2,8 +2,9 @@ import {Button, Form, Input, message, Modal, Select} from "antd";
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { login } from '../utils'
+import { type } from "@testing-library/user-event/dist/type";
 const { Option } = Select;
-function Login({ onSuccess, closeReminder }) {
+function Login({ onSuccess, closeReminder, changePageState }) {
     const [displayModal, setDisplayModal] = useState(false)
     const handleCancel = () => {
         setDisplayModal(false)
@@ -16,13 +17,15 @@ function Login({ onSuccess, closeReminder }) {
     const onFinish = (data) => {
         login(data)
             .then(() => {
-                setDisplayModal(false)
-                closeReminder()
-                message.success(`Welcome back`)
+                setDisplayModal(false);
+                closeReminder();
+                // changePageState();
+                message.success(`Welcome back`);
                 onSuccess()
             }).catch((err) => {
             message.error(err.message)
         })
+
     }
     return (
         <>
