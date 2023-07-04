@@ -1,6 +1,7 @@
 import { List, Card, Modal, Select, Option, Button } from "antd";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { click } from "@testing-library/user-event/dist/click";
 
 export const DepartmentItems = ({ specs, onDoctorChange, loading }) => {
 
@@ -77,7 +78,7 @@ export function DoctorItems ({ doctors, loading }) {
             bordered={false}
             style={{width:300, height:150}}
             loading={loading}
-            onClick={clickCard(item)}
+            onClick={() => clickCard(item)}
           >
             <p>specialization: {item.spec}</p>
             <p>availableTime: {item.availableTimes}</p>
