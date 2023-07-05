@@ -11,6 +11,7 @@ import SearchPage from './components/SearchPage';
 import DoctorProfile from './components/DoctorProfile';
 import Setting from './components/Setting';
 import { logout } from './utils';
+import PatientProfile from './components/PatientProfile';
 const { Header, Content } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
   key,
@@ -36,6 +37,7 @@ function App() {
   const[buttonState, setButtonState] = useState(true)
   const [pageState, setPageState] = useState('');
   const [loginReminder, setLoginReminder] = useState(false);
+  const [role,setRole] = useState("")
   const signinOnSuccess = () => {
     setLoggedIn(true);
   }
@@ -61,8 +63,12 @@ function App() {
     }
   }
   const showProfile = () => {
-    setPageState("profile");
     setButtonState(false)
+    if (role === "Patient") {
+      setPageState("Patient Profile")
+    }else{
+      setPageState("Doctor Profile")
+    }
   }
   const renderContent = (pageState) => {
     if (pageState === "search") {
@@ -73,6 +79,9 @@ function App() {
     }
     if (pageState === "Doctor") {
       return <Setting />
+    }
+    if (pageState === "Patient Profile"){
+      return <PatientProfile />
     }
     else{
       return <MainPage />;
@@ -91,6 +100,7 @@ function App() {
   }
   const changePageState = (data) => {
     setPageState(data);
+    setRole(data)
     if(data === "Doctor"){
       setButtonState(false);
     }
