@@ -43,6 +43,7 @@ public class AppointmentService {
                         body.appointmentDate(),
                         body.appointmentTime(),
                         body.description(),
+                        "Good Day Mat",
                         body.isOngoing());
         appointmentRepository.save(appointment);
     }

@@ -1,8 +1,11 @@
 package com.laioffer.mdoline.search;
 
 import com.laioffer.mdoline.db.entity.DoctorEntity;
+import com.laioffer.mdoline.model.GeneralSearchBody;
+import com.laioffer.mdoline.model.ResponseGeneralSearchBody;
 import com.laioffer.mdoline.model.ResponseSearchBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,5 +49,19 @@ public class SearchController {
     @GetMapping("/get-all-specs")
     public List<String> getAllSpecs(){
         return searchService.getAllSpecs();
+    }
+
+    @GetMapping("/search")
+    public List<ResponseGeneralSearchBody> search(@RequestBody GeneralSearchBody body) {
+        if (body.spec() == null) {
+            if (body.firstName() == null) {
+                return searchService.searchingByLastName(body.lastName());
+            } else if (body.lastName() == null) {
+                return searchService.searchingByFirstName(body.firstName());
+            } else {
+                return searchService.searchingByFullName(body.firstName(), body.lastName());
+            }
+        }
+        return null;
     }
 }

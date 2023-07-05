@@ -11,6 +11,7 @@ public record AppointmentEntity(
         String appointmentDate,
         String appointmentTime,
         String description,
+        String link,
         Boolean isOngoing
 ) {
 }

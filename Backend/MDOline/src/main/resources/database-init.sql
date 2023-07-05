@@ -62,8 +62,7 @@ CREATE TABLE lectures
     lecture_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     doctor_ID INT NOT NULL,
     title VARCHAR(100) NOT NULL,
-    body VARCHAR(500) NOT NULL,
-    FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
+    body VARCHAR(500) NOT NULL
 );
 
  CREATE TABLE available_times
@@ -84,6 +83,7 @@ CREATE TABLE appointments
     appointment_date VARCHAR(50) NOT NULL,
     appointment_time VARCHAR(100) NOT NULL,
     description VARCHAR(500) NOT NULL,
+    link VARCHAR(500) NOT NULL,
     is_ongoing BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (patient_ID) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (doctor_ID) REFERENCES doctors(doctor_ID) ON DELETE CASCADE
