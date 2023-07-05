@@ -36,7 +36,7 @@ export const DepartmentItems = ({ specs, onDoctorChange, loading }) => {
     )
 }
 
-export function DoctorItems ({ doctors, loading }) {
+export function DoctorItems ({ doctors, loading, changePageState }) {
   const [showDetail,setShowDetail] = useState(false);
   const clickCard = (data) => {
     console.log("click",data)
@@ -44,6 +44,10 @@ export function DoctorItems ({ doctors, loading }) {
   }
   const handleCancel = () => {
     setShowDetail(false);
+  }
+  const shwoDoctorProfile = () => {
+    console.log("change")
+    changePageState("profile")
   }
   return (
       <List 
@@ -62,13 +66,19 @@ export function DoctorItems ({ doctors, loading }) {
       renderItem={(item) => (
         <div>
         <Modal 
-          title="Register"
+          title="Doctor Deatils"
           visible={showDetail}
           onCancel={handleCancel}
           footer={null}
           destroyOnClose={true}
       >
-          <p>click the card</p>
+          <p>First Name: {item.firstName}</p>
+          <p>LastName: {item.lastName}</p>
+          <p>specialization: {item.spec}</p>
+          <p>If you want to make an appointment with this doctor</p>
+          <Button type="primary" onClick={shwoDoctorProfile}>
+            go to doctor profile
+          </Button>
         </Modal>
         <List.Item>
           {/* <Link to={{ pathname: `/DoctorProfile`, state: { doctor: item }}}> */}

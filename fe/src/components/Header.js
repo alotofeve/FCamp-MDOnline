@@ -7,7 +7,7 @@ import { UserOutlined } from "@ant-design/icons";
 import styles from "../styles.js";
 const { Header, Content } = Layout;
 
-function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,showProfile,closeReminder}){
+function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,showProfile,closeReminder,changePageState}){
     const [loginState] = useState(false);
     const handleProfile = () => {
         showProfile()
@@ -47,8 +47,8 @@ function PageHeader({ loggedIn, signoutOnClick, signinOnSuccess,showProfile,clos
                     )}
                     {!loggedIn && (
                         <>
-                            <Login onSuccess={signinOnSuccess} closeReminder={closeReminder}/>
-                            <Register onSuccess={signinOnSuccess} closeReminder={closeReminder}/>
+                            <Login onSuccess={signinOnSuccess} closeReminder={closeReminder} changePageState = {changePageState}/>
+                            <Register onSuccess={signinOnSuccess} closeReminder={closeReminder} changePageState = {changePageState}/>
                         </>
                     )}
                 </Col>

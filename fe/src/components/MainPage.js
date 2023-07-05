@@ -41,7 +41,7 @@ function MainPage(){
                     dataSource={lectureData}
                     renderItem={(item) => (
                         <List.Item>
-                        <Typography.Text mark>[ITEM]</Typography.Text> {item}
+                        <Typography.Text mark>[{item.title}]</Typography.Text> {item.body}
                         </List.Item>
                     )}
                 />

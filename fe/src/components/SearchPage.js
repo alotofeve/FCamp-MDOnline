@@ -5,7 +5,7 @@ import { DepartmentItems, DoctorItems } from "./Items";
 import { searchDoctorBySpec, searchDoctorByFullName, searchDoctorByFirstName, searchDoctorByLastName} from "../utils/SearchUtils";
 const { Header, Content } = Layout;
 
-function SearchPage(){
+function SearchPage({changePageState}){
   const specs = [{specialty: "General Illness"}, {specialty: "Respiratory"},{specialty: "Gastrointestinal"},
                  {specialty: "Urinary"}, {specialty: "Skin"},{specialty: "Injuries"}, {specialty: "Chronic"}];
   const [doctors, setDoctors] = useState([]);
@@ -178,7 +178,7 @@ function SearchPage(){
             <DepartmentItems specs={specs} onDoctorChange={onDoctorChange} loading={loading}/>
           )}
           {searched && (
-            <DoctorItems doctors={doctors} loading={loading}/>
+            <DoctorItems doctors={doctors} loading={loading} changePageState={changePageState}/>
           )}
         </Layout>
       </Content>

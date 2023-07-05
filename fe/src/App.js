@@ -66,7 +66,7 @@ function App() {
   }
   const renderContent = (pageState) => {
     if (pageState === "search") {
-      return <SearchPage />
+      return <SearchPage changePageState = {changePageState}/>
     }
     if (pageState === "profile") {
       return <DoctorProfile />
@@ -89,8 +89,12 @@ function App() {
   const closeReminder = () => {
     setLoginReminder(false);
   }
-  const changePageState = () => {
-    setPageState("Doctor");
+  const changePageState = (data) => {
+    setPageState(data);
+    if(data === "Doctor"){
+      setButtonState(false);
+    }
+    
   }
   return (
     <Layout>
@@ -101,6 +105,7 @@ function App() {
               signinOnSuccess={signinOnSuccess}
               showProfile = {showProfile}
               closeReminder = {closeReminder}
+              changePageState = {changePageState}
           />
         </Header>
       <Content
@@ -143,7 +148,7 @@ function App() {
               </div> 
               <div>
               <Login onSuccess={signinOnSuccess} closeReminder={closeReminder} changePageState={changePageState}/>
-              <Register onSuccess={signinOnSuccess} closeReminder={closeReminder} setPageState={setPageState}/>
+              <Register onSuccess={signinOnSuccess} closeReminder={closeReminder} changePageState={changePageState}/>
               </div> 
             </Modal>
             {showButton()}
