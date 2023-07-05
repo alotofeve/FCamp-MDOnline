@@ -44,7 +44,7 @@ export const createAppointment = (appointment) => {
     })
   }
   
-  export const updateAppoitment = (query) => {
+  export const updateAppointment = (query) => {
     const appointmentUrl = `${domain}/appointment`;
     return fetch(
       appointmentUrl,

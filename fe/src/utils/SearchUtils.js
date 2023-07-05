@@ -22,8 +22,8 @@ export const searchDoctorByAll = () => {
       });
   };
   
+  
 export const searchDoctorByName = (name) => {
-
 const searchDoctorByNameUrl = `${domain}/search-doctor-by-name?first_name=`;
 return fetch(`${searchDoctorByNameUrl}${name.firstName}&last_name=${name.lastName}`).then((response) => {
     handleResponseStatus(response, "Fail to get doctors by name");

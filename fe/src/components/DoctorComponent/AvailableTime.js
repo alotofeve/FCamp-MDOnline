@@ -64,10 +64,11 @@ const AvailableTime = ({availableTimes, id}) => {
     }
 
     const onAppointmentCreated = async(query) => {
-        query.doctorId = id;
+        query.doctorId = Number(id);
         query.isOngoing = true;
+        console.log(query);
         try {
-            createAppointment(query);
+            await createAppointment(query);
             message.success("Successful");
         } catch (error) {
             message.error(error.message);
@@ -80,11 +81,11 @@ const AvailableTime = ({availableTimes, id}) => {
 
     return (
         <>
-            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                <h1> AvailableTimes </h1>
+            <div style={{display: "flex", justifyContent: "space-between", alignItems: "baseline", paddingBottom: 10}}>
+                <h1 style={{fontSize: 20 ,fontWeight: "bold"}}> AvailableTimes </h1>
                 <Button icon={<ScheduleOutlined />} type="primary" onClick={onclick}>Request an Appointment</Button>
             </div>
-            <Modal title="New Appoitment" open={modal} onCancel={onHandleCancel} footer={null} destroyOnClose={true}>
+            <Modal title="New Appointment" open={modal} onCancel={onHandleCancel} footer={null} destroyOnClose={true}>
                 <Divider></Divider>
                 <Form 
                     form={form} 

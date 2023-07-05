@@ -21,6 +21,7 @@ const UpdateInfo = () => {
   };
   
   return (
+    <main style={{paddingTop: 30, paddingBottom: 20, paddingLeft: 35, textAlign: "center"}}>
     <Form
       name="basic"
       labelCol={{
@@ -112,6 +113,7 @@ const UpdateInfo = () => {
         </Button>
       </Form.Item>
     </Form>
+    </main>
   )
 }
 export default UpdateInfo;

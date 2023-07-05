@@ -12,7 +12,7 @@ const DoctorProfile = () => {
     const [authed, setAuthed] = useState(true);
     // const [doctorInfo, setDoctorInfo] = useState([]);
 
-    const doctorInfo =  {"Id": "123456",
+    const doctorInfo =  {"Id": "1",
     "firstName": "John",
     "lastName": "Doe",
     "gender": "male",
@@ -23,15 +23,15 @@ const DoctorProfile = () => {
     "availables": [
         {
             "date": "2023-06-25",
-            "time": "10:00 AM"
+            "time": "10:00:00"
         },
         {
             "date": "2023-06-25",
-            "time": "2:30 PM"
+            "time": "2:30:00"
         },
         {
             "date": "2023-06-25",
-            "time": "6:15 PM"
+            "time": "6:15:00"
         }
     ],
     "mailAddress": "1234 A street San_jose CA United_States",

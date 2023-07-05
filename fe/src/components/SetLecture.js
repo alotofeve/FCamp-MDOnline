@@ -1,7 +1,7 @@
 import { Button, Divider, Form, List, Modal, message, Input, Tooltip } from 'antd';
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import react, {useEffect, useState} from 'react';
-import { deleteLecture, postLecture} from '../utils/LectureUtils';
+import { deleteLecture, postLecture, getLecture} from '../utils/LectureUtils';
 
 
 const { TextArea } = Input
@@ -12,42 +12,29 @@ const SetLecture = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modal, setModal] = useState(false);
 
-    const Dummydata = [
-        {
-            lectureId: "12345",
-            doctorId: "78901",
-            lectureTitle: "Introduction to Java Programming",
-            lectureDescription: "This lecture covers the basics of Java programming language"
-        },
-        {
-            lectureId: "12345",
-            doctorId: "78901",
-            lectureTitle: "Introduction to Java Programming",
-            lectureDescription: "This lecture covers the basics of Java programming language"
+    useEffect(() => {
+        fetchLecture();
+    },[])
+
+    const fetchLecture = async() => {
+        setLoading(true);
+        try{
+            const res = await getLecture();
+            console.log(res);
+            setData(res);
+        } catch (error) {
+            message.error(error.message);
+        } finally {
+            setLoading(false);
         }
-    ]
-
-    // useEffect(() => {
-    //     initialize();
-    // },[])
-
-    // const initialize = async() => {
-    //     setLoading(true);
-    //     try{
-    //         const res = getLecture();
-    //         setData(res || []);
-    //     } catch (error) {
-    //         message.error(error.message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+    }
 
     const onLectureDeleted = async (id) => {
         setLoading(true);
         try {
             const response = await deleteLecture(id);
-            // initialize();
+            message.success("Success");
+            fetchLecture();
         } catch (error) {
             message.error(error.message);
         } finally {
@@ -56,12 +43,13 @@ const SetLecture = () => {
         }
     }
 
-    const onPostedLecture = async(data) => {
+    const onPostedLecture = async(query) => {
         setLoading(true);
         try {
-            await postLecture(data);
+            await postLecture(query);
             setIsModalOpen(false);
             message.success("Success");
+            fetchLecture();
         } catch (error) {
             message.error(error.message);
         } finally {
@@ -79,7 +67,7 @@ const SetLecture = () => {
     }
     
     return (
-        <>
+        <main style={{paddingTop: 20, paddingBottom: 20, paddingLeft: 40, paddingRight: 35}}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <div style={{fontSize: 30}}>
                 Posted Lecture
@@ -104,8 +92,8 @@ const SetLecture = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Form.Item label="LectureTitle" name="lectureTitle"><Input /></Form.Item>
-                    <Form.Item label="LectureDescription" name="lectureDescription"><TextArea rows={3}/></Form.Item>
+                    <Form.Item label="Title" name="title"><Input /></Form.Item>
+                    <Form.Item label="Body" name="body"><TextArea rows={3}/></Form.Item>
                     <Form.Item 
                         wrapperCol={{
                         offset: 8,
@@ -122,12 +110,12 @@ const SetLecture = () => {
         <Divider></Divider>
         <List
             itemLayout='horizontal'
-            dataSource={Dummydata}
+            dataSource={data}
             renderItem={(item) => (
                 <List.Item>
                     <List.Item.Meta
-                        title={item.lectureTitle}
-                        description={item.lectureDescription}
+                        title={item.title}
+                        description={item.body}
                     />
                     <Tooltip title="delete">
                         <Button onClick={() => setModal(true)} type="primary" shape="circle" icon={<DeleteOutlined />} />
@@ -140,7 +128,7 @@ const SetLecture = () => {
                 </List.Item>
             )}
         />
-        </>
+        </main>
     );
 }
 export default SetLecture;

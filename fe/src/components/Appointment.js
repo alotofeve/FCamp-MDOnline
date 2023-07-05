@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 import { getAppointment } from "../utils/AppointmentUtils";
 import { Table, message } from "antd";
 
-const Appointment = () => {
+const Appointment = ({ appointments }) => {
     const [ongoing, setOngoing] = useState(true);
-    const [appointments, setAppointments] = useState([]);
+    // const [appointments, setAppointments] = useState([]);
 
-    useEffect(() => {
-        fetchData();
-    }, [])
+    // useEffect(() => {
+    //     fetchData();
+    // }, [])
 
-    const fetchData = async () => {
-        try {
-            const res = await getAppointment();
-            setAppointments(res || []);
-        } catch (error) {
-            message.error(error.message);
-        }
-    };
+    // const fetchData = async () => {
+    //     try {
+    //         const res = await getAppointment();
+    //         setAppointments(res || []);
+    //     } catch (error) {
+    //         message.error(error.message);
+    //     }
+    // };
 
     const columns = [
         {
@@ -41,7 +41,7 @@ const Appointment = () => {
             render: (isOngoing) => {
                 const color = isOngoing ? "blue" : "grey";
                 return (
-                    <div color={color}>
+                    <div style={{color: color}}>
                         ongoing
                     </div>
                 )

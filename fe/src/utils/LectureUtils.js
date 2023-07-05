@@ -20,9 +20,9 @@ export const getLecture = () => {
       getLectureUrl,
       {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        }
+        // headers: {
+        //   Authorization: `Bearer ${authToken}`,
+        // }
       }
     ).then((response) => {
       handleResponseStatus(response, "Fail to get lecture");
@@ -32,7 +32,7 @@ export const getLecture = () => {
   
 export const postLecture = (lecture) => {
   const authToken = localStorage.getItem("authToken");
-  const postLectureUrl = new URL(`${domain}/post-lecture`);
+  const postLectureUrl = `${domain}/post-lecture`;
 
   return fetch(postLectureUrl,
     {
@@ -48,8 +48,7 @@ export const postLecture = (lecture) => {
 };
   
 export const deleteLecture = (lectureId) => {
-  const deleteLectureUrl = new URL(`${domain}/delete-lecture`);
-  deleteLectureUrl.searchParams.append("lectureId", lectureId);
+  const deleteLectureUrl = `${domain}/delete-lecture?lectureId=${lectureId}`;
 
   return fetch(
     deleteLectureUrl,
