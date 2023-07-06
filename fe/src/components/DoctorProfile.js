@@ -10,42 +10,47 @@ const { Header, Content, Sider } = Layout;
 
 const DoctorProfile = () => {
     const [authed, setAuthed] = useState(true);
-    // const [doctorInfo, setDoctorInfo] = useState([]);
+    const [doctorInfo, setDoctorInfo] = useState([]);
 
-    const doctorInfo =  {"Id": "1",
-    "firstName": "John",
-    "lastName": "Doe",
-    "gender": "male",
-    "dateOfBirth": "19891122",
-    "email": "123@gmail.com",
-    "phone": "1231231234",
-    "spec": "BrainDead",
-    "availables": [
-        {
-            "date": "2023-06-25",
-            "time": "10:00:00"
-        },
-        {
-            "date": "2023-06-25",
-            "time": "2:30:00"
-        },
-        {
-            "date": "2023-06-25",
-            "time": "6:15:00"
+//     const doctorInfo =  {"Id": "1",
+//     "firstName": "John",
+//     "lastName": "Doe",
+//     "gender": "male",
+//     "dateOfBirth": "19891122",
+//     "email": "123@gmail.com",
+//     "phone": "1231231234",
+//     "spec": "BrainDead",
+//     "availables": [
+//         {
+//             "date": "2023-06-25",
+//             "time": "10:00:00"
+//         },
+//         {
+//             "date": "2023-06-25",
+//             "time": "2:30:00"
+//         },
+//         {
+//             "date": "2023-06-25",
+//             "time": "6:15:00"
+//         }
+//     ],
+//     "mailAddress": "1234 A street San_jose CA United_States",
+//     "license": "guessguess123"
+//   }
+
+    useEffect(() => {
+        fetchDoctorInfo();
+        console.log(doctorInfo);
+    }, [])
+
+    const fetchDoctorInfo = async () => {
+        try {
+            const data = await getDoctorInfo();
+            setDoctorInfo(data || []);
+        } catch (error) {
+            message.error(error.message);
         }
-    ],
-    "mailAddress": "1234 A street San_jose CA United_States",
-    "license": "guessguess123"
-  }
-
-    // useEffect(async() => {
-    //     try {
-    //         const data = getDoctorInfo();
-    //         setDoctorInfo(data || []);
-    //     } catch (error) {
-    //         message.error(error.message);
-    //     }
-    // }, [])
+    }
 
     const { token: { colorBgContainer } } = theme.useToken();
     return(
@@ -57,7 +62,7 @@ const DoctorProfile = () => {
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
                     <div>
-                        <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/>
+                        {/* <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/> */}
                     </div>
                     <div style={{ padding: "0 20px"}}>
                         <Lecture />

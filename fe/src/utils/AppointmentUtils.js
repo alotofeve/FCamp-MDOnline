@@ -75,3 +75,19 @@ export const createAppointment = (appointment) => {
       return response.json();
     })
   }
+
+  export const setAvailableTime = (query) => {
+    const url = `${domain}/set-available-times`;
+    return fetch(
+      url,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(query)
+      }
+    ).then((response) => {
+      handleResponseStatus(response, "fail to set available times");
+    })
+  }
