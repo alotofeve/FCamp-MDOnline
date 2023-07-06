@@ -36,7 +36,7 @@ export const DepartmentItems = ({ specs, onDoctorChange, loading }) => {
     )
 }
 
-export function DoctorItems ({ doctors, loading, changePageState }) {
+export function DoctorItems ({ doctors, loading, changePageState, setDoctorId }) {
   const [showDetail,setShowDetail] = useState(false);
   const clickCard = (data) => {
     console.log("click",data)
@@ -45,8 +45,9 @@ export function DoctorItems ({ doctors, loading, changePageState }) {
   const handleCancel = () => {
     setShowDetail(false);
   }
-  const shwoDoctorProfile = () => {
+  const shwoDoctorProfile = (id) => {
     console.log("change")
+    setDoctorId(id)
     changePageState("profile")
   }
   return (
@@ -72,11 +73,11 @@ export function DoctorItems ({ doctors, loading, changePageState }) {
           footer={null}
           destroyOnClose={true}
       >
-          <p>First Name: {item.firstName}</p>
-          <p>LastName: {item.lastName}</p>
-          <p>specialization: {item.spec}</p>
+          <p>First Name: {item.doctorEntity.firstName}</p>
+          <p>LastName: {item.doctorEntity.lastName}</p>
+          <p>specialization: {item.doctorEntity.spec}</p>
           <p>If you want to make an appointment with this doctor</p>
-          <Button type="primary" onClick={shwoDoctorProfile}>
+          <Button type="primary" onClick={()=>shwoDoctorProfile(item.doctorEntity.id)}>
             go to doctor profile
           </Button>
         </Modal>
@@ -84,14 +85,14 @@ export function DoctorItems ({ doctors, loading, changePageState }) {
           {/* <Link to={{ pathname: `/DoctorProfile`, state: { doctor: item }}}> */}
           <Card 
             hoverable
-            title={item.firstName+" "+item.lastName }
+            title={item.doctorEntity.firstName+" "+item.doctorEntity.lastName }
             bordered={false}
             style={{width:300, height:150}}
             loading={loading}
             onClick={() => clickCard(item)}
           >
-            <p>specialization: {item.spec}</p>
-            <p>availableTime: {item.availableTimes}</p>
+            <p>specialization: {item.doctorEntity.spec}</p>
+            <p>availableTime: {item.availables}</p>
           </Card>
           {/* </Link> */}
         </List.Item>

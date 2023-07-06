@@ -151,5 +151,9 @@ public class SearchService {
         return result;
     }
 
+    public ResponseGeneralSearchBody getDoctorProfileById(Long id){
+        ResponseGeneralSearchBody result = new ResponseGeneralSearchBody(doctorService.getDoctorProfileById(id),availableTimeService.getAllAvailableTimes(id));
+        return result;
+    }
 
 }

@@ -44,4 +44,5 @@ public abstract class UserService<T, V> {
     public abstract void updateProfile(String username, V v);
 
     public abstract void deleteProfile(String username);
+
 }

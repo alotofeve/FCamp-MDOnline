@@ -52,7 +52,9 @@ public interface DoctorRepository extends ListCrudRepository<DoctorEntity, Long>
     @Query("SELECT DISTINCT spec FROM doctors")
     List<String> findAllSpecs();
 
-    @Query("SELECT * FROM doctors WHERE 1=1 <if >")
+    DoctorEntity searchDoctorEntityByDoctorId(Long id);
+    @Query("SELECT * FROM doctors WHERE (CASE WHEN :firstname is not null THEN first_name = :firstname ELSE 1 END)AND(CASE WHEN :lastname is not null THEN last_name = :lastname ELSE 1 END)AND(CASE WHEN :spec is not null THEN spec = :spec ELSE 1 END)")
+//    @Query("SELECT * FROM doctors WHERE IF(:firstname)")
     List<DoctorEntity> searchDoctor(String firstname, String lastname, String spec);
 }
 

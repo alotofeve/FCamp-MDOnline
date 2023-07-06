@@ -112,6 +112,13 @@ export const updateDoctorProfile = (data) => {
     });
 };
 
+export const getDoctorInfoById = (id) => {
+  const getDoctorInfoByIdUrl = `${domain}/get-profile-by-id?id=`;
+  return fetch(`${getDoctorInfoByIdUrl}${id}`).then((response) => {
+    handleResponseStatus(response, "Fail to get doctors profile by id");
+    return response.json();
+});
+}
 
 
 export const getDoctorInfo = () => {
@@ -125,10 +132,11 @@ export const getDoctorInfo = () => {
       }
     }
   ).then((response) => {
-    handleResponseStatus(response, "Fail to get doctor profile");
+    handleResponseStatus(response, "Fail to get profile");
     return response.json();
-  })
+});
 }
+
 
 export const getPatientInfo = () => {
   const getPatientInfoUrl = `${domain}/get-patient-profile`;

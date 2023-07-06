@@ -197,8 +197,22 @@ function Register({ onSuccess, closeReminder, changePageState }) {
                         name="spec"
                         rules={[{ required: true, message: 'Please input your Specialization!' }]}
                     >
-                        <Input
+                        <Select
+                            showSearch
                             placeholder="specialization"
+                            optionFilterProp="children"
+                            // onChange={onChange}
+                            // onSearch={onSearch}
+                            filterOption={(input, option) =>
+                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                            options={[{value: 'General Illness',label: 'General Illness',},
+                                    {value: 'Respiratory',label: 'Respiratory',},
+                                    {value: 'Gastrointestinal',label: 'Gastrointestinal',},
+                                    {value: 'Urinary',label: 'Urinary',},
+                                    {value: 'Skin',label: 'Skin',},
+                                    {value: 'Injuries',label: 'Injuries',},
+                                    {value: 'Chronic',label: 'Chronic',},]}
                         />
                     </Form.Item>
                     <Form.Item
