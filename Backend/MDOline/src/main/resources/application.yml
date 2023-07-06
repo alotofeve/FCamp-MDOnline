@@ -8,12 +8,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
-      mode: ${INIT_DB:always}
+      mode: ${INIT_DB:NEVER}
       schema-locations: "classpath:database-init.sql"
 logging:
   level:
     org.apache.coyote.http11.Http11InputBuffer: DEBUG # Incoming HTTP requests
     org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE # Outgoing http requests
-
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
 dialogflow:
   project-id: your-project-id
