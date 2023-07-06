@@ -64,4 +64,8 @@ public class SearchController {
         }
         return null;
     }
+    @GetMapping("/search-doctor")
+    public List<ResponseGeneralSearchBody> searchDoctor(@RequestBody GeneralSearchBody body) {
+        return searchService.searchDoctor(body.firstName(), body.lastName(), body.spec());
+    }
 }

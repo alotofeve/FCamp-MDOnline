@@ -125,7 +125,6 @@ function SearchPage({changePageState}){
       message.error(error.message);
     } finally {
       setLoading(false);
-      console.log(doctors)
     }
   };
 

@@ -1,5 +1,5 @@
 import '../styles/PatientProfile.css';
-import { Dropdown, Layout, Button, theme, message } from "antd";
+import { Dropdown, Layout, Button, theme, message, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { getDoctorInfo } from "../utils";
 import 'antd/dist/reset.css';
@@ -19,7 +19,6 @@ const PatientProfile = () => {
     "dateOfBirth": "19891122",
     "email": "123@gmail.com",
     "phone": "1231231234",
-    "spec": "BrainDead",
     "availables": [
         {
             "date": "2023-06-25",
@@ -35,8 +34,29 @@ const PatientProfile = () => {
         }
     ],
     "mailAddress": "1234 A street San_jose CA United_States",
-    "license": "guessguess123"
   }
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+    },
+    {
+      title: 'Time',
+      dataIndex: 'time',
+      key: 'time',
+    },
+    {
+      title: 'Doctor',
+      dataIndex: 'doctor',
+      key: 'doctor',
+    },
+    {
+      title: 'Link',
+      dataIndex: 'link',
+      key: 'link',
+    },
+];
 
     // useEffect(async() => {
     //     try {
@@ -57,7 +77,7 @@ const PatientProfile = () => {
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
                     <div>
-                        <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/>
+                        <Table columns={columns}></Table>
                     </div>
                     <div style={{ padding: "0 20px"}}>
                         <Lecture />

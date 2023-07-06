@@ -139,6 +139,17 @@ public class SearchService {
         return result;
     }
 
+    public List<ResponseGeneralSearchBody> searchDoctor(String firstname, String lastname, String spec) {
+        List<ResponseGeneralSearchBody> result = new ArrayList<>();
+        List<DoctorEntity> doctorsProfile = doctorService.searchDoctors(firstname, lastname, spec);
+        for (DoctorEntity profile : doctorsProfile) {
+            result.add(new ResponseGeneralSearchBody(
+                    profile,
+                    availableTimeService.getAllAvailableTimes(profile.doctorId())
+            ));
+        }
+        return result;
+    }
 
 
 }
