@@ -4,24 +4,23 @@ import { updateDoctorProfile, updatePatientProfile } from '../utils';
 
 const { Option } = Select;
 
-const UpdateInfo = ({ doctorInfo }) => {
+const UpdatePatientInfo = ({ patientInfo}) => {
   const [form] = Form.useForm();
 
   const initialValues = {
-    "first_name": doctorInfo.firstName,
-    "last_name": doctorInfo.lastName,
-    "gender": doctorInfo.gender,
-    "date_of_birth": doctorInfo.dateOfBirth,
-    "email": doctorInfo.email,
-    "phone": doctorInfo.phone,
-    "spec": doctorInfo.spec,
-    "mail_address": doctorInfo.mailAddress,
-    "license": doctorInfo.license,
+    "first_name": patientInfo.firstName,
+    "last_name": patientInfo.lastName,
+    "gender": patientInfo.gender,
+    "date_of_birth": patientInfo.dateOfBirth,
+    "insurance": patientInfo.insurance,
+    "email": patientInfo.email,
+    "phone": patientInfo.phone,
+    "mail_address": patientInfo.mailAddress,
   };
 
   const onFinish = async (data) => {
     try {
-      await updateDoctorProfile(data);
+      await updatePatientProfile(data);
       message.success('Profile updated successfully');
     } catch (error) {
       message.error(error.message);
@@ -89,6 +88,14 @@ const UpdateInfo = ({ doctorInfo }) => {
         <Form.Item label="License" name="license">
           <Input />
         </Form.Item>
+
+        <Form.Item label="Insurance" name="insurance">
+          <Select>
+            <Option value={true}>True</Option>
+            <Option value={false}>False</Option>
+          </Select>
+        </Form.Item>
+
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
@@ -99,4 +106,4 @@ const UpdateInfo = ({ doctorInfo }) => {
   );
 };
 
-export default UpdateInfo;
+export default UpdatePatientInfo;

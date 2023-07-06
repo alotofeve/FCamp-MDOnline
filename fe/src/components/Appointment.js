@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAppointment, setAvailableTime } from "../utils/AppointmentUtils";
 import { Button, Divider, Form, Input, Modal, Table, message } from "antd";
 
-const Appointment = ({ appointments }) => {
+const Appointment = ({ appointments, identity }) => {
     const [ongoing, setOngoing] = useState(true);
     const [modal, setModal] = useState(false);
     const [form] = Form.useForm();
@@ -77,7 +77,9 @@ const Appointment = ({ appointments }) => {
     }
 
     return (
-        <>
+        <main>
+            {identity === "doctor" &&
+            <> 
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 10}}>
                 <div></div>
                 <Button type="primary" onClick={onclick}>Add new AvailableTimes</Button>
@@ -115,11 +117,10 @@ const Appointment = ({ appointments }) => {
                     </Form.Item>
                 </Form>
             </Modal>
-            <Table columns={columns} dataSource={appointments} />
-            
-        </>
-
-
+            </>
+            }
+            <Table columns={columns} dataSource={appointments} />    
+        </main>
     )
 } 
 export default Appointment;

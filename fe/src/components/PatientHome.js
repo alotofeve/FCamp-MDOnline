@@ -2,27 +2,18 @@ import { Layout, theme, List, Divider, message } from "antd";
 import React, { useState, useEffect } from "react";
 import { MedicineBoxOutlined, TagOutlined} from "@ant-design/icons"
 import 'antd/dist/reset.css';
-import Resume from "./DoctorComponent/Resume";
+import Resume from "./PatientComponent/Resume";
 import Lecture from "./DoctorComponent/Lecture";
-import { getDoctorInfo } from "../utils";
+
 
 const { Header, Content, Sider } = Layout;
 
-const DoctorHome = ({ appointments, doctorInfo, fetchDoctorInfo}) => {
-    // const [doctorInfo, setDoctorInfo] = useState([]);
+const PatientHome = ({ appointments, patientInfo, fetchPatientInfo}) => {
 
     useEffect(() => {
-        fetchDoctorInfo();
+        fetchPatientInfo();
+        console.log(patientInfo);
     })
-
-    // const fetchDoctorInfo = async() => {
-    //     try {
-    //         const res = await getDoctorInfo();
-    //         setDoctorInfo(res || []);
-    //     } catch (error) {
-    //         message.error(error.message)
-    //     }
-    // }
 
     const { token: { colorBgContainer } } = theme.useToken();
     return (
@@ -30,7 +21,7 @@ const DoctorHome = ({ appointments, doctorInfo, fetchDoctorInfo}) => {
         <Content style={{overflow: "auto", paddingTop: 20, paddingBottom: 20, paddingLeft: 35, paddingRight: 20}}>
             <Layout>
                 < Sider style={{ minHeight: 1000, background: colorBgContainer}} width={380} >
-                    <Resume doctorInfo={doctorInfo}/>
+                    <Resume patientInfo={patientInfo}/>
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly", background: colorBgContainer}}>
                     <div style={{paddingLeft: 10}}>
@@ -66,4 +57,4 @@ const DoctorHome = ({ appointments, doctorInfo, fetchDoctorInfo}) => {
         </Layout>
     )
 }
-export default DoctorHome;
+export default PatientHome;

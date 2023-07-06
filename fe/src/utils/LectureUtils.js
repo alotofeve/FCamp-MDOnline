@@ -48,7 +48,7 @@ export const postLecture = (lecture) => {
 };
   
 export const deleteLecture = (lectureId) => {
-  const deleteLectureUrl = `${domain}/delete-lecture?lectureId=${lectureId}`;
+  const deleteLectureUrl = `${domain}/delete-lecture-by-id?lecture_id=${lectureId}`;
 
   return fetch(
     deleteLectureUrl,

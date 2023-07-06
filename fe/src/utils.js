@@ -102,14 +102,13 @@ export const updateDoctorProfile = (data) => {
   return fetch(
     url,
     {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data)
     }).then((response) => {
       handleResponseStatus(response, "fail to update doctor profile");
-      return response.json();
     });
 };
 
@@ -126,8 +125,40 @@ export const getDoctorInfo = () => {
       }
     }
   ).then((response) => {
-    handleResponseStatus(response, "Fail to get profile");
+    handleResponseStatus(response, "Fail to get doctor profile");
     return response.json();
+  })
+}
+
+export const getPatientInfo = () => {
+  const getPatientInfoUrl = `${domain}/get-patient-profile`;
+  return fetch(
+    getPatientInfoUrl,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+  ).then((response) => {
+    handleResponseStatus(response, "Fail to get patient profile");
+    return response.json();
+  })
+} 
+
+export const updatePatientProfile = (query) => {
+  const updatePatientProfileUrl = `${domain}/update-patient-profile}`;
+  return fetch (
+    updatePatientProfileUrl,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(query)
+    }
+  ).then((response) => {
+    handleResponseStatus(response, "Fail to update patient profile")
   })
 }
 

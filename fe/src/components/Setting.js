@@ -6,6 +6,7 @@ import UpdateInfo from './UpdateInfo';
 import SetLecture from './SetLecture';
 import DoctorHome from './DoctorHome';
 import { getAppointment } from '../utils/AppointmentUtils';
+import { getDoctorInfo } from '../utils';
 const { Header, Content, Sider } = Layout;
 const item1 = [{
     key: 1,
@@ -15,27 +16,12 @@ const item1 = [{
 const Setting = () => {
     const [selectedMenuItem, setSelectedMenuItem] = useState('0');
     const [appointments, setAppointments] = useState([]);
+    const [doctorInfo, setDoctorInfo] = useState([]);
     const [data, setData] = useState([]);
-
-    // const appointments = [
-    //     {
-    //         "doctorId": 1,
-    //         "appointmentDate": "2023-01-02",
-    //         "appointmentTime": "15:04:03",
-    //         "description": "fever",
-    //         "isOngoing": true
-    //     },
-    //     {
-    //         "doctorId": 1,
-    //         "appointmentDate": "2023-01-02",
-    //         "appointmentTime": "15:04:03",
-    //         "description": "fever",
-    //         "isOngoing": true
-    //     }
-    // ]
 
     useEffect(() => {
         fetchData();
+        fetchDoctorInfo();
     }, [])
 
     const fetchData = async () => {
@@ -47,14 +33,23 @@ const Setting = () => {
         }
     };
 
+    const fetchDoctorInfo = async() => {
+        try {
+            const res = await getDoctorInfo();
+            setDoctorInfo(res || []);
+        } catch (error) {
+            message.error(error.message)
+        }
+    }
+
     const componentsSwitch = (key) => {
         switch(key){
         case "0":
-            return (<DoctorHome appointments={appointments}/>)
+            return (<DoctorHome appointments={appointments} doctorInfo={doctorInfo} fetchDoctorInfo={fetchDoctorInfo}/>)
         case "1": 
-            return (<Appointment appointments={appointments} />)  
+            return (<Appointment appointments={appointments} identity={"doctor"}/>)  
         case "2":
-            return (<UpdateInfo />)
+            return (<UpdateInfo doctorInfo={doctorInfo}/>)
         case "3":
             return (<SetLecture />)    
         }      

@@ -1,160 +1,123 @@
-import '../styles/PatientProfile.css';
-import { Dropdown, Layout, Button, theme, message, Table } from "antd";
-import React, { useEffect, useState } from "react";
-import { getDoctorInfo } from "../utils";
-import 'antd/dist/reset.css';
-import Resume from "./DoctorComponent/Resume";
-import AvailableTime from "./DoctorComponent/AvailableTime";
-import Lecture from "./DoctorComponent/Lecture";
+import { SettingOutlined, ScheduleOutlined, UserOutlined, BookOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Layout, Menu, Space, theme, message } from 'antd';
+import React, { useState, useEffect }from 'react';
+import Appointment from './Appointment';
+import UpdateInfo from './UpdateInfo';
+import SetLecture from './SetLecture';
+import { getAppointment } from '../utils/AppointmentUtils';
+import { getPatientInfo } from '../utils';
+import PatientHome from './PatientHome';
+import UpdatePatientInfo from './UpdatePatientInfo';
 
 const { Header, Content, Sider } = Layout;
-const PatientProfile = () => {
-    const [authed, setAuthed] = useState(true);
-    // const [doctorInfo, setDoctorInfo] = useState([]);
+const item1 = [{
+    key: 1,
+    label: "Profile"
+}]
 
-    const doctorInfo =  {"Id": "1",
-    "firstName": "John",
-    "lastName": "Doe",
-    "gender": "male",
-    "dateOfBirth": "19891122",
-    "email": "123@gmail.com",
-    "phone": "1231231234",
-    "availables": [
-        {
-            "date": "2023-06-25",
-            "time": "10:00:00"
-        },
-        {
-            "date": "2023-06-25",
-            "time": "2:30:00"
-        },
-        {
-            "date": "2023-06-25",
-            "time": "6:15:00"
+const Setting = () => {
+    const [selectedMenuItem, setSelectedMenuItem] = useState('0');
+    const [appointments, setAppointments] = useState([]);
+    const [patientInfo, setPatientInfo] = useState([]);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+        fetchPatientInfo();
+    }, [])
+
+    const fetchData = async () => {
+        try {
+            const res = await getAppointment();
+            setAppointments(res || []);
+        } catch (error) {
+            message.error(error.message);
         }
-    ],
-    "mailAddress": "1234 A street San_jose CA United_States",
-  }
-  const columns = [
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Time',
-      dataIndex: 'time',
-      key: 'time',
-    },
-    {
-      title: 'Doctor',
-      dataIndex: 'doctor',
-      key: 'doctor',
-    },
-    {
-      title: 'Link',
-      dataIndex: 'link',
-      key: 'link',
-    },
-];
+    };
 
-    // useEffect(async() => {
-    //     try {
-    //         const data = getDoctorInfo();
-    //         setDoctorInfo(data || []);
-    //     } catch (error) {
-    //         message.error(error.message);
-    //     }
-    // }, [])
+    const fetchPatientInfo = async() => {
+        try {
+            const res = await getPatientInfo();
+            setPatientInfo(res || []);
+            console.log(patientInfo);
+        } catch (error) {
+            message.error(error.message)
+        }
+    }
 
-    const { token: { colorBgContainer } } = theme.useToken();
-    return(
-        <Layout style={{ height: "100vh" }}>
-        <Content style={{ height: "calc(100% - 64px)", overflow: "auto", padding: "15px"}}>
-            <Layout style={{ padding: '10px', background: colorBgContainer}}>
-                < Sider style={{ minHeight: 1000, background: colorBgContainer}} width={380} >
-                    <Resume doctorInfo={doctorInfo}/>
-                </Sider>
-                <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
-                    <div>
-                        <Table columns={columns}></Table>
-                    </div>
-                    <div style={{ padding: "0 20px"}}>
-                        <Lecture />
-                    </div>
-                </Content>
+    const componentsSwitch = (key) => {
+        switch(key){
+        case "0":
+            return (<PatientHome appointments={appointments} patientInfo={patientInfo} fetchPatientInfo={fetchPatientInfo}/>)
+        case "1": 
+            return (<Appointment appointments={appointments} identity={"patient"}/>)  
+        case "2":
+            return (<UpdatePatientInfo patientInfo={patientInfo}/>)
+        // case "3":
+        //     return (<SetLecture />)    
+        }      
+    }
+
+    const {
+        token: { colorBgContainer },
+    } = theme.useToken();
+    return (
+    <Layout>
+        {/* <Header
+            style={{
+            display: 'flex',
+            alignItems: 'center',
+            }}
+        >
+            <div className="demo-logo" />
+            <Button type="primary" ghost>Back</Button>
+            <div style={{ marginLeft: 25, color: "white", fontSize: 20}}>Setting</div>
+        </Header> */}
+        <Layout>
+            <Sider
+            width={210}
+            style={{
+                background: colorBgContainer,
+            }}
+            >
+            <Menu
+                mode="inline"
+                defaultSelectedKeys={['0']}
+                defaultOpenKeys={['sub1']}
+                style={{
+                height: '100%',
+                borderRight: 0,
+                }}
+                selectedKeys={selectedMenuItem}
+                onClick={(e) => {setSelectedMenuItem(e.key)}}
+            >
+            <Menu.Item key="0" icon={<UserOutlined />}>You And MDOnline</Menu.Item>
+            <Menu.Item key="1" icon={<ScheduleOutlined />}>Appointment</Menu.Item>
+            <Menu.Item key="2" icon={<SettingOutlined />}>UpdateInfo</Menu.Item>
+            {/* <Menu.Item key="3" icon={<BookOutlined />}>SetLecture</Menu.Item> */}
+            </Menu>
+            </Sider>
+            <Layout
+            style={{
+
+            }}
+            >
+            <Content
+                style={{
+                // padding: 30,
+                // marginTop: 16,
+                minHeight: 280,
+                background: colorBgContainer,
+                minHeight: "580px"
+                }}
+            >
+                <div>
+                    {componentsSwitch(selectedMenuItem)}
+                </div>
+            </Content>
             </Layout>
-        </Content>
         </Layout>
-    )
-    // // State variables to store patient information
-    // const [userInfo, setUserInfo] = useState({});    
-    // const[appointments, setAppointments] = useState([]);
-    // const[lectures, setLectures] = useState([]);
-
-    // useEffect(() => {
-    //     const fetchData = async() => {
-    //         try {
-    //             const [userInfoRes, appointmentsRes, lecturesRes] = await Promise.all([
-    //                 axios.get(`/api/user/${username}`),
-    //                 axios.get(`/api/appointments/${username}`)
-    //             ]);
-    //             setUserInfo(userInfoRes.data);
-    //             setAppointments(appointmentsRes.data);
-    //             setLectures(lecturesRes.data);
-    //             } catch (error) {
-    //             console.log(error);
-    //             }
-    //         };
-        
-    //         fetchData();
-    // }, [username]);
-
-    // // Assuming that the API for restrieving lectures returns an array of lecture objects with properties 'title' and 'url 
-    // const fetchLectues = async () => {
-    //     try {
-    //         const lecturesRes = await axios.get(`/api/lectures/${username}`);
-    //         setLectures(lecturesRes.data);
-    //     } catch(error){
-    //         console.error(error);
-    //     }
-    // }; 
-
-    // useEffect(()=>{
-    //     fetchLectues();
-    // });
-
-    // return (
-    //     <div>
-    //         <h1>Hello, {username}!</h1>
-    //         <div className="columns">
-    //             <div className = "column is-one-quarter">
-    //                 <h2>Personal Information</h2>
-    //                 <p>Name:{userInfo.name}</p>
-    //                 <p>Gender:{userInfo.gender}</p>
-    //                 <p>filling later</p>
-    //             </div>
-    //             <div className="column">
-    //                 <h2>Appointments</h2>
-    //                 <ul>
-    //                     {appointments.map(appointment => (
-    //                         <li key={appointment.id}>
-    //                         {appointment.title}-{appointment.date}
-    //                         </li>
-    //                     ))}
-    //                 </ul>
-    //                 <h2>Collected Lectures</h2>
-    //                 <ul>
-    //                     {lectures.map(lecture => (
-    //                         <li key = {lecture.url}>
-    //                             <a href = {lecture.url} target="_blank" rel="noopener noreferrer " >{lecture.title}</a>
-    //                         </li>
-    //                     ))}
-    //                 </ul>
-    //             </div>
-    //         </div>
-    //     </div>
-    // );
+    </Layout>
+  );
 };
-
-export default PatientProfile;
+export default Setting;
