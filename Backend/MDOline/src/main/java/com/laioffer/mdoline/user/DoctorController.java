@@ -78,4 +78,6 @@ public class DoctorController {
     public void deleteDoctorProfile(@AuthenticationPrincipal User user){
         doctorService.deleteProfile(user.getUsername());
     }
+
+
 }

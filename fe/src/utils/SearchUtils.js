@@ -56,14 +56,28 @@ export const searchDoctorByFullName = (name) => {
         handleResponseStatus(response, "Fail to get doctors by fullname");
         return response.json();
         });
-    };
+};
 
 export const searchDoctorBySpec = (spec) => {
-const searchDoctorBySpecUrl = `${domain}/search-doctor-by-spec?spec=`;
-// searchDoctorByName.searchParams.append("spec", spec);
+    const searchDoctorBySpecUrl = `${domain}/search-doctor-by-spec?spec=`;
+    // searchDoctorByName.searchParams.append("spec", spec);
 
-return fetch(`${searchDoctorBySpecUrl}${spec}`).then((response) => {
-    handleResponseStatus(response, "Fail to search doctor by spec");
-    return response.json();
-    });
+    return fetch(`${searchDoctorBySpecUrl}${spec}`).then((response) => {
+        handleResponseStatus(response, "Fail to search doctor by spec");
+        return response.json();
+        });
 };
+
+export const searchDoctor = (data) => {
+    const searchUrl = `${domain}/search-doctor`;
+    return fetch(searchUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((response) => {
+        handleResponseStatus(response, "Fail to search doctor");
+        return response.json();
+      });
+} 

@@ -8,7 +8,7 @@ import Lecture from "./DoctorComponent/Lecture";
 
 const { Header, Content, Sider } = Layout;
 
-const DoctorProfile = () => {
+const DoctorProfile = (id) => {
     const [authed, setAuthed] = useState(true);
     const [doctorInfo, setDoctorInfo] = useState([]);
 
@@ -39,14 +39,15 @@ const DoctorProfile = () => {
 //   }
 
     useEffect(() => {
-        fetchDoctorInfo();
-        console.log(doctorInfo);
+        fetchDoctorInfo(id.id);
+        console.log(id);
     }, [])
 
-    const fetchDoctorInfo = async () => {
+    const fetchDoctorInfo = async (id) => {
         try {
-            const data = await getDoctorInfo();
-            setDoctorInfo(data || []);
+            const data = await getDoctorInfo(id);
+            setDoctorInfo(data);
+            console.log(data)
         } catch (error) {
             message.error(error.message);
         }

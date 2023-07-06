@@ -4,10 +4,7 @@ import com.laioffer.mdoline.db.entity.DoctorEntity;
 import com.laioffer.mdoline.model.GeneralSearchBody;
 import com.laioffer.mdoline.model.ResponseGeneralSearchBody;
 import com.laioffer.mdoline.model.ResponseSearchBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -64,8 +61,13 @@ public class SearchController {
         }
         return null;
     }
-    @GetMapping("/search-doctor")
+    @PostMapping("/search-doctor")
     public List<ResponseGeneralSearchBody> searchDoctor(@RequestBody GeneralSearchBody body) {
         return searchService.searchDoctor(body.firstName(), body.lastName(), body.spec());
+    }
+
+    @GetMapping("/get-profile-by-id")
+    public ResponseGeneralSearchBody getDoctorProfileById(@RequestParam("id") Long id){
+        return searchService.getDoctorProfileById(id);
     }
 }

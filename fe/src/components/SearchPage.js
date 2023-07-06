@@ -2,10 +2,10 @@ import { Dropdown, Layout, Button, message, Menu, Form, Input, Select } from "an
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { DepartmentItems, DoctorItems } from "./Items";
-import { searchDoctorBySpec, searchDoctorByFullName, searchDoctorByFirstName, searchDoctorByLastName} from "../utils/SearchUtils";
+import { searchDoctorBySpec, searchDoctorByFullName, searchDoctorByFirstName, searchDoctorByLastName, searchDoctor} from "../utils/SearchUtils";
 const { Header, Content } = Layout;
 
-function SearchPage({changePageState}){
+function SearchPage({changePageState, setDoctorId}){
   const specs = [{specialty: "General Illness"}, {specialty: "Respiratory"},{specialty: "Gastrointestinal"},
                  {specialty: "Urinary"}, {specialty: "Skin"},{specialty: "Injuries"}, {specialty: "Chronic"}];
   const [doctors, setDoctors] = useState([]);
@@ -26,23 +26,22 @@ function SearchPage({changePageState}){
   const onSearch = (value) => {
     console.log('search:', value);
   };
-  const finishSearch = (data) => {
+  const finishSearch = async(data) => {
     console.log("serch",data)
-    if (data.firstName === undefined){data.firstName = ""}
-    if (data.lastName === undefined){data.lastName = ""}
-    if (data.spec === undefined){data.spec = ""}
+    if (data.firstName === undefined || data.firstName ===""){data.firstName = null}
+    if (data.lastName === undefined || data.lastName ===""){data.lastName = null}
+    if (data.spec === undefined|| data.spec === ""){data.spec = null}
     
-    if (data.firstName != "" && data.lastName != "" && data.spec === "") {
-      searchByName({"firstName": data.firstName,"lastName":data.lastName});
-    }
-    else if (data.firstName === "" && data.lastName === "" && data.spec != "") {
-      searchBySpec(data.spec);
-    }
-    else if (data.firstName != "" && data.lastName === "" && data.spec === ""){
-      searchByFirstName(data.firstName)
-    }
-    else if (data.firstName === "" && data.lastName != "" && data.spec === "") {
-      searchByLastName(data.lastName)
+    setLoading(true);
+    try {
+      const response = await searchDoctor(data);
+      console.log("search doctor: ",response);
+      setDoctors(response);
+      setSearched(true);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
     }
     data = ""
   }
@@ -128,8 +127,19 @@ function SearchPage({changePageState}){
     }
   };
 
-  const onDoctorChange = (spec) => {
-    searchBySpec(spec);
+  const onDoctorChange = async(spec) => {
+    const data = {"first_name":null,"last_name":null,"spec":spec}
+    setLoading(true);
+    try {
+      const response = await searchDoctor(data);
+      console.log("search doctor: ",response);
+      setDoctors(response);
+      setSearched(true);
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return(
@@ -177,7 +187,7 @@ function SearchPage({changePageState}){
             <DepartmentItems specs={specs} onDoctorChange={onDoctorChange} loading={loading}/>
           )}
           {searched && (
-            <DoctorItems doctors={doctors} loading={loading} changePageState={changePageState}/>
+            <DoctorItems doctors={doctors} loading={loading} changePageState={changePageState} setDoctorId={setDoctorId}/>
           )}
         </Layout>
       </Content>

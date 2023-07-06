@@ -38,6 +38,7 @@ function App() {
   const [pageState, setPageState] = useState('');
   const [loginReminder, setLoginReminder] = useState(false);
   const [role,setRole] = useState("")
+  const [doctorId,setDoctorId] = useState('')
   const signinOnSuccess = () => {
     setLoggedIn(true);
   }
@@ -74,10 +75,10 @@ function App() {
   }
   const renderContent = (pageState) => {
     if (pageState === "search") {
-      return <SearchPage changePageState = {changePageState}/>
+      return <SearchPage changePageState = {changePageState} setDoctorId = {setDoctorId}/>
     }
     if (pageState === "profile") {
-      return <DoctorProfile />
+      return <DoctorProfile id={doctorId}/>
     }
     if (pageState === "Doctor") {
       return <Setting />
@@ -109,7 +110,6 @@ function App() {
     if(data === "Doctor"){
       setButtonState(false);
     }
-    
   }
   return (
     <Layout>

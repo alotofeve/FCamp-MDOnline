@@ -115,19 +115,11 @@ export const updateDoctorProfile = (data) => {
 
 
 
-export const getDoctorInfo = () => {
-  const getDoctorInfoUrl = `${domain}/get-doctor-profile`;
-  return fetch(
-    getDoctorInfoUrl,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      }
-    }
-  ).then((response) => {
-    handleResponseStatus(response, "Fail to get profile");
+export const getDoctorInfo = (id) => {
+  const getDoctorInfoUrl = `${domain}/get-profile-by-id?id=`;
+  return fetch(`${getDoctorInfoUrl}${id}`).then((response) => {
+    handleResponseStatus(response, "Fail to get doctors profile by id");
     return response.json();
-  })
+});
 }
 
