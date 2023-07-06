@@ -2,9 +2,7 @@ package com.laioffer.mdoline.search;
 
 import com.laioffer.mdoline.availableTime.AvailableTimeService;
 import com.laioffer.mdoline.db.entity.DoctorEntity;
-import com.laioffer.mdoline.model.RegisterAvailableTimeBody;
-import com.laioffer.mdoline.model.RegisterDoctorBody;
-import com.laioffer.mdoline.model.ResponseSearchBody;
+import com.laioffer.mdoline.model.*;
 import com.laioffer.mdoline.user.DoctorService;
 import com.laioffer.mdoline.user.UserService;
 import org.springframework.stereotype.Service;
@@ -105,4 +103,42 @@ public class SearchService {
     public List<String> getAllSpecs() {
         return doctorService.getAllSpecs();
     }
+
+    public List<ResponseGeneralSearchBody> searchingByFirstName(String firstName) {
+        List<ResponseGeneralSearchBody> result = new ArrayList<>();
+        List<DoctorEntity> doctorsProfile = doctorService.getDoctorsByFirstname(firstName);
+        for (DoctorEntity profile : doctorsProfile) {
+            result.add(new ResponseGeneralSearchBody(
+                    profile,
+                    availableTimeService.getAllAvailableTimes(profile.doctorId())
+            ));
+        }
+        return result;
+    }
+
+    public List<ResponseGeneralSearchBody> searchingByLastName(String lastName) {
+        List<ResponseGeneralSearchBody> result = new ArrayList<>();
+        List<DoctorEntity> doctorsProfile = doctorService.getDoctorsByLastname(lastName);
+        for (DoctorEntity profile : doctorsProfile) {
+            result.add(new ResponseGeneralSearchBody(
+                    profile,
+                    availableTimeService.getAllAvailableTimes(profile.doctorId())
+            ));
+        }
+        return result;
+    }
+    public List<ResponseGeneralSearchBody> searchingByFullName(String firstName, String lastName) {
+        List<ResponseGeneralSearchBody> result = new ArrayList<>();
+        List<DoctorEntity> doctorsProfile = doctorService.getDoctorsByFullname(firstName, lastName);
+        for (DoctorEntity profile : doctorsProfile) {
+            result.add(new ResponseGeneralSearchBody(
+                    profile,
+                    availableTimeService.getAllAvailableTimes(profile.doctorId())
+            ));
+        }
+        return result;
+    }
+
+
+
 }
