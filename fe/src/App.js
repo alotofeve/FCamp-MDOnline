@@ -44,6 +44,8 @@ function App() {
   const signoutOnClick = () => {
     logout().then(() => {
         setLoggedIn(false)
+        setPageState("")
+        setButtonState(true)
         message.success('Successfully Signed out')
     }).catch((err) => {
         message.error(err.message)
@@ -82,6 +84,9 @@ function App() {
     }
     if (pageState === "Patient Profile"){
       return <PatientProfile />
+    }
+    if (pageState === "Doctor Profile"){
+      return <DoctorProfile />
     }
     else{
       return <MainPage />;
