@@ -8,6 +8,9 @@ const { Meta } = Card;
 const Resume = ({doctorInfo}) => {
     const fields = ["Gender", "Email", "Phone", "License"]
 
+    useEffect(() => {
+        console.log(doctorInfo);
+    })
     return (
         <>
         <Card 

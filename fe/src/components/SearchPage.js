@@ -148,7 +148,7 @@ function SearchPage({changePageState, setDoctorId}){
         <Layout style={{ padding: '10px', minHeight: "584px"}}>
           <div style={{display: "flex", justifyContent: "center"}}>
             <div style={{display: "flex", flexDirection: "row", alignItems: "baseline", paddingRight: "50px"}}>
-              <span style={{ padding: "0 15px", fontWeight: "bold", fontFamily: "sans-serif"}}>NameSearch: </span>
+              {/* <span style={{ padding: "0 15px", fontWeight: "bold", fontFamily: "sans-serif"}}>NameSearch: </span> */}
               <Form onFinish={finishSearch} layout="inline" preserve={false}>
                 <Form.Item name="firstName">
                   <Input placeholder="FirstName"/>

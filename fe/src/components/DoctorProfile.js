@@ -1,6 +1,6 @@
 import { Dropdown, Layout, Button, theme, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { getDoctorInfo } from "../utils";
+import { getDoctorInfoById } from "../utils";
 import 'antd/dist/reset.css';
 import Resume from "./DoctorComponent/Resume";
 import AvailableTime from "./DoctorComponent/AvailableTime";
@@ -10,16 +10,17 @@ const { Header, Content, Sider } = Layout;
 
 const DoctorProfile = (id) => {
     const [authed, setAuthed] = useState(true);
-    const [doctorInfo, setDoctorInfo] = useState([]);
+    const [doctorInfo, setDoctorInfo] = useState();
 
     useEffect(() => {
-        fetchDoctorInfo(id.id);
+        fetchDoctorInfo(id);
         console.log(id);
+        console.log("string", doctorInfo);
     }, [])
 
     const fetchDoctorInfo = async (id) => {
         try {
-            const data = await getDoctorInfo(id);
+            const data = await getDoctorInfoById(id);
             setDoctorInfo(data);
             console.log(data)
         } catch (error) {
@@ -27,17 +28,17 @@ const DoctorProfile = (id) => {
         }
     }
 
-    const { token: { colorBgContainer } } = theme.useToken();
+    const { token: { colorBgContainer } } = theme.useToken();   
     return(
         <Layout style={{ height: "100vh" }}>
         <Content style={{ height: "calc(100% - 64px)", overflow: "auto", padding: "15px"}}>
             <Layout style={{ padding: '10px', background: colorBgContainer}}>
                 < Sider style={{ minHeight: 1000, background: colorBgContainer}} width={380} >
-                    <Resume doctorInfo={doctorInfo}/>
+                    <Resume doctorInfo={doctorInfo.doctorEntity}/>
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
                     <div>
-                        <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/>
+                        <AvailableTime doctorInfo={doctorInfo}/>
                     </div>
                     <div style={{ padding: "0 20px"}}>
                         <Lecture />
