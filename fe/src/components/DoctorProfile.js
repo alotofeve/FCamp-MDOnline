@@ -1,6 +1,6 @@
 import { Dropdown, Layout, Button, theme, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { getDoctorInfo } from "../utils";
+import { getDoctorInfo, getDoctorInfoById } from "../utils";
 import 'antd/dist/reset.css';
 import Resume from "./DoctorComponent/Resume";
 import AvailableTime from "./DoctorComponent/AvailableTime";
@@ -19,9 +19,9 @@ const DoctorProfile = (id) => {
 
     const fetchDoctorInfo = async (id) => {
         try {
-            const data = await getDoctorInfo(id);
+            const data = await getDoctorInfoById(id);
             setDoctorInfo(data);
-            console.log(data)
+            console.log("doctorinfo:" ,data)
         } catch (error) {
             message.error(error.message);
         }
@@ -37,7 +37,7 @@ const DoctorProfile = (id) => {
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
                     <div>
-                        <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/>
+                        {/* <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/> */}
                     </div>
                     <div style={{ padding: "0 20px"}}>
                         <Lecture />
