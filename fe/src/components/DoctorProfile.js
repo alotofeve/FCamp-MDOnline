@@ -8,21 +8,29 @@ import Lecture from "./DoctorComponent/Lecture";
 
 const { Header, Content, Sider } = Layout;
 
-const DoctorProfile = (id) => {
+const DoctorProfile = ({ id }) => {
     const [authed, setAuthed] = useState(true);
     const [doctorInfo, setDoctorInfo] = useState();
+    const [doctorProfile, setDoctorProfile] = useState();
 
     useEffect(() => {
         fetchDoctorInfo(id);
-        console.log(id);
-        console.log("string", doctorInfo);
     }, [])
 
     const fetchDoctorInfo = async (id) => {
         try {
             const data = await getDoctorInfoById(id);
             setDoctorInfo(data);
-            console.log("doctorinfo:" ,data)
+            console.log(doctorInfo);
+        } catch (error) {
+            message.error(error.message);
+        }
+    }
+
+    const fetchDoctorProfile = async () => {
+        try {
+            const response = await getDoctorInfo();
+            setDoctorProfile(response);
         } catch (error) {
             message.error(error.message);
         }
@@ -34,7 +42,7 @@ const DoctorProfile = (id) => {
         <Content style={{ height: "calc(100% - 64px)", overflow: "auto", padding: "15px"}}>
             <Layout style={{ padding: '10px', background: colorBgContainer}}>
                 < Sider style={{ minHeight: 1000, background: colorBgContainer}} width={380} >
-                    <Resume doctorInfo={doctorInfo.doctorEntity}/>
+                    <Resume doctorInfo={doctorProfile}/>
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
                     <div>

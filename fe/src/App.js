@@ -38,7 +38,7 @@ function App() {
   const [pageState, setPageState] = useState('');
   const [loginReminder, setLoginReminder] = useState(false);
   const [role,setRole] = useState("")
-  const [doctorId,setDoctorId] = useState('')
+  const [doctorId,setDoctorId] = useState()
   const signinOnSuccess = () => {
     setLoggedIn(true);
   }
