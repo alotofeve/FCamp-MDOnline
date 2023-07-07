@@ -14,9 +14,9 @@ const AvailableTime = ({availableTimes, id}) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     
-    // useEffect(async() => {
-    //     fetchDoctorInfo();
-    // }, [])
+    useEffect(() => {
+        console.log("available",availableTimes)
+    });
 
     // const fetchDoctorInfo = async () => {
     //     try {
