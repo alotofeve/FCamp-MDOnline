@@ -76,7 +76,7 @@ export function DoctorItems ({ doctors, loading, changePageState, setDoctorId })
           <p>First Name: {item.doctorEntity.firstName}</p>
           <p>LastName: {item.doctorEntity.lastName}</p>
           <p>specialization: {item.doctorEntity.spec}</p>
-          <p>If you want to make an appointment with this doctor</p>
+          <p style={{color:'#ff0000'}}>If you want to make an appointment with this doctor</p>
           <Button type="primary" onClick={()=>shwoDoctorProfile(item.doctorEntity.id)}>
             go to doctor profile
           </Button>
