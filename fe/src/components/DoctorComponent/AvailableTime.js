@@ -7,7 +7,7 @@ const { Column, ColumnGroup } = Table;
 const {Option} = Select;
 const {TextArea} = Input;
 
-const AvailableTime = ({ doctorInfo }) => {
+const AvailableTime = ({ availableTimes, id }) => {
     const [auth, SetAuth] = useState(false);
     const [modal, setModal] = useState(false);
     const [form] = Form.useForm();
@@ -39,7 +39,7 @@ const AvailableTime = ({ doctorInfo }) => {
     };
   
     const filteredTimeOptions = selectedDate
-      ? doctorInfo.availables.filter((time) => time.date === selectedDate)
+      ? availableTimes.filter((time) => time.date === selectedDate)
       : [];
 
     const columns = [
@@ -64,7 +64,7 @@ const AvailableTime = ({ doctorInfo }) => {
     }
 
     const onAppointmentCreated = async(query) => {
-        query.doctorId = Number(doctorInfo.doctorEntity.id);
+        query.doctorId = Number(1);
         query.isOngoing = true;
         console.log(query);
         try {
@@ -107,7 +107,7 @@ const AvailableTime = ({ doctorInfo }) => {
                 >
                 <Form.Item label="Select Date" name="appointmentDate" rules={[{ required: true, message: 'Please select a date' }]}>
                     <Select onChange={handleDateChange}>
-                    {doctorInfo.availables.map((time) => (
+                    {availableTimes.map((time) => (
                         <Option key={time.date} value={time.date}>
                         {time.date}
                         </Option>
@@ -133,7 +133,7 @@ const AvailableTime = ({ doctorInfo }) => {
                 </Form.Item>
                 </Form>
             </Modal>
-            <Table dataSource={doctorInfo.availables} columns={columns} />
+            <Table dataSource={availableTimes} columns={columns} />
         </>
 
     )

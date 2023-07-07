@@ -35,6 +35,25 @@ const DoctorProfile = ({ id }) => {
             message.error(error.message);
         }
     }
+    const availableTimes =
+    [
+    {
+    appointmentDate: "2023-01-01",
+    appointmentTime: "10 AM"
+    },
+    {
+    appointmentDate: "2024-02-02",
+    appointmentTime: "15:00:00"
+    },
+    {
+    appointmentDate: "2025-03-03",
+    appointmentTime: "18:00:00"
+    },
+    {
+    appointmentDate: "2026-04-04",
+    appointmentTime: "19:00:00"
+    }
+    ]
 
     const { token: { colorBgContainer } } = theme.useToken();   
     return(
@@ -46,7 +65,7 @@ const DoctorProfile = ({ id }) => {
                 </Sider>
                 <Content style={{dispaly: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
                     <div>
-                        {/* <AvailableTime availableTimes={doctorInfo.availables} id={doctorInfo.Id}/> */}
+                        <AvailableTime availableTimes={availableTimes} id={1}/>
                     </div>
                     <div style={{ padding: "0 20px"}}>
                         <Lecture />
